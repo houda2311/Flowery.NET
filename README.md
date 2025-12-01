@@ -7,12 +7,13 @@
 [![NuGet](https://img.shields.io/nuget/v/DaisyUI.Avalonia.NET?style=flat-square)](https://www.nuget.org/packages/DaisyUI.Avalonia.NET)
 [![License](https://img.shields.io/github/license/tobitege/DaisyUI.Avalonia.NET?style=flat-square)](LICENSE)
 [![Avalonia](https://img.shields.io/badge/Avalonia-11.0+-purple?style=flat-square)](https://avaloniaui.net/)
+[![X](https://img.shields.io/badge/X-@tobitege45259-000000?style=flat-square&logo=x)](https://x.com/tobitege45259)
 
 </div>
 
 ![DaisyUI.Avalonia.Gallery Screenshot](DaisyUI.Avalonia.Gallery.png)
 
-This library provides native Avalonia controls that mimic the utility-first, semantic class naming of DaisyUI, making it easy to build beautiful, themed UIs in Avalonia.
+This library provides native Avalonia controls that mimic the utility-first, semantic class naming of DaisyUI, making it easy to build beautiful, themed UIs in Avalonia. A NuGet package will hopefully be available soon, too.
 
 ## Features
 
@@ -291,6 +292,16 @@ To build and run the source code/gallery:
 ## License
 
 MIT
+
+## Support
+
+If you find this library useful, consider supporting its development:
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow?style=flat-square&logo=buy-me-a-coffee)](https://buymeacoffee.com/tobitege23)
+
+## Changelog
+
+2025-12 - Initial release (no NuGet package yet)
 
 ## Credits & References
 
