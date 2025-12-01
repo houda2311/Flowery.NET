@@ -1,0 +1,59 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- DaisyUI Retro Theme Palette -->
+    <!-- Primary -->
+    <Color x:Key="DaisyPrimaryColor">#FF9FA0</Color>
+    <SolidColorBrush x:Key="DaisyPrimaryBrush" Color="{StaticResource DaisyPrimaryColor}" />
+    <Color x:Key="DaisyPrimaryFocusColor">#CC7F80</Color>
+    <SolidColorBrush x:Key="DaisyPrimaryFocusBrush" Color="{StaticResource DaisyPrimaryFocusColor}" />
+    <Color x:Key="DaisyPrimaryContentColor">#801518</Color>
+    <SolidColorBrush x:Key="DaisyPrimaryContentBrush" Color="{StaticResource DaisyPrimaryContentColor}" />
+
+    <!-- Secondary -->
+    <Color x:Key="DaisySecondaryColor">#B7F6CD</Color>
+    <SolidColorBrush x:Key="DaisySecondaryBrush" Color="{StaticResource DaisySecondaryColor}" />
+    <Color x:Key="DaisySecondaryFocusColor">#92C4A4</Color>
+    <SolidColorBrush x:Key="DaisySecondaryFocusBrush" Color="{StaticResource DaisySecondaryFocusColor}" />
+    <Color x:Key="DaisySecondaryContentColor">#00642E</Color>
+    <SolidColorBrush x:Key="DaisySecondaryContentBrush" Color="{StaticResource DaisySecondaryContentColor}" />
+
+    <!-- Accent -->
+    <Color x:Key="DaisyAccentColor">#D08700</Color>
+    <SolidColorBrush x:Key="DaisyAccentBrush" Color="{StaticResource DaisyAccentColor}" />
+    <Color x:Key="DaisyAccentFocusColor">#A66C00</Color>
+    <SolidColorBrush x:Key="DaisyAccentFocusBrush" Color="{StaticResource DaisyAccentFocusColor}" />
+    <Color x:Key="DaisyAccentContentColor">#793205</Color>
+    <SolidColorBrush x:Key="DaisyAccentContentBrush" Color="{StaticResource DaisyAccentContentColor}" />
+
+    <!-- Neutral -->
+    <Color x:Key="DaisyNeutralColor">#56524C</Color>
+    <SolidColorBrush x:Key="DaisyNeutralBrush" Color="{StaticResource DaisyNeutralColor}" />
+    <Color x:Key="DaisyNeutralFocusColor">#44413C</Color>
+    <SolidColorBrush x:Key="DaisyNeutralFocusBrush" Color="{StaticResource DaisyNeutralFocusColor}" />
+    <Color x:Key="DaisyNeutralContentColor">#D4D0CE</Color>
+    <SolidColorBrush x:Key="DaisyNeutralContentBrush" Color="{StaticResource DaisyNeutralContentColor}" />
+
+    <!-- Base -->
+    <Color x:Key="DaisyBase100Color">#ECE3CA</Color>
+    <SolidColorBrush x:Key="DaisyBase100Brush" Color="{StaticResource DaisyBase100Color}" />
+    <Color x:Key="DaisyBase200Color">#E4D8B4</Color>
+    <SolidColorBrush x:Key="DaisyBase200Brush" Color="{StaticResource DaisyBase200Color}" />
+    <Color x:Key="DaisyBase300Color">#DBCA9B</Color>
+    <SolidColorBrush x:Key="DaisyBase300Brush" Color="{StaticResource DaisyBase300Color}" />
+    <Color x:Key="DaisyBaseContentColor">#793205</Color>
+    <SolidColorBrush x:Key="DaisyBaseContentBrush" Color="{StaticResource DaisyBaseContentColor}" />
+    
+    <!-- Info, Success, Warning, Error -->
+    <Color x:Key="DaisyInfoColor">#0082CE</Color>
+    <SolidColorBrush x:Key="DaisyInfoBrush" Color="{StaticResource DaisyInfoColor}" />
+    
+    <Color x:Key="DaisySuccessColor">#00776F</Color>
+    <SolidColorBrush x:Key="DaisySuccessBrush" Color="{StaticResource DaisySuccessColor}" />
+    
+    <Color x:Key="DaisyWarningColor">#F34700</Color>
+    <SolidColorBrush x:Key="DaisyWarningBrush" Color="{StaticResource DaisyWarningColor}" />
+    
+    <Color x:Key="DaisyErrorColor">#FF6266</Color>
+    <SolidColorBrush x:Key="DaisyErrorBrush" Color="{StaticResource DaisyErrorColor}" />
+    
+</ResourceDictionary>

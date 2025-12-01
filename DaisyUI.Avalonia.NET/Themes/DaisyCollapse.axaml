@@ -1,0 +1,106 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:DaisyUI.Avalonia.Controls;assembly=DaisyUI.Avalonia.NET">
+
+    <Design.PreviewWith>
+        <Border Padding="20">
+             <StackPanel Spacing="10" Width="300">
+                 <controls:DaisyCollapse Header="Click me">
+                     <TextBlock Text="Content hidden inside." />
+                 </controls:DaisyCollapse>
+                 <controls:DaisyCollapse Variant="Plus" Header="Plus Variant">
+                     <TextBlock Text="Content." />
+                 </controls:DaisyCollapse>
+             </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type controls:DaisyCollapse}" TargetType="controls:DaisyCollapse">
+        <Setter Property="Background" Value="{DynamicResource DaisyBase200Brush}" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="16" />
+        
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="{TemplateBinding Background}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <Grid RowDefinitions="Auto, *">
+                        <ToggleButton Name="PART_HeaderButton"
+                                      Grid.Row="0"
+                                      Padding="{TemplateBinding Padding}"
+                                      HorizontalAlignment="Stretch"
+                                      Background="Transparent"
+                                      BorderThickness="0"
+                                      IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}">
+                             <ToggleButton.Template>
+                                 <ControlTemplate>
+                                     <Grid Background="Transparent" ColumnDefinitions="*, Auto">
+                                         <ContentPresenter Content="{TemplateBinding Content}" VerticalAlignment="Center" />
+                                         
+                                         <!-- Icon -->
+                                         <!-- Arrow -->
+                                         <Path Name="Arrow" 
+                                               Grid.Column="1" 
+                                               Data="M1,1 L5,5 L9,1" 
+                                               Stroke="{TemplateBinding Foreground}" 
+                                               StrokeThickness="2" 
+                                               VerticalAlignment="Center"
+                                               RenderTransformOrigin="50%,50%">
+                                             <Path.Transitions>
+                                                 <Transitions>
+                                                     <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" />
+                                                 </Transitions>
+                                             </Path.Transitions>
+                                         </Path>
+                                         
+                                         <!-- Plus/Minus (Optional, overlay) -->
+                                         <Grid Name="PlusMinus" Grid.Column="1" IsVisible="False">
+                                             <Path Data="M0,5 L10,5 M5,0 L5,10" Stroke="{TemplateBinding Foreground}" StrokeThickness="2" />
+                                         </Grid>
+                                     </Grid>
+                                 </ControlTemplate>
+                             </ToggleButton.Template>
+                             <ToggleButton.Content>
+                                 <ContentPresenter Content="{TemplateBinding Header}" />
+                             </ToggleButton.Content>
+                        </ToggleButton>
+                        
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          Grid.Row="1"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          IsVisible="{TemplateBinding IsExpanded}"
+                                          Padding="{TemplateBinding Padding}" />
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        
+        <!-- Expanded State Animations -->
+        <Style Selector="^[IsExpanded=True] /template/ Path#Arrow">
+             <Setter Property="RenderTransform" Value="rotate(180deg)" />
+        </Style>
+        
+        <!-- Plus Variant -->
+        <Style Selector="^[Variant=Plus] /template/ Path#Arrow">
+             <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^[Variant=Plus] /template/ Grid#PlusMinus">
+             <Setter Property="IsVisible" Value="True" />
+             <!-- Plus animation logic is complex (rotate cross). 
+                  DaisyUI rotates the vertical bar? 
+                  Let's just rotate the whole plus to X? Or just rotate. -->
+             <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+             <Setter Property="RenderTransform" Value="rotate(0deg)" />
+             <Setter Property="Transitions">
+                 <Transitions>
+                     <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" />
+                 </Transitions>
+             </Setter>
+        </Style>
+        <Style Selector="^[Variant=Plus][IsExpanded=True] /template/ Grid#PlusMinus">
+             <Setter Property="RenderTransform" Value="rotate(45deg)" /> <!-- Becomes X -->
+        </Style>
+
+    </ControlTheme>
+</ResourceDictionary>

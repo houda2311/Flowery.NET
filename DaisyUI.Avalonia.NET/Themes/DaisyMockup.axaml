@@ -1,0 +1,93 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:DaisyUI.Avalonia.Controls;assembly=DaisyUI.Avalonia.NET">
+
+    <Design.PreviewWith>
+        <Border Padding="20">
+             <StackPanel Spacing="20">
+                 <controls:DaisyMockup Variant="Code">
+                     <TextBlock Text="console.log('Hello world');" Foreground="White" />
+                 </controls:DaisyMockup>
+                 <controls:DaisyMockup Variant="Window">
+                     <TextBlock Text="Content" />
+                 </controls:DaisyMockup>
+             </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type controls:DaisyMockup}" TargetType="controls:DaisyMockup">
+        <Setter Property="Background" Value="{DynamicResource DaisyBase300Brush}" />
+        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="Padding" Value="20" />
+        
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid RowDefinitions="Auto, *">
+                    <!-- Header -->
+                    <Border Name="Header" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" Height="32">
+                        <!-- Dots -->
+                        <StackPanel Orientation="Horizontal" Spacing="6" Margin="16,0,0,0" VerticalAlignment="Center">
+                            <Border Width="12" Height="12" CornerRadius="6" Background="#FF5F56" />
+                            <Border Width="12" Height="12" CornerRadius="6" Background="#FFBD2E" />
+                            <Border Width="12" Height="12" CornerRadius="6" Background="#27C93F" />
+                        </StackPanel>
+                    </Border>
+                    
+                    <!-- Content -->
+                    <Border Grid.Row="1" 
+                            Name="ContentBorder"
+                            Background="{TemplateBinding Background}" 
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Padding="{TemplateBinding Padding}">
+                         <!-- We need to mask top corners if header is separate? 
+                              Or header sits on top. 
+                              Actually mockup-code is one block. 
+                              mockup-window is one block. 
+                              mockup-browser has a toolbar. 
+                              
+                              Let's simplify: 
+                              The container is the border. 
+                              Header is drawn inside. -->
+                         <ContentPresenter Content="{TemplateBinding Content}" />
+                    </Border>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+        
+        <!-- Code Variant -->
+        <Style Selector="^[Variant=Code]">
+             <Setter Property="Background" Value="#2a303c" /> <!-- Dark -->
+             <Setter Property="Foreground" Value="White" />
+             <Setter Property="Padding" Value="24" />
+             <!-- Template tweak: Code mockup usually just has the dots and content in a mono font block -->
+        </Style>
+        
+        <!-- Window Variant -->
+        <Style Selector="^[Variant=Window]">
+             <Setter Property="Background" Value="{DynamicResource DaisyBase200Brush}" />
+             <Setter Property="Padding" Value="0" />
+             <!-- Window often has a content area with different background -->
+        </Style>
+        <Style Selector="^[Variant=Window] /template/ Border#Header">
+             <Setter Property="CornerRadius" Value="16,16,0,0" />
+        </Style>
+        <Style Selector="^[Variant=Window] /template/ Border#ContentBorder">
+             <Setter Property="CornerRadius" Value="0,0,16,16" />
+             <Setter Property="Background" Value="{DynamicResource DaisyBase100Brush}" /> <!-- Inner content -->
+             <Setter Property="Padding" Value="20" />
+        </Style>
+
+        <!-- Browser Variant -->
+        <Style Selector="^[Variant=Browser]">
+             <Setter Property="Background" Value="{DynamicResource DaisyBase100Brush}" />
+             <!-- Has a URL bar. 
+                  We need a different template or inject content. 
+                  For now, treat as Window but maybe add a fake URL bar? -->
+        </Style>
+        <Style Selector="^[Variant=Browser] /template/ Border#Header">
+             <!-- Make header simpler or add URL bar visual -->
+             <Setter Property="Height" Value="50" />
+        </Style>
+
+    </ControlTheme>
+</ResourceDictionary>

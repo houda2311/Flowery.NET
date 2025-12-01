@@ -1,0 +1,21 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:DaisyUI.Avalonia.Controls;assembly=DaisyUI.Avalonia.NET">
+
+    <Design.PreviewWith>
+        <Border Padding="20">
+             <controls:DaisyCountdown Content="59" />
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type controls:DaisyCountdown}" TargetType="controls:DaisyCountdown">
+        <Setter Property="FontFamily" Value="Monospace" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="Foreground" Value="{DynamicResource DaisyBaseContentBrush}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <TextBlock Text="{TemplateBinding Content}" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

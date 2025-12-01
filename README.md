@@ -1,0 +1,249 @@
+# DaisyUI.Avalonia.NET
+
+A C# port of the popular [DaisyUI](https://daisyui.com/) component library for [Avalonia UI](https://avaloniaui.net/).
+
+This library provides native Avalonia controls that mimic the utility-first, semantic class naming of DaisyUI, making it easy to build beautiful, themed UIs in Avalonia.
+
+## Features
+
+- **Native Controls**: C# classes inheriting from Avalonia primitives (e.g., `DaisyButton : Button`).
+- **35 DaisyUI Themes**: All official DaisyUI themes included (Light, Dark, Cupcake, Dracula, Nord, Synthwave, and more).
+- **Runtime Theme Switching**: Use `DaisyThemeDropdown` to switch themes at runtime.
+- **Variants**: Supports `Primary`, `Secondary`, `Accent`, `Ghost`, etc.
+- **Framework Support**: Library targets `netstandard2.0` for maximum compatibility.
+
+## Installation
+
+1. Add the reference to `DaisyUI.Avalonia.NET` project/dll.
+
+2. Add the theme to your `App.axaml`:
+
+```xml
+<Application ...
+             xmlns:daisy="clr-namespace:DaisyUI.Avalonia;assembly=DaisyUI.Avalonia.NET.NET">
+    <Application.Styles>
+        <FluentTheme />
+        <daisy:DaisyUITheme />
+    </Application.Styles>
+</Application>
+```
+
+## Usage Example
+
+```xml
+<daisy:DaisyButton Content="Primary Button" Variant="Primary" />
+<daisy:DaisyInput Watermark="Type here" Variant="Bordered" />
+<daisy:DaisyRating Value="3.5" />
+```
+
+## Components
+
+### Actions
+*   **Button** (`DaisyButton`): Buttons with variants (Primary, Secondary, Accent, Ghost, Link) and sizes (Large, Normal, Small, Tiny). Supports Outline and Active states.
+*   **Modal** (`DaisyModal`): Dialog box with backdrop overlay.
+*   **Swap**: (Use `ToggleButton` with custom content or `DaisyToggle`).
+
+### Data Display
+*   **Alert** (`DaisyAlert`): Feedback messages (Info, Success, Warning, Error).
+*   **Avatar** (`DaisyAvatar`): User profile image container (Circle, Square) with online/offline status indicators.
+*   **Badge** (`DaisyBadge`): Small status indicators (Primary, Secondary, Outline, etc.).
+*   **Card** (`DaisyCard`): Content container with padding and shadow.
+*   **Carousel** (`DaisyCarousel`): Scrollable container for items.
+*   **Chat Bubble** (`DaisyChatBubble`): Message bubbles with header, footer, and alignment (Start/End).
+*   **Collapse** (`DaisyCollapse`): Accordion/Expander with animated arrow or plus/minus icon.
+*   **Countdown** (`DaisyCountdown`): Monospace digit display.
+*   **Diff** (`DaisyDiff`): Image comparison slider (Before/After).
+*   **Kbd** (`DaisyKbd`): Keyboard key visual style.
+*   **Stat** (`DaisyStat`): Statistics block with Title, Value, and Description.
+*   **Table** (`DaisyTable`): Styled items control for tabular data.
+*   **Timeline** (`DaisyTimeline`): Vertical list of events with connecting lines.
+
+### Data Input
+*   **Checkbox** (`DaisyCheckBox`): Checkbox with themed colors.
+*   **File Input** (`DaisyFileInput`): Styled button/label for file selection.
+*   **Input** (`DaisyInput`): Text input field with variants (Bordered, Ghost, Primary, etc.).
+*   **Radio** (`DaisyRadio`): Radio button with themed colors.
+*   **Range** (`DaisyRange`): Slider control.
+*   **Rating** (`DaisyRating`): Star rating control with interactivity and partial fill support.
+*   **Select** (`DaisySelect`): ComboBox with themed styles.
+*   **Textarea** (`DaisyTextArea`): Multiline text input.
+*   **Toggle** (`DaisyToggle`): Switch toggle control.
+
+### Layout
+*   **Divider** (`DaisyDivider`): Separation line with optional text.
+*   **Drawer** (`DaisyDrawer`): Sidebar navigation with overlay (inherits `SplitView`).
+*   **Hero** (`DaisyHero`): Large banner component.
+*   **Join** (`DaisyJoin`): container that groups children (buttons/inputs) by merging their borders.
+*   **Stack** (`DaisyStack`): container that stacks children visually with offsets.
+
+### Navigation
+*   **Breadcrumbs** (`DaisyBreadcrumbs`): Navigation path with separators.
+*   **Menu** (`DaisyMenu`): Vertical or horizontal list of links/actions.
+*   **Navbar** (`DaisyNavbar`): Top navigation bar container.
+*   **Pagination** (`DaisyPagination`): Group of buttons for page navigation.
+*   **Steps** (`DaisySteps`): Progress tracker steps.
+*   **Tabs** (`DaisyTabs`): Tabbed navigation (Bordered, Lifted, Boxed).
+
+### Feedback & Utils
+*   **Indicator** (`DaisyIndicator`): Utility to place a badge on the corner of another element.
+*   **Loading** (`DaisyLoading`): Animated loading indicators (Spinner, Dots, Ring).
+*   **Mask** (`DaisyMask`): Applies shapes (Squircle, Heart, Hexagon, etc.) to content.
+*   **Mockup** (`DaisyMockup`): Frames for Code, Window, or Browser.
+*   **Progress** (`DaisyProgress`): Linear progress bar.
+*   **Radial Progress** (`DaisyRadialProgress`): Circular progress indicator.
+*   **Skeleton** (`DaisySkeleton`): Animated placeholder for loading states.
+*   **Toast** (`DaisyToast`): Container for stacking alerts (fixed positioning).
+*   **Tooltip**: Themed standard Avalonia `ToolTip`.
+
+### Theme Controls
+*   **Theme Swap** (`DaisyThemeSwap`): Toggle button to switch between light and dark themes with animated sun/moon icons.
+*   **Theme Dropdown** (`DaisyThemeDropdown`): Dropdown to select from all 35 available DaisyUI themes at runtime.
+*   **Theme Controller** (`DaisyThemeController`): Flexible theme toggle with multiple presentation modes (Toggle, Checkbox, Swap, ToggleWithText, ToggleWithIcons). Automatically syncs with theme changes app-wide.
+*   **Theme Manager** (`DaisyThemeManager`): Centralized static class for theme management. Provides `ApplyTheme()`, `CurrentThemeName`, `AvailableThemes`, and `ThemeChanged` event for app-wide synchronization.
+
+## Available Themes
+
+**Light Themes:** Light, Acid, Autumn, Bumblebee, Caramellatte, Cmyk, Corporate, Cupcake, Cyberpunk, Emerald, Fantasy, Garden, Lemonade, Lofi, Nord, Pastel, Retro, Silk, Valentine, Winter, Wireframe
+
+**Dark Themes:** Dark, Abyss, Aqua, Black, Business, Coffee, Dim, Dracula, Forest, Halloween, Luxury, Night, Sunset, Synthwave
+
+## Theme Controller
+
+The `DaisyThemeController` provides multiple ways to toggle between two themes, mimicking the DaisyUI theme-controller component:
+
+```xml
+<!-- Simple toggle switch -->
+<controls:DaisyThemeController Mode="Toggle" />
+
+<!-- Checkbox style -->
+<controls:DaisyThemeController Mode="Checkbox" />
+
+<!-- Animated sun/moon swap -->
+<controls:DaisyThemeController Mode="Swap" />
+
+<!-- Toggle with text labels -->
+<controls:DaisyThemeController Mode="ToggleWithText"
+    UncheckedTheme="Light" CheckedTheme="Synthwave"
+    UncheckedLabel="Light" CheckedLabel="Synthwave" />
+
+<!-- Toggle with sun/moon icons -->
+<controls:DaisyThemeController Mode="ToggleWithIcons" />
+```
+
+When the app's theme changes (e.g., via `DaisyThemeDropdown`), the controller automatically updates its `CheckedTheme` and `CheckedLabel` to reflect the new theme.
+
+## Theme Manager
+
+`DaisyThemeManager` is the centralized theme management system:
+
+```csharp
+using DaisyUI.Avalonia.Controls;
+
+// Apply a theme by name
+DaisyThemeManager.ApplyTheme("Synthwave");
+
+// Get current theme
+var current = DaisyThemeManager.CurrentThemeName;
+
+// List all available themes
+foreach (var theme in DaisyThemeManager.AvailableThemes)
+{
+    Console.WriteLine($"{theme.Name} (Dark: {theme.IsDark})");
+}
+
+// Listen for theme changes
+DaisyThemeManager.ThemeChanged += (sender, themeName) =>
+{
+    Console.WriteLine($"Theme changed to: {themeName}");
+};
+
+// Check if a theme is dark
+bool isDark = DaisyThemeManager.IsDarkTheme("Dracula");
+```
+
+## Optional Features
+
+### Theme Parsing & Generation Utilities
+
+The library includes helper utilities for parsing DaisyUI CSS theme files and generating Avalonia AXAML resources. These are **not wired up by default** but can be used for custom theme workflows.
+
+#### Parse a DaisyUI CSS Theme File
+
+```csharp
+using DaisyUI.Avalonia.Theming;
+
+// Parse a single CSS file
+var theme = DaisyUiCssParser.ParseFile("path/to/synthwave.css");
+
+// Or parse from string
+var cssContent = File.ReadAllText("mytheme.css");
+var customTheme = DaisyUiCssParser.Parse(cssContent, "mytheme");
+
+// Access parsed data
+Console.WriteLine($"Theme: {theme.Name}, IsDark: {theme.IsDark}");
+foreach (var color in theme.Colors)
+{
+    Console.WriteLine($"  {color.Key}: {color.Value}");
+}
+```
+
+#### Generate AXAML from Parsed Theme
+
+```csharp
+using DaisyUI.Avalonia.Theming;
+
+var theme = DaisyUiCssParser.ParseFile("dracula.css");
+
+// Generate single theme AXAML
+var axaml = DaisyUiAxamlGenerator.Generate(theme);
+File.WriteAllText("Themes/Palettes/Dracula.axaml", axaml);
+
+// Generate combined Light/Dark AXAML with ThemeDictionaries
+var lightTheme = DaisyUiCssParser.ParseFile("corporate.css");
+var darkTheme = DaisyUiCssParser.ParseFile("business.css");
+var combinedAxaml = DaisyUiAxamlGenerator.GenerateCombined(lightTheme, darkTheme);
+File.WriteAllText("Themes/Colors.axaml", combinedAxaml);
+```
+
+#### Runtime Theme Loading
+
+```csharp
+using DaisyUI.Avalonia.Theming;
+
+// Create a loader instance
+var loader = new DaisyThemeLoader();
+
+// Load themes from a directory
+loader.LoadFromDirectory("themes/");
+
+// Or load individual files
+loader.LoadFromFile("custom/mytheme.css");
+
+// Get a loaded theme by name
+var synthwave = loader.GetTheme("synthwave");
+if (synthwave != null)
+{
+    // Apply theme to the application at runtime
+    DaisyThemeLoader.ApplyThemeToApplication(synthwave);
+}
+
+// Export a theme to AXAML for embedding
+var axaml = DaisyThemeLoader.ExportToAxaml(synthwave);
+```
+
+#### Color Conversion
+
+```csharp
+using DaisyUI.Avalonia.Theming;
+
+// Convert OKLCH (used by DaisyUI CSS) to Hex
+var hex = ColorConverter.OklchToHex("65.69% 0.196 275.75");
+// Result: "#5B21B6"
+
+// Parse hex to RGB
+var (r, g, b) = ColorConverter.HexToRgb("#5B21B6");
+```
+
+## License
+
+MIT

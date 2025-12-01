@@ -1,0 +1,98 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:DaisyUI.Avalonia.Controls;assembly=DaisyUI.Avalonia.NET">
+
+    <Design.PreviewWith>
+        <Border Padding="0" Background="{DynamicResource DaisyBase200Brush}" Width="260" Height="500">
+            <controls:DaisyComponentSidebar />
+        </Border>
+    </Design.PreviewWith>
+
+    <Styles.Resources>
+        <ControlTheme x:Key="{x:Type controls:DaisyComponentSidebar}" TargetType="controls:DaisyComponentSidebar">
+            <Setter Property="Background" Value="{DynamicResource DaisyBase200Brush}" />
+            <Setter Property="Foreground" Value="{DynamicResource DaisyBaseContentBrush}" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{DynamicResource DaisyBase300Brush}"
+                            BorderThickness="0,0,1,0"
+                            Width="{TemplateBinding SidebarWidth}">
+                        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl Name="PART_CategoriesControl"
+                                          ItemsSource="{TemplateBinding Categories}"
+                                          Margin="0,8,0,8">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="controls:SidebarCategory">
+                                        <StackPanel Margin="0,0,0,4">
+                                            <!-- Category Divider -->
+                                            <Border Height="1" Background="{DynamicResource DaisyBase300Brush}" Margin="16,0,16,12" />
+                                            <!-- Category Header -->
+                                            <StackPanel Orientation="Horizontal"
+                                                        Margin="16,8,16,4"
+                                                        Spacing="10">
+                                                <PathIcon Width="18" Height="18"
+                                                          Foreground="{DynamicResource DaisyBaseContentBrush}"
+                                                          Data="{Binding IconKey, Converter={x:Static controls:IconKeyConverter.Instance}}" />
+                                                <TextBlock Text="{Binding Name}"
+                                                           FontWeight="SemiBold"
+                                                           FontSize="13"
+                                                           Opacity="0.7"
+                                                           Foreground="{DynamicResource DaisyBaseContentBrush}" />
+                                            </StackPanel>
+                                            <!-- Category Items -->
+                                            <ItemsControl ItemsSource="{Binding Items}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate x:DataType="controls:SidebarItem">
+                                                        <Button Classes="sidebar-item"
+                                                                Tag="{Binding}"
+                                                                HorizontalAlignment="Stretch"
+                                                                HorizontalContentAlignment="Stretch"
+                                                                Margin="8,1"
+                                                                Padding="12,8"
+                                                                Background="Transparent"
+                                                                Foreground="{DynamicResource DaisyBaseContentBrush}"
+                                                                BorderThickness="0"
+                                                                CornerRadius="6"
+                                                                Cursor="Hand">
+                                                            <Grid ColumnDefinitions="*,Auto">
+                                                                <TextBlock Grid.Column="0"
+                                                                           Text="{Binding Name}"
+                                                                           VerticalAlignment="Center" />
+                                                                <controls:DaisyBadge Grid.Column="1"
+                                                                                     Variant="Neutral"
+                                                                                     Size="ExtraSmall"
+                                                                                     IsVisible="{Binding Badge, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                                                                     Content="{Binding Badge}"
+                                                                                     Margin="8,0,0,0"
+                                                                                     Opacity="0.7" />
+                                                            </Grid>
+                                                        </Button>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </ControlTheme>
+    </Styles.Resources>
+
+    <!-- Sidebar item button styles -->
+    <Style Selector="Button.sidebar-item:pointerover">
+        <Setter Property="Background" Value="{DynamicResource DaisyBase300Brush}" />
+    </Style>
+    <Style Selector="Button.sidebar-item:pressed">
+        <Setter Property="Background" Value="{DynamicResource DaisyNeutralBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource DaisyNeutralContentColor}" />
+    </Style>
+    <Style Selector="Button.sidebar-item.selected">
+        <Setter Property="Background" Value="{DynamicResource DaisyPrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource DaisyPrimaryContentBrush}" />
+    </Style>
+
+</Styles>
