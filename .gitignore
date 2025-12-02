@@ -204,3 +204,4 @@ coc-settings.json
 .ccls
 *.map
 .cursor/
+**/dist/

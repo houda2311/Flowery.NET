@@ -1,0 +1,58 @@
+name: Create Release with Artifacts
+
+# This workflow runs when you push a version tag like v1.0.1
+# It creates a GitHub Release with downloadable artifacts
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Build library
+        run: dotnet build Flowery.NET/Flowery.NET.csproj -c Release
+
+      - name: Create NuGet package
+        run: dotnet pack Flowery.NET/Flowery.NET.csproj -c Release -o ./artifacts --no-build
+
+      # Copy the compiled DLL to artifacts folder
+      - name: Copy DLL to artifacts
+        run: |
+          mkdir -p ./artifacts/lib
+          cp Flowery.NET/bin/Release/netstandard2.0/Flowery.NET.dll ./artifacts/lib/
+          cp Flowery.NET/bin/Release/netstandard2.0/Flowery.NET.pdb ./artifacts/lib/
+
+      # Create a zip of the DLL for easy download
+      - name: Zip library files
+        run: |
+          cd ./artifacts/lib
+          zip ../Flowery.NET-lib.zip *
+          cd ../..
+
+      # Push to NuGet.org
+      - name: Push to NuGet.org
+        run: dotnet nuget push ./artifacts/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+
+      # Create GitHub Release with all artifacts
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ./artifacts/*.nupkg
+            ./artifacts/Flowery.NET-lib.zip
+          generate_release_notes: true
+          draft: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

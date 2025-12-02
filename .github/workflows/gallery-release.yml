@@ -1,0 +1,128 @@
+name: Build Gallery App
+
+# This workflow builds the Gallery demo app for Windows, Linux, and macOS
+# It runs when you push a version tag OR manually via workflow_dispatch
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:  # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  build-gallery:
+    strategy:
+      matrix:
+        include:
+          # Windows x64 - self-contained single file
+          - os: windows-latest
+            rid: win-x64
+            artifact_name: Flowery.Gallery-Windows-x64
+            extension: .exe
+
+          # Linux x64 - self-contained single file
+          - os: ubuntu-latest
+            rid: linux-x64
+            artifact_name: Flowery.Gallery-Linux-x64
+            extension: ""
+
+          # macOS x64 (Intel Macs)
+          - os: macos-latest
+            rid: osx-x64
+            artifact_name: Flowery.Gallery-macOS-x64
+            extension: ""
+
+          # macOS ARM64 (Apple Silicon M1/M2/M3)
+          - os: macos-latest
+            rid: osx-arm64
+            artifact_name: Flowery.Gallery-macOS-arm64
+            extension: ""
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # Publish as self-contained single-file executable
+      # This bundles .NET runtime so users don't need to install anything
+      - name: Publish Gallery App
+        run: |
+          dotnet publish Flowery.NET.Gallery/Flowery.NET.Gallery.csproj \
+            -c Release \
+            -r ${{ matrix.rid }} \
+            --self-contained true \
+            -p:PublishSingleFile=true \
+            -p:IncludeNativeLibrariesForSelfExtract=true \
+            -p:EnableCompressionInSingleFile=true \
+            -o ./publish
+
+      # On Windows, create a zip file
+      - name: Zip Windows artifact
+        if: matrix.os == 'windows-latest'
+        run: |
+          Compress-Archive -Path ./publish/* -DestinationPath ./${{ matrix.artifact_name }}.zip
+        shell: pwsh
+
+      # On Linux/macOS, create a tar.gz file
+      - name: Tar Linux/macOS artifact
+        if: matrix.os != 'windows-latest'
+        run: |
+          chmod +x ./publish/Flowery.NET.Gallery
+          tar -czvf ./${{ matrix.artifact_name }}.tar.gz -C ./publish .
+
+      # Upload artifact so it can be downloaded from the Actions run
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: |
+            ./${{ matrix.artifact_name }}.zip
+            ./${{ matrix.artifact_name }}.tar.gz
+          if-no-files-found: ignore
+
+  # This job collects all artifacts and creates a GitHub Release
+  create-release:
+    needs: build-gallery
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')  # Only on tag push, not manual
+
+    steps:
+      # Download all artifacts from the build jobs
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./release-artifacts
+          merge-multiple: true
+
+      - name: List artifacts
+        run: ls -la ./release-artifacts/
+
+      # Create GitHub Release with Gallery apps attached
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./release-artifacts/*
+          generate_release_notes: true
+          draft: false
+          name: "Gallery App ${{ github.ref_name }}"
+          body: |
+            ## 🌸 Flowery.NET Gallery Demo App
+
+            Download the standalone Gallery app for your platform:
+
+            | Platform | Download |
+            |----------|----------|
+            | Windows x64 | `Flowery.Gallery-Windows-x64.zip` |
+            | Linux x64 | `Flowery.Gallery-Linux-x64.tar.gz` |
+            | macOS Intel | `Flowery.Gallery-macOS-x64.tar.gz` |
+            | macOS Apple Silicon | `Flowery.Gallery-macOS-arm64.tar.gz` |
+
+            **No .NET installation required** - these are self-contained executables.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
