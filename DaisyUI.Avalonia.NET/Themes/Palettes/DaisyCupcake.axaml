@@ -38,7 +38,7 @@
     <SolidColorBrush x:Key="DaisyBase100Brush" Color="{StaticResource DaisyBase100Color}" />
     <Color x:Key="DaisyBase200Color">#EFEAE6</Color>
     <SolidColorBrush x:Key="DaisyBase200Brush" Color="{StaticResource DaisyBase200Color}" />
-    <Color x:Key="DaisyBase300Color">#E7E2DF</Color>
+    <Color x:Key="DaisyBase300Color">#C3C0BE</Color>
     <SolidColorBrush x:Key="DaisyBase300Brush" Color="{StaticResource DaisyBase300Color}" />
     <Color x:Key="DaisyBaseContentColor">#291334</Color>
     <SolidColorBrush x:Key="DaisyBaseContentBrush" Color="{StaticResource DaisyBaseContentColor}" />

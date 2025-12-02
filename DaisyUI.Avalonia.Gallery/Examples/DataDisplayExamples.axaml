@@ -106,11 +106,47 @@
             <!-- Chat Bubble -->
             <StackPanel Spacing="12">
                 <local:SectionHeader Title="Chat Bubble" />
+
                 <WrapPanel Orientation="Horizontal">
-                    <StackPanel Spacing="10" Margin="0,0,40,20" Width="350">
-                        <controls:DaisyChatBubble Header="Obi-Wan Kenobi" Content="You were the Chosen One!" Footer="Delivered" />
-                        <controls:DaisyChatBubble IsEnd="True" Header="Anakin" Content="I hate you!" Variant="Error" />
-                    </StackPanel>
+                    <!-- Basic chat-start and chat-end -->
+                    <controls:DaisyCard Margin="0,0,20,20">
+                        <StackPanel Spacing="8" Width="400" Margin="16">
+                            <TextBlock Text="Basic positioning (start/end)" FontWeight="SemiBold" FontSize="16" />
+                            <StackPanel Spacing="4">
+                                <controls:DaisyChatBubble Content="It's over Anakin, I have the high ground." />
+                                <controls:DaisyChatBubble IsEnd="True" Content="You underestimate my power!" />
+                            </StackPanel>
+                        </StackPanel>
+                    </controls:DaisyCard>
+
+                    <!-- Chat with header and footer -->
+                    <controls:DaisyCard Margin="0,0,20,20">
+                        <StackPanel Spacing="8" Width="400" Margin="16">
+                            <TextBlock Text="With header and footer" FontWeight="SemiBold" FontSize="16" />
+                            <StackPanel Spacing="4">
+                                <controls:DaisyChatBubble Header="Obi-Wan Kenobi" Content="You were the Chosen One!" Footer="Delivered" />
+                                <controls:DaisyChatBubble Header="Obi-Wan Kenobi" Content="I loved you." Footer="Seen" />
+                                <controls:DaisyChatBubble IsEnd="True" Header="Anakin" Content="I hate you!" Footer="Seen at 12:46" />
+                            </StackPanel>
+                        </StackPanel>
+                    </controls:DaisyCard>
+
+                    <!-- Chat Bubble with colors -->
+                    <controls:DaisyCard Margin="0,0,20,20">
+                        <StackPanel Spacing="8" Width="400" Margin="16">
+                            <TextBlock Text="Color variants" FontWeight="SemiBold" FontSize="16" />
+                            <StackPanel Spacing="4">
+                                <controls:DaisyChatBubble Content="What kind of nonsense is this" Variant="Primary" />
+                                <controls:DaisyChatBubble Content="Put me on the Council and not make me a Master!??" Variant="Secondary" />
+                                <controls:DaisyChatBubble Content="That's never been done in the history of the Jedi." Variant="Accent" />
+                                <controls:DaisyChatBubble Content="It's insulting!" Variant="Neutral" />
+                                <controls:DaisyChatBubble IsEnd="True" Content="Calm down, Anakin." Variant="Info" />
+                                <controls:DaisyChatBubble IsEnd="True" Content="You have been given a great honor." Variant="Success" />
+                                <controls:DaisyChatBubble IsEnd="True" Content="To be on the Council at your age." Variant="Warning" />
+                                <controls:DaisyChatBubble IsEnd="True" Content="It's never happened before." Variant="Error" />
+                            </StackPanel>
+                        </StackPanel>
+                    </controls:DaisyCard>
                 </WrapPanel>
             </StackPanel>
 

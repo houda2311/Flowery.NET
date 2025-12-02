@@ -27,11 +27,15 @@
 
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}"
-                        ClipToBounds="True">
+                <Panel>
+                    <!-- Border frame with visible lighter color -->
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Opacity="0.3" />
+                    <Border Background="{TemplateBinding Background}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            ClipToBounds="True">
                     <Grid ColumnDefinitions="Auto, *">
                         <Border x:Name="ButtonPart"
                                 Grid.Column="0"
@@ -51,8 +55,9 @@
                                    VerticalAlignment="Center"
                                    Margin="16,0"
                                    Opacity="0.7"/>
-                    </Grid>
-                </Border>
+                        </Grid>
+                    </Border>
+                </Panel>
             </ControlTemplate>
         </Setter>
 
