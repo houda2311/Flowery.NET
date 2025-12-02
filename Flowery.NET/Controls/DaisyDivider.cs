@@ -37,6 +37,12 @@ namespace Flowery.Controls
         public static readonly StyledProperty<DaisyDividerPlacement> PlacementProperty =
             AvaloniaProperty.Register<DaisyDivider, DaisyDividerPlacement>(nameof(Placement), DaisyDividerPlacement.Default);
 
+        /// <summary>
+        /// Gets or sets the margin of the divider (maps to --divider-m).
+        /// </summary>
+        public static readonly StyledProperty<Thickness> DividerMarginProperty =
+            AvaloniaProperty.Register<DaisyDivider, Thickness>(nameof(DividerMargin), new Thickness(0, 4));
+
         public bool Horizontal
         {
             get => GetValue(HorizontalProperty);
@@ -53,6 +59,12 @@ namespace Flowery.Controls
         {
             get => GetValue(PlacementProperty);
             set => SetValue(PlacementProperty, value);
+        }
+
+        public Thickness DividerMargin
+        {
+            get => GetValue(DividerMarginProperty);
+            set => SetValue(DividerMarginProperty, value);
         }
     }
 }

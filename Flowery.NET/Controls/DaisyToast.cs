@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Layout;
+using Avalonia.Data.Converters;
 
 namespace Flowery.Controls
 {
@@ -9,7 +11,44 @@ namespace Flowery.Controls
     {
         protected override Type StyleKeyOverride => typeof(DaisyToast);
 
-        // We use standard HorizontalAlignment and VerticalAlignment from Control.
-        // Defaults will be set in the ControlTheme (Bottom/Right).
+        /// <summary>
+        /// Gets or sets the horizontal offset of the toast (maps to --toast-x).
+        /// </summary>
+        public static readonly StyledProperty<double> ToastHorizontalOffsetProperty =
+            AvaloniaProperty.Register<DaisyToast, double>(nameof(ToastHorizontalOffset), 16.0);
+
+        public double ToastHorizontalOffset
+        {
+            get => GetValue(ToastHorizontalOffsetProperty);
+            set => SetValue(ToastHorizontalOffsetProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the vertical offset of the toast (maps to --toast-y).
+        /// </summary>
+        public static readonly StyledProperty<double> ToastVerticalOffsetProperty =
+            AvaloniaProperty.Register<DaisyToast, double>(nameof(ToastVerticalOffset), 16.0);
+
+        public double ToastVerticalOffset
+        {
+            get => GetValue(ToastVerticalOffsetProperty);
+            set => SetValue(ToastVerticalOffsetProperty, value);
+        }
+    }
+
+    public class ToastMarginConverter : IMultiValueConverter
+    {
+        public static readonly ToastMarginConverter Instance = new();
+
+        public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
+        {
+            if (values.Count >= 2 &&
+                values[0] is double horizontal &&
+                values[1] is double vertical)
+            {
+                return new Thickness(horizontal, vertical);
+            }
+            return new Thickness(16);
+        }
     }
 }

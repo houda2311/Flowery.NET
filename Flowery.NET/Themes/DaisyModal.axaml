@@ -17,7 +17,10 @@
     <ControlTheme x:Key="{x:Type controls:DaisyModal}" TargetType="controls:DaisyModal">
         <Setter Property="Background" Value="{DynamicResource DaisyBase100Brush}" />
         <Setter Property="Padding" Value="24" />
-        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="TopLeftRadius" Value="16" />
+        <Setter Property="TopRightRadius" Value="16" />
+        <Setter Property="BottomLeftRadius" Value="16" />
+        <Setter Property="BottomRightRadius" Value="16" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
         <Setter Property="ZIndex" Value="999" />
@@ -30,12 +33,19 @@
 
                     <!-- Modal Box -->
                     <Border Background="{TemplateBinding Background}"
-                            CornerRadius="{TemplateBinding CornerRadius}"
                             Padding="{TemplateBinding Padding}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             MaxWidth="500"
-                            BoxShadow="0 10 25 0 #80000000"> <!-- DaisyUI shadow -->
+                            BoxShadow="0 10 25 0 #80000000">
+                        <Border.CornerRadius>
+                            <MultiBinding Converter="{x:Static controls:ModalCornerRadiusConverter.Instance}">
+                                <Binding Path="TopLeftRadius" RelativeSource="{RelativeSource TemplatedParent}" />
+                                <Binding Path="TopRightRadius" RelativeSource="{RelativeSource TemplatedParent}" />
+                                <Binding Path="BottomRightRadius" RelativeSource="{RelativeSource TemplatedParent}" />
+                                <Binding Path="BottomLeftRadius" RelativeSource="{RelativeSource TemplatedParent}" />
+                            </MultiBinding>
+                        </Border.CornerRadius>
                         <ContentPresenter Content="{TemplateBinding Content}"
                                           ContentTemplate="{TemplateBinding ContentTemplate}" />
                     </Border>

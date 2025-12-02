@@ -1,7 +1,7 @@
 using System;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Data;
+using Avalonia.Media;
 
 namespace Flowery.Controls
 {
@@ -28,10 +28,112 @@ namespace Flowery.Controls
             set => SetValue(VariantProperty, value);
         }
 
-        // Additional card properties could be added like Title, Actions, Image, but simple ContentControl
-        // with a structured template or just styling the container is standard DaisyUI usage
-        // (often it's just a div with .card).
-        // However, Avalonia controls usually want some slots if we want to enforce structure.
-        // For strict port, we'll keep it as a wrapper that applies the style.
+        /// <summary>
+        /// Gets or sets the padding of the card body (maps to --card-p).
+        /// </summary>
+        public static readonly StyledProperty<Thickness> BodyPaddingProperty =
+            AvaloniaProperty.Register<DaisyCard, Thickness>(nameof(BodyPadding), new Thickness(32));
+
+        public Thickness BodyPadding
+        {
+            get => GetValue(BodyPaddingProperty);
+            set => SetValue(BodyPaddingProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the font size of the card body (maps to --card-fs).
+        /// </summary>
+        public static readonly StyledProperty<double> BodyFontSizeProperty =
+            AvaloniaProperty.Register<DaisyCard, double>(nameof(BodyFontSize), 14.0);
+
+        public double BodyFontSize
+        {
+            get => GetValue(BodyFontSizeProperty);
+            set => SetValue(BodyFontSizeProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the font size of the card title (maps to --cardtitle-fs).
+        /// </summary>
+        public static readonly StyledProperty<double> TitleFontSizeProperty =
+            AvaloniaProperty.Register<DaisyCard, double>(nameof(TitleFontSize), 20.0);
+
+        public double TitleFontSize
+        {
+            get => GetValue(TitleFontSizeProperty);
+            set => SetValue(TitleFontSizeProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets whether the card uses a glass effect.
+        /// </summary>
+        public static readonly StyledProperty<bool> IsGlassProperty =
+            AvaloniaProperty.Register<DaisyCard, bool>(nameof(IsGlass), false);
+
+        public bool IsGlass
+        {
+            get => GetValue(IsGlassProperty);
+            set => SetValue(IsGlassProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the blur amount for the glass effect (maps to --glass-blur).
+        /// </summary>
+        public static readonly StyledProperty<double> GlassBlurProperty =
+            AvaloniaProperty.Register<DaisyCard, double>(nameof(GlassBlur), 40.0);
+
+        public double GlassBlur
+        {
+            get => GetValue(GlassBlurProperty);
+            set => SetValue(GlassBlurProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the opacity of the glass effect (maps to --glass-opacity).
+        /// </summary>
+        public static readonly StyledProperty<double> GlassOpacityProperty =
+            AvaloniaProperty.Register<DaisyCard, double>(nameof(GlassOpacity), 0.3);
+
+        public double GlassOpacity
+        {
+            get => GetValue(GlassOpacityProperty);
+            set => SetValue(GlassOpacityProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the tint color for the glass effect.
+        /// </summary>
+        public static readonly StyledProperty<Color> GlassTintProperty =
+            AvaloniaProperty.Register<DaisyCard, Color>(nameof(GlassTint), Colors.White);
+
+        public Color GlassTint
+        {
+            get => GetValue(GlassTintProperty);
+            set => SetValue(GlassTintProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the tint opacity for the glass effect.
+        /// </summary>
+        public static readonly StyledProperty<double> GlassTintOpacityProperty =
+            AvaloniaProperty.Register<DaisyCard, double>(nameof(GlassTintOpacity), 0.5);
+
+        public double GlassTintOpacity
+        {
+            get => GetValue(GlassTintOpacityProperty);
+            set => SetValue(GlassTintOpacityProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the opacity of the glass border (maps to --glass-border-opacity).
+        /// </summary>
+        public static readonly StyledProperty<double> GlassBorderOpacityProperty =
+            AvaloniaProperty.Register<DaisyCard, double>(nameof(GlassBorderOpacity), 0.2);
+
+        public double GlassBorderOpacity
+        {
+            get => GetValue(GlassBorderOpacityProperty);
+            set => SetValue(GlassBorderOpacityProperty, value);
+        }
     }
 }

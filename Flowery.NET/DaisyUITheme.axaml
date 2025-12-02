@@ -35,6 +35,7 @@
                 <ResourceInclude Source="/Themes/DaisyLoading.axaml" />
                 <ResourceInclude Source="/Themes/DaisyModal.axaml" />
                 <ResourceInclude Source="/Themes/DaisySkeleton.axaml" />
+                <ResourceInclude Source="/Themes/DaisyGlass.axaml" />
                 <ResourceInclude Source="/Themes/DaisyToast.axaml" />
                 <ResourceInclude Source="/Themes/DaisyAvatar.axaml" />
                 <ResourceInclude Source="/Themes/DaisyKbd.axaml" />
@@ -46,6 +47,7 @@
                 <ResourceInclude Source="/Themes/DaisyTimeline.axaml" />
                 <ResourceInclude Source="/Themes/DaisyCarousel.axaml" />
                 <ResourceInclude Source="/Themes/DaisyHoverGallery.axaml" />
+                <ResourceInclude Source="/Themes/DaisyTextRotate.axaml" />
                 <ResourceInclude Source="/Themes/DaisyDiff.axaml" />
                 <ResourceInclude Source="/Themes/DaisyTable.axaml" />
                 <ResourceInclude Source="/Themes/DaisySwap.axaml" />

@@ -1,0 +1,160 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET">
+
+    <Design.PreviewWith>
+        <Border Padding="20" Width="400" Height="300">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                    <GradientStop Offset="0" Color="#FF6B8DD6" />
+                    <GradientStop Offset="1" Color="#FF8E37D7" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <StackPanel Spacing="20" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <controls:DaisyGlass Padding="24" CornerRadius="16">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Glass Effect" FontSize="20" FontWeight="Bold" />
+                        <TextBlock Text="Frosted glass container" />
+                    </StackPanel>
+                </controls:DaisyGlass>
+                <controls:DaisyGlass Padding="16" CornerRadius="8" GlassOpacity="0.5" GlassTint="#000000">
+                    <TextBlock Text="Dark glass variant" />
+                </controls:DaisyGlass>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type controls:DaisyGlass}" TargetType="controls:DaisyGlass">
+        <Setter Property="Foreground" Value="{DynamicResource DaisyBaseContentBrush}" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="GlassBlur" Value="40" />
+        <Setter Property="GlassOpacity" Value="0.25" />
+        <Setter Property="GlassTint" Value="White" />
+        <Setter Property="GlassTintOpacity" Value="0.5" />
+        <Setter Property="GlassBorderOpacity" Value="0.2" />
+        <Setter Property="GlassReflectDegree" Value="100" />
+        <Setter Property="GlassReflectOpacity" Value="0.1" />
+        <Setter Property="GlassTextShadowOpacity" Value="0.5" />
+        <Setter Property="EnableBackdropBlur" Value="False" />
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border x:Name="PART_RootBorder"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        ClipToBounds="True">
+                    <Panel>
+                        <!-- Real backdrop blur (when enabled) -->
+                        <Panel x:Name="PART_BackdropBlurPanel" IsVisible="False">
+                            <Image x:Name="PART_BlurImage"
+                                   Source="{TemplateBinding BlurredBackground}"
+                                   Stretch="Fill">
+                                <Image.Effect>
+                                    <BlurEffect Radius="80" />
+                                </Image.Effect>
+                            </Image>
+                        </Panel>
+
+                        <!-- Simulated glass effect (default) -->
+                        <Panel x:Name="PART_SimulatedGlassPanel">
+                            <!-- Base tinted background -->
+                            <Border CornerRadius="{TemplateBinding CornerRadius}">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{TemplateBinding GlassTint}"
+                                                     Opacity="{TemplateBinding GlassOpacity}" />
+                                </Border.Background>
+                            </Border>
+
+                            <!-- Frosted/matte overlay -->
+                            <Border CornerRadius="{TemplateBinding CornerRadius}">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%" Opacity="0.4">
+                                        <GradientStop Offset="0" Color="#E8E8E8" />
+                                        <GradientStop Offset="0.25" Color="#F0F0F0" />
+                                        <GradientStop Offset="0.5" Color="#E5E5E5" />
+                                        <GradientStop Offset="0.75" Color="#EBEBEB" />
+                                        <GradientStop Offset="1" Color="#E0E0E0" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+
+                            <!-- Secondary texture layer -->
+                            <Border CornerRadius="{TemplateBinding CornerRadius}">
+                                <Border.Background>
+                                    <RadialGradientBrush Center="30%,30%" GradientOrigin="20%,20%" Opacity="0.15">
+                                        <GradientStop Offset="0" Color="#FFFFFF" />
+                                        <GradientStop Offset="0.5" Color="#C0C0C0" />
+                                        <GradientStop Offset="1" Color="#00FFFFFF" />
+                                    </RadialGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </Panel>
+
+                        <!-- Tint overlay (shown on top of backdrop blur) -->
+                        <Border x:Name="PART_TintOverlay"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                IsVisible="False">
+                            <Border.Background>
+                                <SolidColorBrush Color="{TemplateBinding GlassTint}"
+                                                 Opacity="{TemplateBinding GlassTintOpacity}" />
+                            </Border.Background>
+                        </Border>
+
+                        <!-- Top shine/reflection (always shown) -->
+                        <Border CornerRadius="{TemplateBinding CornerRadius}"
+                                VerticalAlignment="Top"
+                                Height="60">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                    <GradientStop Offset="0" Color="#40FFFFFF" />
+                                    <GradientStop Offset="0.5" Color="#15FFFFFF" />
+                                    <GradientStop Offset="1" Color="#00FFFFFF" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+
+                        <!-- Inner highlight border -->
+                        <Border CornerRadius="{TemplateBinding CornerRadius}"
+                                BorderThickness="1"
+                                Margin="1">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                    <GradientStop Offset="0" Color="#50FFFFFF" />
+                                    <GradientStop Offset="0.3" Color="#25FFFFFF" />
+                                    <GradientStop Offset="1" Color="#10FFFFFF" />
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                        </Border>
+
+                        <!-- Content -->
+                        <Border Padding="{TemplateBinding Padding}">
+                            <ContentPresenter Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+
+                        <!-- Outer border -->
+                        <Border CornerRadius="{TemplateBinding CornerRadius}"
+                                BorderThickness="1">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="#000000" Opacity="0.08" />
+                            </Border.BorderBrush>
+                        </Border>
+                    </Panel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <!-- When backdrop blur is enabled -->
+        <Style Selector="^[EnableBackdropBlur=True] /template/ Panel#PART_BackdropBlurPanel">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^[EnableBackdropBlur=True] /template/ Panel#PART_SimulatedGlassPanel">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^[EnableBackdropBlur=True] /template/ Border#PART_TintOverlay">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

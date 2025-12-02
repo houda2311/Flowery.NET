@@ -40,15 +40,31 @@
         <Setter Property="MinHeight" Value="48" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+        <Setter Property="ClipToBounds" Value="False" />
+        <Setter Property="ShowShadow" Value="False" />
+        <Setter Property="ShadowOffsetX" Value="0" />
+        <Setter Property="ShadowOffsetY" Value="4" />
+        <Setter Property="ShadowBlur" Value="6" />
+        <Setter Property="ShadowColor" Value="#40000000" />
 
         <Setter Property="Template">
             <ControlTemplate>
-                <Panel>
+                <Panel ClipToBounds="False">
                     <Border x:Name="PART_Background"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="{TemplateBinding CornerRadius}" />
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                        <Border.BoxShadow>
+                            <MultiBinding Converter="{x:Static controls:ButtonShadowConverter.Instance}">
+                                <Binding Path="ShowShadow" RelativeSource="{RelativeSource TemplatedParent}" />
+                                <Binding Path="ShadowOffsetX" RelativeSource="{RelativeSource TemplatedParent}" />
+                                <Binding Path="ShadowOffsetY" RelativeSource="{RelativeSource TemplatedParent}" />
+                                <Binding Path="ShadowBlur" RelativeSource="{RelativeSource TemplatedParent}" />
+                                <Binding Path="ShadowColor" RelativeSource="{RelativeSource TemplatedParent}" />
+                            </MultiBinding>
+                        </Border.BoxShadow>
+                    </Border>
                     <Rectangle x:Name="PART_DashBorder"
                                IsVisible="False"
                                Stroke="{TemplateBinding BorderBrush}"

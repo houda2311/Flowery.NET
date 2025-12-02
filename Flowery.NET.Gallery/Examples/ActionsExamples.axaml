@@ -116,6 +116,19 @@
                             <controls:DaisyButton IsEnabled="False" Variant="Primary" Content="Disabled Primary" Margin="4"/>
                         </WrapPanel>
                     </StackPanel>
+
+                    <StackPanel Spacing="10" Margin="0,0,40,20">
+                        <TextBlock Text="Shadow Properties" FontWeight="SemiBold" FontSize="14" Opacity="0.8"/>
+                        <WrapPanel VerticalAlignment="Center">
+                            <controls:DaisyButton Content="With Shadow" ShowShadow="True" Margin="4"/>
+                            <controls:DaisyButton Content="Custom Shadow" Variant="Primary" ShowShadow="True"
+                                                  ShadowOffsetX="2" ShadowOffsetY="6" ShadowBlur="10" ShadowColor="#60000000" Margin="4"/>
+                            <controls:DaisyButton Content="Strong Shadow" Variant="Secondary" ShowShadow="True"
+                                                  ShadowOffsetY="8" ShadowBlur="16" ShadowColor="#80000000" Margin="4"/>
+                            <controls:DaisyButton Content="Colored Shadow" Variant="Accent" ShowShadow="True"
+                                                  ShadowOffsetY="5" ShadowBlur="12" ShadowColor="#5065d3da" Margin="4"/>
+                        </WrapPanel>
+                    </StackPanel>
                 </WrapPanel>
             </StackPanel>
 
@@ -208,6 +221,44 @@
                 <WrapPanel Orientation="Horizontal">
                     <StackPanel Spacing="10" Margin="0,0,40,20">
                         <controls:DaisyButton Content="Open Modal" x:Name="OpenModalBtn" Variant="Primary" Click="OpenModalBtn_Click"/>
+                    </StackPanel>
+                </WrapPanel>
+            </StackPanel>
+
+            <controls:DaisyDivider />
+
+            <!-- Modal Corner Radii -->
+            <StackPanel Spacing="12">
+                <local:SectionHeader Title="Modal Corner Radii" />
+                <TextBlock Text="Modals support individual corner radius via TopLeftRadius, TopRightRadius, BottomLeftRadius, BottomRightRadius" Opacity="0.7" FontSize="13"/>
+                <WrapPanel Orientation="Horizontal">
+                    <StackPanel Spacing="10" Margin="0,0,40,20" Width="280">
+                        <TextBlock Text="Default Corners (uniform)" FontSize="12" Opacity="0.7"/>
+                        <Border Background="{DynamicResource DaisyBase200Brush}" Height="150" CornerRadius="8" ClipToBounds="True">
+                            <controls:DaisyModal IsOpen="True">
+                                <TextBlock Text="Default Modal" FontWeight="Bold"/>
+                            </controls:DaisyModal>
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Spacing="10" Margin="0,0,40,20" Width="280">
+                        <TextBlock Text="Custom Corners (pill top)" FontSize="12" Opacity="0.7"/>
+                        <Border Background="{DynamicResource DaisyBase200Brush}" Height="150" CornerRadius="8" ClipToBounds="True">
+                            <controls:DaisyModal IsOpen="True"
+                                                TopLeftRadius="24" TopRightRadius="24"
+                                                BottomLeftRadius="8" BottomRightRadius="8">
+                                <TextBlock Text="Pill Top Modal" FontWeight="Bold"/>
+                            </controls:DaisyModal>
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Spacing="10" Margin="0,0,40,20" Width="280">
+                        <TextBlock Text="Sharp Corners" FontSize="12" Opacity="0.7"/>
+                        <Border Background="{DynamicResource DaisyBase200Brush}" Height="150" CornerRadius="8" ClipToBounds="True">
+                            <controls:DaisyModal IsOpen="True"
+                                                TopLeftRadius="0" TopRightRadius="0"
+                                                BottomLeftRadius="0" BottomRightRadius="0">
+                                <TextBlock Text="Sharp Modal" FontWeight="Bold"/>
+                            </controls:DaisyModal>
+                        </Border>
                     </StackPanel>
                 </WrapPanel>
             </StackPanel>

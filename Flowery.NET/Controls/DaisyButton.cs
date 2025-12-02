@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Data;
+using Avalonia.Data.Converters;
+using Avalonia.Media;
 
 namespace Flowery.Controls
 {
@@ -143,6 +146,94 @@ namespace Flowery.Controls
         {
             get => GetValue(IsActiveProperty);
             set => SetValue(IsActiveProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets whether the button shadow is visible (maps to --btn-shadow).
+        /// </summary>
+        public static readonly StyledProperty<bool> ShowShadowProperty =
+            AvaloniaProperty.Register<DaisyButton, bool>(nameof(ShowShadow), false);
+
+        public bool ShowShadow
+        {
+            get => GetValue(ShowShadowProperty);
+            set => SetValue(ShowShadowProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the horizontal offset of the button shadow.
+        /// </summary>
+        public static readonly StyledProperty<double> ShadowOffsetXProperty =
+            AvaloniaProperty.Register<DaisyButton, double>(nameof(ShadowOffsetX), 0.0);
+
+        public double ShadowOffsetX
+        {
+            get => GetValue(ShadowOffsetXProperty);
+            set => SetValue(ShadowOffsetXProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the vertical offset of the button shadow.
+        /// </summary>
+        public static readonly StyledProperty<double> ShadowOffsetYProperty =
+            AvaloniaProperty.Register<DaisyButton, double>(nameof(ShadowOffsetY), 4.0);
+
+        public double ShadowOffsetY
+        {
+            get => GetValue(ShadowOffsetYProperty);
+            set => SetValue(ShadowOffsetYProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the blur radius of the button shadow.
+        /// </summary>
+        public static readonly StyledProperty<double> ShadowBlurProperty =
+            AvaloniaProperty.Register<DaisyButton, double>(nameof(ShadowBlur), 6.0);
+
+        public double ShadowBlur
+        {
+            get => GetValue(ShadowBlurProperty);
+            set => SetValue(ShadowBlurProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the color of the button shadow.
+        /// </summary>
+        public static readonly StyledProperty<Color> ShadowColorProperty =
+            AvaloniaProperty.Register<DaisyButton, Color>(nameof(ShadowColor), Color.FromArgb(64, 0, 0, 0));
+
+        public Color ShadowColor
+        {
+            get => GetValue(ShadowColorProperty);
+            set => SetValue(ShadowColorProperty, value);
+        }
+    }
+
+    public class ButtonShadowConverter : IMultiValueConverter
+    {
+        public static readonly ButtonShadowConverter Instance = new();
+
+        public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
+        {
+            if (values.Count >= 5 &&
+                values[0] is bool showShadow &&
+                values[1] is double offsetX &&
+                values[2] is double offsetY &&
+                values[3] is double blur &&
+                values[4] is Color color)
+            {
+                if (!showShadow)
+                    return new BoxShadows(new BoxShadow());
+
+                return new BoxShadows(new BoxShadow
+                {
+                    OffsetX = offsetX,
+                    OffsetY = offsetY,
+                    Blur = blur,
+                    Color = color
+                });
+            }
+            return new BoxShadows(new BoxShadow());
         }
     }
 }

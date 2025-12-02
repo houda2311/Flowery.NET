@@ -4,7 +4,13 @@
 
     <Design.PreviewWith>
         <Border Padding="20">
-             <controls:DaisyKbd Content="Ctrl" />
+            <StackPanel Spacing="10">
+                <controls:DaisyKbd Size="ExtraSmall" Content="XS" />
+                <controls:DaisyKbd Size="Small" Content="SM" />
+                <controls:DaisyKbd Size="Medium" Content="Ctrl" />
+                <controls:DaisyKbd Size="Large" Content="LG" />
+                <controls:DaisyKbd Size="ExtraLarge" Content="XL" />
+            </StackPanel>
         </Border>
     </Design.PreviewWith>
 
@@ -35,5 +41,40 @@
                 </Border>
             </ControlTemplate>
         </Setter>
+
+        <!-- Size: ExtraSmall -->
+        <Style Selector="^[Size=ExtraSmall]">
+            <Setter Property="MinHeight" Value="16" />
+            <Setter Property="Padding" Value="2,0" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="CornerRadius" Value="2" />
+        </Style>
+
+        <!-- Size: Small -->
+        <Style Selector="^[Size=Small]">
+            <Setter Property="MinHeight" Value="20" />
+            <Setter Property="Padding" Value="3,0" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="CornerRadius" Value="3" />
+        </Style>
+
+        <!-- Size: Medium is the default, no override needed -->
+
+        <!-- Size: Large -->
+        <Style Selector="^[Size=Large]">
+            <Setter Property="MinHeight" Value="32" />
+            <Setter Property="Padding" Value="6,0" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="CornerRadius" Value="5" />
+        </Style>
+
+        <!-- Size: ExtraLarge -->
+        <Style Selector="^[Size=ExtraLarge]">
+            <Setter Property="MinHeight" Value="40" />
+            <Setter Property="Padding" Value="8,0" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="CornerRadius" Value="6" />
+        </Style>
+
     </ControlTheme>
 </ResourceDictionary>

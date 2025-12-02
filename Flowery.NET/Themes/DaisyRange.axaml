@@ -16,6 +16,10 @@
     <ControlTheme x:Key="{x:Type controls:DaisyRange}" TargetType="controls:DaisyRange">
         <Setter Property="Background" Value="{DynamicResource DaisyBase300Brush}" /> <!-- Track Color -->
         <Setter Property="Foreground" Value="{DynamicResource DaisyBaseContentBrush}" /> <!-- Thumb Color default -->
+        <Setter Property="ThumbBrush" Value="{DynamicResource DaisyBaseContentBrush}" />
+        <Setter Property="ThumbSize" Value="24" />
+        <Setter Property="ProgressBrush" Value="{DynamicResource DaisyPrimaryBrush}" />
+        <Setter Property="ShowProgress" Value="False" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="MinHeight" Value="24" />

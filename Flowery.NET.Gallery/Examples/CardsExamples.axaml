@@ -44,7 +44,147 @@
                             </StackPanel>
                         </controls:DaisyCard>
                     </StackPanel>
+
+                    <StackPanel Spacing="10" Margin="0,0,40,20" Width="300">
+                        <TextBlock Text="Custom Body Padding/Font" FontWeight="SemiBold" FontSize="14" Opacity="0.8"/>
+                        <controls:DaisyCard BodyPadding="16" BodyFontSize="12" TitleFontSize="16">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="Compact Card" FontWeight="Bold"/>
+                                <TextBlock Text="This card uses smaller padding and font sizes via BodyPadding, BodyFontSize properties." TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </controls:DaisyCard>
+                    </StackPanel>
                 </WrapPanel>
+            </StackPanel>
+
+            <controls:DaisyDivider />
+
+            <!-- Glass Card -->
+            <StackPanel Spacing="12">
+                <local:SectionHeader Title="Glass Card (IsGlass mode)" />
+                <TextBlock Text="Cards can use glass/frosted effect with IsGlass property" Opacity="0.7" FontSize="13"/>
+                <Border CornerRadius="16" Padding="32" Height="280">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                            <GradientStop Color="#667eea" Offset="0"/>
+                            <GradientStop Color="#764ba2" Offset="0.5"/>
+                            <GradientStop Color="#f093fb" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <controls:DaisyCard IsGlass="True" Width="250" Margin="10">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="Glass Card" FontWeight="Bold" FontSize="18"/>
+                                <TextBlock Text="This card uses IsGlass=True for a frosted glass effect." TextWrapping="Wrap"/>
+                                <controls:DaisyButton Content="Action" Size="Small" HorizontalAlignment="Right"/>
+                            </StackPanel>
+                        </controls:DaisyCard>
+
+                        <controls:DaisyCard IsGlass="True" GlassTint="#000000" GlassOpacity="0.4" Width="250" Margin="10">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="Dark Glass" FontWeight="Bold" FontSize="18" Foreground="White"/>
+                                <TextBlock Text="Custom glass tint with GlassTint and GlassOpacity." TextWrapping="Wrap" Foreground="White" Opacity="0.9"/>
+                            </StackPanel>
+                        </controls:DaisyCard>
+                    </WrapPanel>
+                </Border>
+            </StackPanel>
+
+            <controls:DaisyDivider />
+
+            <!-- DaisyGlass Control - Simulated -->
+            <StackPanel Spacing="12">
+                <local:SectionHeader Title="DaisyGlass (Simulated Glass)" />
+                <TextBlock Text="Default mode uses gradient overlays to simulate frosted glass appearance. No real blur - compare with below." Opacity="0.7" FontSize="13"/>
+                <Border CornerRadius="16" Height="320" ClipToBounds="True">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                            <GradientStop Color="#4facfe" Offset="0"/>
+                            <GradientStop Color="#00f2fe" Offset="0.5"/>
+                            <GradientStop Color="#43e97b" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid>
+                        <!-- Background text content -->
+                        <StackPanel Margin="20">
+                            <TextBlock Text="BACKGROUND TEXT" FontSize="32" FontWeight="Black" Foreground="White" Opacity="0.9"/>
+                            <TextBlock Text="This text is NOT blurred - simulated mode only uses overlays" FontSize="16" Foreground="White" Opacity="0.8" Margin="0,8,0,0"/>
+                            <TextBlock Text="★ ★ ★ ★ ★" FontSize="28" Foreground="Yellow" Margin="0,12,0,0"/>
+                            <TextBlock Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." FontSize="14" Foreground="White" Opacity="0.7" Margin="0,8,0,0" TextWrapping="Wrap" Width="400"/>
+                        </StackPanel>
+                        <TextBlock Text="SHARP" FontSize="72" FontWeight="Black" Foreground="#40FFFFFF"
+                                   HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="20"/>
+                        <TextBlock Text="●●●" FontSize="48" Foreground="White" Opacity="0.5"
+                                   HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,60"/>
+
+                        <!-- Glass panels on top -->
+                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="32">
+                            <controls:DaisyGlass Padding="24" CornerRadius="16" Margin="10" Width="220">
+                                <StackPanel Spacing="8">
+                                    <TextBlock Text="Simulated" FontWeight="Bold" FontSize="18"/>
+                                    <TextBlock Text="No real blur effect." TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </controls:DaisyGlass>
+
+                            <controls:DaisyGlass Padding="24" CornerRadius="16" Margin="10" Width="220"
+                                                 GlassTint="#1a1a2e" GlassTintOpacity="0.7">
+                                <StackPanel Spacing="8">
+                                    <TextBlock Text="Dark Tint" FontWeight="Bold" FontSize="18" Foreground="White"/>
+                                    <TextBlock Text="Just tinted overlay." TextWrapping="Wrap" Foreground="White" Opacity="0.85"/>
+                                </StackPanel>
+                            </controls:DaisyGlass>
+                        </WrapPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
+
+            <controls:DaisyDivider />
+
+            <!-- DaisyGlass Control - Real Backdrop Blur -->
+            <StackPanel Spacing="12">
+                <local:SectionHeader Title="DaisyGlass (Real Backdrop Blur)" />
+                <TextBlock Text="EnableBackdropBlur=True captures and blurs the actual background. Text behind the glass should appear blurred." Opacity="0.7" FontSize="13"/>
+                <Border x:Name="BackdropBlurContainer" CornerRadius="16" Height="320" ClipToBounds="True">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                            <GradientStop Color="#667eea" Offset="0"/>
+                            <GradientStop Color="#f093fb" Offset="0.5"/>
+                            <GradientStop Color="#f5576c" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid>
+                        <!-- Background text content to demonstrate blur -->
+                        <StackPanel Margin="20">
+                            <TextBlock Text="BACKGROUND TEXT" FontSize="32" FontWeight="Black" Foreground="White" Opacity="0.9"/>
+                            <TextBlock Text="This text should be blurred when viewed through the glass panel" FontSize="16" Foreground="White" Opacity="0.8" Margin="0,8,0,0"/>
+                            <TextBlock Text="★ ★ ★ ★ ★" FontSize="28" Foreground="Yellow" Margin="0,12,0,0"/>
+                            <TextBlock Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." FontSize="14" Foreground="White" Opacity="0.7" Margin="0,8,0,0" TextWrapping="Wrap" Width="400"/>
+                        </StackPanel>
+                        <TextBlock Text="SHARP" FontSize="72" FontWeight="Black" Foreground="#40FFFFFF"
+                                   HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="20"/>
+                        <TextBlock Text="●●●" FontSize="48" Foreground="White" Opacity="0.5"
+                                   HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,60"/>
+
+                        <!-- Glass panels on top -->
+                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="32">
+                            <controls:DaisyGlass Padding="24" CornerRadius="16" Margin="10" Width="220"
+                                                 EnableBackdropBlur="True" GlassBlur="10">
+                                <StackPanel Spacing="8">
+                                    <TextBlock Text="Light Blur" FontWeight="Bold" FontSize="18"/>
+                                    <TextBlock Text="GlassBlur=10" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </controls:DaisyGlass>
+
+                            <controls:DaisyGlass Padding="24" CornerRadius="16" Margin="10" Width="220"
+                                                 EnableBackdropBlur="True" GlassBlur="20" GlassTint="#FFFFFF" GlassTintOpacity="0.2">
+                                <StackPanel Spacing="8">
+                                    <TextBlock Text="Medium Blur" FontWeight="Bold" FontSize="18"/>
+                                    <TextBlock Text="GlassBlur=20" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </controls:DaisyGlass>
+                        </WrapPanel>
+                    </Grid>
+                </Border>
             </StackPanel>
 
         </StackPanel>

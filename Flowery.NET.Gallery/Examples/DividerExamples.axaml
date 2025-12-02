@@ -77,6 +77,23 @@
                         <controls:DaisyDivider Horizontal="True" Placement="End">End</controls:DaisyDivider>
                     </StackPanel>
                 </Border>
+
+                <!-- Divider with custom margin -->
+                <TextBlock Text="Custom DividerMargin" FontWeight="SemiBold" Margin="0,16,0,4"/>
+                <TextBlock Text="DividerMargin property controls the spacing around the divider line" Opacity="0.7" FontSize="13" Margin="0,0,0,8"/>
+                <Border Background="{DynamicResource DaisyBase200Brush}" CornerRadius="8" Padding="16">
+                    <StackPanel Width="400">
+                        <TextBlock Text="Content" HorizontalAlignment="Center"/>
+                        <controls:DaisyDivider DividerMargin="0,4">Default Margin (0,4)</controls:DaisyDivider>
+                        <TextBlock Text="Content" HorizontalAlignment="Center"/>
+                        <controls:DaisyDivider DividerMargin="0,16" Color="Primary">Large Margin (0,16)</controls:DaisyDivider>
+                        <TextBlock Text="Content" HorizontalAlignment="Center"/>
+                        <controls:DaisyDivider DividerMargin="0,0" Color="Secondary">No Margin (0,0)</controls:DaisyDivider>
+                        <TextBlock Text="Content" HorizontalAlignment="Center"/>
+                        <controls:DaisyDivider DividerMargin="20,8" Color="Accent">Horizontal + Vertical (20,8)</controls:DaisyDivider>
+                        <TextBlock Text="Content" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
             </StackPanel>
 
         </StackPanel>

@@ -347,10 +347,31 @@
                 <local:SectionHeader Title="Kbd" />
                 <WrapPanel Orientation="Horizontal">
                     <StackPanel Spacing="10" Margin="0,0,40,20">
+                        <TextBlock Text="Basic" FontSize="12" Opacity="0.7"/>
                         <StackPanel Orientation="Horizontal" Spacing="5">
                             <controls:DaisyKbd Content="Ctrl" />
                             <controls:DaisyKbd Content="Shift" />
                             <controls:DaisyKbd Content="Del" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Spacing="10" Margin="0,0,40,20">
+                        <TextBlock Text="Sizes" FontSize="12" Opacity="0.7"/>
+                        <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                            <controls:DaisyKbd Size="ExtraSmall" Content="XS" />
+                            <controls:DaisyKbd Size="Small" Content="SM" />
+                            <controls:DaisyKbd Size="Medium" Content="MD" />
+                            <controls:DaisyKbd Size="Large" Content="LG" />
+                            <controls:DaisyKbd Size="ExtraLarge" Content="XL" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Spacing="10" Margin="0,0,40,20">
+                        <TextBlock Text="Keyboard Shortcut" FontSize="12" Opacity="0.7"/>
+                        <StackPanel Orientation="Horizontal" Spacing="2" VerticalAlignment="Center">
+                            <controls:DaisyKbd Size="Small" Content="⌘" />
+                            <TextBlock Text="+" VerticalAlignment="Center" Margin="2,0"/>
+                            <controls:DaisyKbd Size="Small" Content="Shift" />
+                            <TextBlock Text="+" VerticalAlignment="Center" Margin="2,0"/>
+                            <controls:DaisyKbd Size="Small" Content="P" />
                         </StackPanel>
                     </StackPanel>
                 </WrapPanel>
@@ -462,6 +483,46 @@
                                 <TextBlock Text="Tax Accountant" Grid.Column="2"/>
                             </Grid>
                         </controls:DaisyTable>
+                    </StackPanel>
+                </WrapPanel>
+            </StackPanel>
+
+            <controls:DaisyDivider />
+
+            <!-- Text Rotate -->
+            <StackPanel Spacing="12">
+                <local:SectionHeader Title="Text Rotate (Animation)" />
+                <TextBlock Text="Cycles through text items with animation. Pauses on hover." Opacity="0.7" FontSize="13"/>
+                <WrapPanel Orientation="Horizontal">
+                    <StackPanel Spacing="10" Margin="0,0,40,20">
+                        <TextBlock Text="Large Headline" FontSize="12" Opacity="0.7"/>
+                        <controls:DaisyTextRotate FontSize="32" FontWeight="Bold" Duration="6000" Foreground="{DynamicResource DaisyPrimaryBrush}">
+                            <TextBlock Text="DESIGN" />
+                            <TextBlock Text="DEVELOP" />
+                            <TextBlock Text="DEPLOY" />
+                            <TextBlock Text="SCALE" />
+                        </controls:DaisyTextRotate>
+                    </StackPanel>
+
+                    <StackPanel Spacing="10" Margin="0,0,40,20">
+                        <TextBlock Text="Inline Usage" FontSize="12" Opacity="0.7"/>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="We build for" VerticalAlignment="Center" FontSize="16"/>
+                            <controls:DaisyTextRotate FontSize="16" FontWeight="Bold" Duration="4000">
+                                <TextBlock Text="Designers" Foreground="{DynamicResource DaisyAccentBrush}"/>
+                                <TextBlock Text="Developers" Foreground="{DynamicResource DaisySecondaryBrush}"/>
+                                <TextBlock Text="Everyone" Foreground="{DynamicResource DaisySuccessBrush}"/>
+                            </controls:DaisyTextRotate>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Spacing="10" Margin="0,0,40,20">
+                        <TextBlock Text="Fast Cycle (2s)" FontSize="12" Opacity="0.7"/>
+                        <controls:DaisyTextRotate FontSize="20" Duration="2000">
+                            <TextBlock Text="🎨 Art" />
+                            <TextBlock Text="💻 Code" />
+                            <TextBlock Text="🚀 Ship" />
+                        </controls:DaisyTextRotate>
                     </StackPanel>
                 </WrapPanel>
             </StackPanel>

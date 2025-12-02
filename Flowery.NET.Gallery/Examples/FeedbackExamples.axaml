@@ -86,12 +86,38 @@
             <!-- Toast -->
             <StackPanel Spacing="12">
                 <local:SectionHeader Title="Toast" />
+                <TextBlock Text="Toast supports position customization via ToastHorizontalOffset and ToastVerticalOffset properties" Opacity="0.7" FontSize="13"/>
                 <WrapPanel Orientation="Horizontal">
                     <StackPanel Spacing="10" Margin="0,0,40,20">
-                        <Border Background="{DynamicResource DaisyBase200Brush}" Width="300" Height="250" ClipToBounds="True" CornerRadius="8">
+                        <TextBlock Text="Default Position (16px offset)" FontSize="12" Opacity="0.7"/>
+                        <Border Background="{DynamicResource DaisyBase200Brush}" Width="300" Height="200" ClipToBounds="True" CornerRadius="8">
                             <Grid>
-                                <TextBlock Text="Toast Demo (auto-cycling)" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.5"/>
-                                <controls:DaisyToast x:Name="DemoToast" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+                                <TextBlock Text="Toast Demo" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.5"/>
+                                <controls:DaisyToast x:Name="DemoToast" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                    <controls:DaisyAlert Content="Default offset" Variant="Info"/>
+                                </controls:DaisyToast>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Spacing="10" Margin="0,0,40,20">
+                        <TextBlock Text="Custom Offset (32px)" FontSize="12" Opacity="0.7"/>
+                        <Border Background="{DynamicResource DaisyBase200Brush}" Width="300" Height="200" ClipToBounds="True" CornerRadius="8">
+                            <Grid>
+                                <controls:DaisyToast HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                                    ToastHorizontalOffset="32" ToastVerticalOffset="32">
+                                    <controls:DaisyAlert Content="Larger offset" Variant="Success"/>
+                                </controls:DaisyToast>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Spacing="10" Margin="0,0,40,20">
+                        <TextBlock Text="Top-Left Position" FontSize="12" Opacity="0.7"/>
+                        <Border Background="{DynamicResource DaisyBase200Brush}" Width="300" Height="200" ClipToBounds="True" CornerRadius="8">
+                            <Grid>
+                                <controls:DaisyToast HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                    ToastHorizontalOffset="8" ToastVerticalOffset="8">
+                                    <controls:DaisyAlert Content="Top-left toast" Variant="Warning"/>
+                                </controls:DaisyToast>
                             </Grid>
                         </Border>
                     </StackPanel>

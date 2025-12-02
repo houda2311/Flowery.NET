@@ -256,6 +256,7 @@ namespace Flowery.Controls
                         new SidebarItem { Name = "Modifier Keys", TabHeader = "Data Display" },
                         new SidebarItem { Name = "Stat", TabHeader = "Data Display" },
                         new SidebarItem { Name = "Table", TabHeader = "Data Display" },
+                        new SidebarItem { Name = "Text Rotate", TabHeader = "Data Display" },
                         new SidebarItem { Name = "Timeline", TabHeader = "Data Display" }
                     }
                 },

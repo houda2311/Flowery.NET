@@ -34,10 +34,11 @@
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="MinHeight" Value="20" />
+        <Setter Property="DividerMargin" Value="0,4" />
 
         <Setter Property="Template">
             <ControlTemplate>
-                <Panel>
+                <Panel Margin="{TemplateBinding DividerMargin}">
                     <!-- Vertical layout (default): horizontal line -->
                     <Grid x:Name="PART_VerticalGrid" ColumnDefinitions="*, Auto, *">
                         <Border x:Name="PART_StartLine" Height="2" Background="{TemplateBinding Background}" Opacity="0.1" VerticalAlignment="Center" Margin="0,0,8,0" />

@@ -26,12 +26,34 @@
             <!-- Menu -->
             <StackPanel Spacing="12">
                 <local:SectionHeader Title="Menu" />
+                <TextBlock Text="Menu supports ActiveForeground and ActiveBackground properties for custom selection styling" Opacity="0.7" FontSize="13"/>
                 <WrapPanel Orientation="Horizontal">
                     <StackPanel Spacing="10" Margin="0,0,40,20">
+                        <TextBlock Text="Default Active Colors" FontSize="12" Opacity="0.7"/>
                         <controls:DaisyMenu Width="200">
                             <ListBoxItem>Item 1</ListBoxItem>
-                            <ListBoxItem>Parent</ListBoxItem>
+                            <ListBoxItem IsSelected="True">Selected Item</ListBoxItem>
                             <ListBoxItem>Item 3</ListBoxItem>
+                        </controls:DaisyMenu>
+                    </StackPanel>
+                    <StackPanel Spacing="10" Margin="0,0,40,20">
+                        <TextBlock Text="Custom Active Colors (Primary)" FontSize="12" Opacity="0.7"/>
+                        <controls:DaisyMenu Width="200"
+                                           ActiveForeground="{DynamicResource DaisyPrimaryContentColor}"
+                                           ActiveBackground="{DynamicResource DaisyPrimaryBrush}">
+                            <ListBoxItem>Item 1</ListBoxItem>
+                            <ListBoxItem IsSelected="True">Selected Item</ListBoxItem>
+                            <ListBoxItem>Item 3</ListBoxItem>
+                        </controls:DaisyMenu>
+                    </StackPanel>
+                    <StackPanel Spacing="10" Margin="0,0,40,20">
+                        <TextBlock Text="Horizontal Menu" FontSize="12" Opacity="0.7"/>
+                        <controls:DaisyMenu Orientation="Horizontal"
+                                           ActiveForeground="{DynamicResource DaisyAccentContentColor}"
+                                           ActiveBackground="{DynamicResource DaisyAccentBrush}">
+                            <ListBoxItem>Home</ListBoxItem>
+                            <ListBoxItem IsSelected="True">About</ListBoxItem>
+                            <ListBoxItem>Contact</ListBoxItem>
                         </controls:DaisyMenu>
                     </StackPanel>
                 </WrapPanel>

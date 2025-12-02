@@ -1,0 +1,66 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET">
+
+    <Design.PreviewWith>
+        <Border Padding="40" Background="{DynamicResource DaisyBase200Brush}">
+            <StackPanel Spacing="20" HorizontalAlignment="Center">
+                <controls:DaisyTextRotate FontSize="32" FontWeight="Bold" Duration="6000">
+                    <TextBlock Text="DESIGN" />
+                    <TextBlock Text="DEVELOP" />
+                    <TextBlock Text="DEPLOY" />
+                    <TextBlock Text="SCALE" />
+                    <TextBlock Text="MAINTAIN" />
+                    <TextBlock Text="REPEAT" />
+                </controls:DaisyTextRotate>
+
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBlock Text="Providing solutions for" VerticalAlignment="Center" />
+                    <controls:DaisyTextRotate FontWeight="Bold" Duration="4000" Foreground="{DynamicResource DaisyPrimaryBrush}">
+                        <TextBlock Text="Designers" />
+                        <TextBlock Text="Developers" />
+                        <TextBlock Text="Managers" />
+                    </controls:DaisyTextRotate>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type controls:DaisyTextRotate}" TargetType="controls:DaisyTextRotate">
+        <Setter Property="Foreground" Value="{DynamicResource DaisyBaseContentBrush}" />
+        <Setter Property="Duration" Value="10000" />
+        <Setter Property="TransitionDuration" Value="500" />
+        <Setter Property="PauseOnHover" Value="True" />
+        <Setter Property="ClipToBounds" Value="True" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <Grid />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Padding="{TemplateBinding Padding}">
+                    <ItemsPresenter ItemsPanel="{TemplateBinding ItemsPanel}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <!-- ItemContainerTheme: alignment only; transitions are applied in code
+             to respect TransitionDuration and Easing properties -->
+        <Setter Property="ItemContainerTheme">
+            <Setter.Value>
+                <ControlTheme TargetType="ContentPresenter">
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </ControlTheme>
+            </Setter.Value>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>
