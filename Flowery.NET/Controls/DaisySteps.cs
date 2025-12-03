@@ -1,57 +1,239 @@
 using System;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Styling;
+using Avalonia.Controls.Primitives;
+using Avalonia.Layout;
 
 namespace Flowery.Controls
 {
-    public class DaisySteps : ListBox
+    public enum DaisyStepColor
+    {
+        Default,
+        Neutral,
+        Primary,
+        Secondary,
+        Accent,
+        Info,
+        Success,
+        Warning,
+        Error
+    }
+
+    public class DaisySteps : ItemsControl
     {
         protected override Type StyleKeyOverride => typeof(DaisySteps);
 
-        // We use SelectedIndex from ListBox.
+        public static readonly StyledProperty<Orientation> OrientationProperty =
+            AvaloniaProperty.Register<DaisySteps, Orientation>(nameof(Orientation), Orientation.Horizontal);
 
-        protected override void PrepareContainerForItemOverride(Control container, object? item, int index)
+        public static readonly StyledProperty<DaisySize> SizeProperty =
+            AvaloniaProperty.Register<DaisySteps, DaisySize>(nameof(Size), DaisySize.Medium);
+
+        public static readonly StyledProperty<int> SelectedIndexProperty =
+            AvaloniaProperty.Register<DaisySteps, int>(nameof(SelectedIndex), -1);
+
+        public Orientation Orientation
         {
-            base.PrepareContainerForItemOverride(container, item, index);
-            UpdateContainerClass(container, index);
+            get => GetValue(OrientationProperty);
+            set => SetValue(OrientationProperty, value);
+        }
+
+        public DaisySize Size
+        {
+            get => GetValue(SizeProperty);
+            set => SetValue(SizeProperty, value);
+        }
+
+        public int SelectedIndex
+        {
+            get => GetValue(SelectedIndexProperty);
+            set => SetValue(SelectedIndexProperty, value);
         }
 
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
             base.OnPropertyChanged(change);
-            if (change.Property == SelectedIndexProperty)
+
+            if (change.Property == ItemCountProperty ||
+                change.Property == OrientationProperty ||
+                change.Property == SelectedIndexProperty ||
+                change.Property == SizeProperty)
             {
-                UpdateAllItemClasses();
+                UpdateItemStates();
             }
         }
 
-        private void UpdateAllItemClasses()
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
-            var count = ItemCount; // ListBox has ItemCount
+            base.OnApplyTemplate(e);
+            UpdateItemStates();
+        }
+
+        private void UpdateItemStates()
+        {
+            int count = ItemCount;
             for (int i = 0; i < count; i++)
             {
                 var container = ContainerFromIndex(i);
-                if (container != null)
+                if (container is DaisyStepItem item)
                 {
-                    UpdateContainerClass(container, i);
+                    item.SetCurrentValue(DaisyStepItem.IsFirstProperty, i == 0);
+                    item.SetCurrentValue(DaisyStepItem.IsLastProperty, i == count - 1);
+                    item.SetCurrentValue(DaisyStepItem.IndexProperty, i);
+                    item.SetCurrentValue(DaisyStepItem.OrientationProperty, Orientation);
+                    item.SetCurrentValue(DaisyStepItem.SizeProperty, Size);
+
+                    // Update active state based on SelectedIndex
+                    bool isActive = SelectedIndex >= 0 && i <= SelectedIndex;
+                    item.SetCurrentValue(DaisyStepItem.IsActiveProperty, isActive);
                 }
             }
         }
 
-        private void UpdateContainerClass(Control container, int index)
+        protected override Control CreateContainerForItemOverride(object? item, int index, object? recycleKey)
         {
-             // Add "active" class if index <= SelectedIndex
-             if (index <= SelectedIndex)
-             {
-                 if (!container.Classes.Contains("active"))
-                     container.Classes.Add("active");
-             }
-             else
-             {
-                 if (container.Classes.Contains("active"))
-                     container.Classes.Remove("active");
-             }
+            return new DaisyStepItem();
+        }
+
+        protected override bool NeedsContainerOverride(object? item, int index, out object? recycleKey)
+        {
+            recycleKey = null;
+            return item is not DaisyStepItem;
+        }
+
+        protected override void PrepareContainerForItemOverride(Control container, object? item, int index)
+        {
+            base.PrepareContainerForItemOverride(container, item, index);
+
+            if (container is DaisyStepItem stepItem)
+            {
+                int count = ItemCount;
+                stepItem.SetCurrentValue(DaisyStepItem.IsFirstProperty, index == 0);
+                stepItem.SetCurrentValue(DaisyStepItem.IsLastProperty, index == count - 1);
+                stepItem.SetCurrentValue(DaisyStepItem.IndexProperty, index);
+                stepItem.SetCurrentValue(DaisyStepItem.OrientationProperty, Orientation);
+                stepItem.SetCurrentValue(DaisyStepItem.SizeProperty, Size);
+
+                // Update active state based on SelectedIndex
+                bool isActive = SelectedIndex >= 0 && index <= SelectedIndex;
+                stepItem.SetCurrentValue(DaisyStepItem.IsActiveProperty, isActive);
+            }
+        }
+    }
+
+    public class DaisyStepItem : ContentControl
+    {
+        protected override Type StyleKeyOverride => typeof(DaisyStepItem);
+
+        public static readonly StyledProperty<DaisyStepColor> ColorProperty =
+            AvaloniaProperty.Register<DaisyStepItem, DaisyStepColor>(nameof(Color), DaisyStepColor.Default);
+
+        public static readonly StyledProperty<object?> IconProperty =
+            AvaloniaProperty.Register<DaisyStepItem, object?>(nameof(Icon));
+
+        public static readonly StyledProperty<string?> DataContentProperty =
+            AvaloniaProperty.Register<DaisyStepItem, string?>(nameof(DataContent));
+
+        public static readonly StyledProperty<bool> IsActiveProperty =
+            AvaloniaProperty.Register<DaisyStepItem, bool>(nameof(IsActive));
+
+        public static readonly StyledProperty<bool> IsFirstProperty =
+            AvaloniaProperty.Register<DaisyStepItem, bool>(nameof(IsFirst));
+
+        public static readonly StyledProperty<bool> IsLastProperty =
+            AvaloniaProperty.Register<DaisyStepItem, bool>(nameof(IsLast));
+
+        public static readonly StyledProperty<int> IndexProperty =
+            AvaloniaProperty.Register<DaisyStepItem, int>(nameof(Index));
+
+        public static readonly StyledProperty<Orientation> OrientationProperty =
+            AvaloniaProperty.Register<DaisyStepItem, Orientation>(nameof(Orientation), Orientation.Horizontal);
+
+        public static readonly StyledProperty<DaisySize> SizeProperty =
+            AvaloniaProperty.Register<DaisyStepItem, DaisySize>(nameof(Size), DaisySize.Medium);
+
+        public DaisyStepColor Color
+        {
+            get => GetValue(ColorProperty);
+            set => SetValue(ColorProperty, value);
+        }
+
+        public object? Icon
+        {
+            get => GetValue(IconProperty);
+            set => SetValue(IconProperty, value);
+        }
+
+        public string? DataContent
+        {
+            get => GetValue(DataContentProperty);
+            set => SetValue(DataContentProperty, value);
+        }
+
+        public bool IsActive
+        {
+            get => GetValue(IsActiveProperty);
+            set => SetValue(IsActiveProperty, value);
+        }
+
+        public bool IsFirst
+        {
+            get => GetValue(IsFirstProperty);
+            set => SetValue(IsFirstProperty, value);
+        }
+
+        public bool IsLast
+        {
+            get => GetValue(IsLastProperty);
+            set => SetValue(IsLastProperty, value);
+        }
+
+        public int Index
+        {
+            get => GetValue(IndexProperty);
+            set => SetValue(IndexProperty, value);
+        }
+
+        public Orientation Orientation
+        {
+            get => GetValue(OrientationProperty);
+            set => SetValue(OrientationProperty, value);
+        }
+
+        public DaisySize Size
+        {
+            get => GetValue(SizeProperty);
+            set => SetValue(SizeProperty, value);
+        }
+
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+        {
+            base.OnPropertyChanged(change);
+
+            if (change.Property == IsActiveProperty ||
+                change.Property == ColorProperty)
+            {
+                UpdatePseudoClasses();
+            }
+        }
+
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+        {
+            base.OnApplyTemplate(e);
+            UpdatePseudoClasses();
+        }
+
+        private void UpdatePseudoClasses()
+        {
+            PseudoClasses.Set(":active", IsActive);
+            PseudoClasses.Set(":neutral", Color == DaisyStepColor.Neutral);
+            PseudoClasses.Set(":primary", Color == DaisyStepColor.Primary);
+            PseudoClasses.Set(":secondary", Color == DaisyStepColor.Secondary);
+            PseudoClasses.Set(":accent", Color == DaisyStepColor.Accent);
+            PseudoClasses.Set(":info", Color == DaisyStepColor.Info);
+            PseudoClasses.Set(":success", Color == DaisyStepColor.Success);
+            PseudoClasses.Set(":warning", Color == DaisyStepColor.Warning);
+            PseudoClasses.Set(":error", Color == DaisyStepColor.Error);
         }
     }
 }

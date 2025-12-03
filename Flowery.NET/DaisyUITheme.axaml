@@ -22,7 +22,6 @@
                 <ResourceInclude Source="/Themes/DaisyNavbar.axaml" />
                 <ResourceInclude Source="/Themes/DaisyDrawer.axaml" />
                 <ResourceInclude Source="/Themes/DaisyBreadcrumbs.axaml" />
-                <ResourceInclude Source="/Themes/DaisySteps.axaml" />
                 <ResourceInclude Source="/Themes/DaisyDivider.axaml" />
                 <ResourceInclude Source="/Themes/DaisyHero.axaml" />
                 <ResourceInclude Source="/Themes/DaisyIndicator.axaml" />
@@ -68,6 +67,7 @@
     </Styles.Resources>
 
     <!-- Styles (Not ResourceDictionaries) -->
+    <StyleInclude Source="/Themes/DaisySteps.axaml" />
     <StyleInclude Source="/Themes/DaisyPagination.axaml" />
     <StyleInclude Source="/Themes/DaisyMenu.axaml" />
     <StyleInclude Source="/Themes/DaisyTabs.axaml" />

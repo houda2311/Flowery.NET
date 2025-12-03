@@ -68,6 +68,71 @@
 
                 <controls:DaisyDivider />
 
+                <!-- Dock -->
+                <StackPanel Spacing="12">
+                    <local:SectionHeader SectionId="dock" Title="Dock" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="10" Margin="0,0,40,20">
+                            <TextBlock Text="Default Dock" FontSize="12" Opacity="0.7"/>
+                            <controls:DaisyDock ItemSelected="OnDockItemSelected">
+                                <Button Tag="Home">
+                                    <StackPanel>
+                                        <PathIcon Data="{StaticResource DaisyIconHome}" />
+                                        <TextBlock Classes="dock-label" Text="Home" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Tag="Files" Classes="dock-active">
+                                    <StackPanel>
+                                        <PathIcon Data="{StaticResource DaisyIconDocument}" />
+                                        <TextBlock Classes="dock-label" Text="Files" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Tag="Settings">
+                                    <StackPanel>
+                                        <PathIcon Data="{StaticResource DaisyIconSettings}" />
+                                        <TextBlock Classes="dock-label" Text="Settings" />
+                                    </StackPanel>
+                                </Button>
+                            </controls:DaisyDock>
+                        </StackPanel>
+
+                        <StackPanel Spacing="10" Margin="0,0,40,20">
+                            <TextBlock Text="Small Dock" FontSize="12" Opacity="0.7"/>
+                            <controls:DaisyDock Size="Small" ItemSelected="OnDockItemSelected">
+                                <Button Tag="Home">
+                                    <StackPanel>
+                                        <PathIcon Data="{StaticResource DaisyIconHome}" />
+                                        <TextBlock Classes="dock-label" Text="Home" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Tag="Files" Classes="dock-active">
+                                    <StackPanel>
+                                        <PathIcon Data="{StaticResource DaisyIconDocument}" />
+                                        <TextBlock Classes="dock-label" Text="Files" />
+                                    </StackPanel>
+                                </Button>
+                            </controls:DaisyDock>
+                        </StackPanel>
+
+                        <StackPanel Spacing="10" Margin="0,0,40,20">
+                            <TextBlock Text="Extra Small Dock (Icons only)" FontSize="12" Opacity="0.7"/>
+                            <controls:DaisyDock Size="ExtraSmall" ItemSelected="OnDockItemSelected">
+                                <Button Tag="Home">
+                                    <PathIcon Data="{StaticResource DaisyIconHome}" />
+                                </Button>
+                                <Button Classes="dock-active" Tag="Files">
+                                    <PathIcon Data="{StaticResource DaisyIconDocument}" />
+                                </Button>
+                                <Button Tag="Settings">
+                                    <PathIcon Data="{StaticResource DaisyIconSettings}" />
+                                </Button>
+                            </controls:DaisyDock>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+
+                <controls:DaisyDivider />
+
                 <!-- Menu -->
                 <StackPanel Spacing="12">
                     <local:SectionHeader SectionId="menu" Title="Menu" />
@@ -759,83 +824,195 @@
 
                 <controls:DaisyDivider />
 
-                <!-- Dock -->
-                <StackPanel Spacing="12">
-                    <local:SectionHeader SectionId="dock" Title="Dock" />
-                    <WrapPanel Orientation="Horizontal">
-                        <StackPanel Spacing="10" Margin="0,0,40,20">
-                            <TextBlock Text="Default Dock" FontSize="12" Opacity="0.7"/>
-                            <controls:DaisyDock ItemSelected="OnDockItemSelected">
-                                <Button Tag="Home">
-                                    <StackPanel>
-                                        <PathIcon Data="{StaticResource DaisyIconHome}" />
-                                        <TextBlock Classes="dock-label" Text="Home" />
-                                    </StackPanel>
-                                </Button>
-                                <Button Tag="Files" Classes="dock-active">
-                                    <StackPanel>
-                                        <PathIcon Data="{StaticResource DaisyIconDocument}" />
-                                        <TextBlock Classes="dock-label" Text="Files" />
-                                    </StackPanel>
-                                </Button>
-                                <Button Tag="Settings">
-                                    <StackPanel>
-                                        <PathIcon Data="{StaticResource DaisyIconSettings}" />
-                                        <TextBlock Classes="dock-label" Text="Settings" />
-                                    </StackPanel>
-                                </Button>
-                            </controls:DaisyDock>
-                        </StackPanel>
-
-                        <StackPanel Spacing="10" Margin="0,0,40,20">
-                            <TextBlock Text="Small Dock" FontSize="12" Opacity="0.7"/>
-                            <controls:DaisyDock Size="Small" ItemSelected="OnDockItemSelected">
-                                <Button Tag="Home">
-                                    <StackPanel>
-                                        <PathIcon Data="{StaticResource DaisyIconHome}" />
-                                        <TextBlock Classes="dock-label" Text="Home" />
-                                    </StackPanel>
-                                </Button>
-                                <Button Tag="Files" Classes="dock-active">
-                                    <StackPanel>
-                                        <PathIcon Data="{StaticResource DaisyIconDocument}" />
-                                        <TextBlock Classes="dock-label" Text="Files" />
-                                    </StackPanel>
-                                </Button>
-                            </controls:DaisyDock>
-                        </StackPanel>
-
-                        <StackPanel Spacing="10" Margin="0,0,40,20">
-                            <TextBlock Text="Extra Small Dock (Icons only)" FontSize="12" Opacity="0.7"/>
-                            <controls:DaisyDock Size="ExtraSmall" ItemSelected="OnDockItemSelected">
-                                <Button Tag="Home">
-                                    <PathIcon Data="{StaticResource DaisyIconHome}" />
-                                </Button>
-                                <Button Classes="dock-active" Tag="Files">
-                                    <PathIcon Data="{StaticResource DaisyIconDocument}" />
-                                </Button>
-                                <Button Tag="Settings">
-                                    <PathIcon Data="{StaticResource DaisyIconSettings}" />
-                                </Button>
-                            </controls:DaisyDock>
-                        </StackPanel>
-                    </WrapPanel>
-                </StackPanel>
-
-                <controls:DaisyDivider />
-
                 <!-- Steps -->
                 <StackPanel Spacing="12">
                     <local:SectionHeader SectionId="steps" Title="Steps" />
+                    <TextBlock Text="Steps can be used to show a list of steps in a process" Opacity="0.7" FontSize="13"/>
+
+                    <!-- Horizontal Steps -->
+                    <TextBlock Text="Horizontal Steps" FontWeight="SemiBold" Margin="0,8,0,0"/>
                     <WrapPanel Orientation="Horizontal">
-                        <StackPanel Spacing="10" Margin="0,0,40,20" Width="300">
-                            <controls:DaisySteps SelectedIndex="1">
-                                <TextBlock Text="Register" />
-                                <TextBlock Text="Plan" />
-                                <TextBlock Text="Purchase" />
+                        <StackPanel Spacing="10" Margin="0,0,40,20">
+                            <TextBlock Text="Basic horizontal" FontSize="12" Opacity="0.7"/>
+                            <controls:DaisySteps SelectedIndex="1" Width="400">
+                                <controls:DaisyStepItem Content="Register" Color="Primary"/>
+                                <controls:DaisyStepItem Content="Choose plan" Color="Primary"/>
+                                <controls:DaisyStepItem Content="Purchase"/>
+                                <controls:DaisyStepItem Content="Receive Product"/>
                             </controls:DaisySteps>
                         </StackPanel>
                     </WrapPanel>
+
+                    <!-- Vertical Steps -->
+                    <TextBlock Text="Vertical Steps" FontWeight="SemiBold" Margin="0,8,0,0"/>
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="10" Margin="0,0,40,20">
+                            <TextBlock Text="Basic vertical" FontSize="12" Opacity="0.7"/>
+                            <controls:DaisySteps Orientation="Vertical" SelectedIndex="1" Height="200">
+                                <controls:DaisyStepItem Content="Register" Color="Primary"/>
+                                <controls:DaisyStepItem Content="Choose plan" Color="Primary"/>
+                                <controls:DaisyStepItem Content="Purchase"/>
+                                <controls:DaisyStepItem Content="Receive Product"/>
+                            </controls:DaisySteps>
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <!-- Steps with Custom Data Content -->
+                    <TextBlock Text="With data-content (Custom Icons)" FontWeight="SemiBold" Margin="0,8,0,0"/>
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="10" Margin="0,0,40,20">
+                            <TextBlock Text="Symbol icons" FontSize="12" Opacity="0.7"/>
+                            <controls:DaisySteps Width="500">
+                                <controls:DaisyStepItem Content="Step 1" DataContent="?" Color="Neutral"/>
+                                <controls:DaisyStepItem Content="Step 2" DataContent="!" Color="Neutral"/>
+                                <controls:DaisyStepItem Content="Step 3" DataContent="✓" Color="Neutral"/>
+                                <controls:DaisyStepItem Content="Step 4" DataContent="✕" Color="Neutral"/>
+                                <controls:DaisyStepItem Content="Step 5" DataContent="★" Color="Neutral"/>
+                                <controls:DaisyStepItem Content="Step 6" DataContent="●" Color="Neutral"/>
+                            </controls:DaisySteps>
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <!-- Custom Colors -->
+                    <TextBlock Text="Custom Colors" FontWeight="SemiBold" Margin="0,8,0,0"/>
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="10" Margin="0,0,40,20">
+                            <TextBlock Text="Info and Error colors" FontSize="12" Opacity="0.7"/>
+                            <controls:DaisySteps Width="400">
+                                <controls:DaisyStepItem Content="Fly to moon" Color="Info"/>
+                                <controls:DaisyStepItem Content="Shrink the moon" Color="Info"/>
+                                <controls:DaisyStepItem Content="Grab the moon" Color="Info"/>
+                                <controls:DaisyStepItem Content="Sit on toilet" DataContent="?" Color="Error"/>
+                            </controls:DaisySteps>
+                        </StackPanel>
+
+                        <StackPanel Spacing="10" Margin="0,0,40,20">
+                            <TextBlock Text="Mixed colors" FontSize="12" Opacity="0.7"/>
+                            <controls:DaisySteps Width="400">
+                                <controls:DaisyStepItem Content="Start" Color="Primary"/>
+                                <controls:DaisyStepItem Content="In Progress" Color="Secondary"/>
+                                <controls:DaisyStepItem Content="Review" Color="Accent"/>
+                                <controls:DaisyStepItem Content="Complete" Color="Success"/>
+                            </controls:DaisySteps>
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <!-- All Colors -->
+                    <TextBlock Text="All Available Colors" FontWeight="SemiBold" Margin="0,8,0,0"/>
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="10" Margin="0,0,40,20">
+                            <controls:DaisySteps Width="600">
+                                <controls:DaisyStepItem Content="Default"/>
+                                <controls:DaisyStepItem Content="Neutral" Color="Neutral"/>
+                                <controls:DaisyStepItem Content="Primary" Color="Primary"/>
+                                <controls:DaisyStepItem Content="Secondary" Color="Secondary"/>
+                                <controls:DaisyStepItem Content="Accent" Color="Accent"/>
+                            </controls:DaisySteps>
+                        </StackPanel>
+                    </WrapPanel>
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="10" Margin="0,0,40,20">
+                            <controls:DaisySteps Width="400">
+                                <controls:DaisyStepItem Content="Info" Color="Info"/>
+                                <controls:DaisyStepItem Content="Success" Color="Success"/>
+                                <controls:DaisyStepItem Content="Warning" Color="Warning"/>
+                                <controls:DaisyStepItem Content="Error" Color="Error"/>
+                            </controls:DaisySteps>
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <!-- Sizes -->
+                    <TextBlock Text="Sizes" FontWeight="SemiBold" Margin="0,8,0,0"/>
+                    <StackPanel Spacing="16">
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Extra Small" FontSize="12" Opacity="0.7"/>
+                            <controls:DaisySteps Size="ExtraSmall" SelectedIndex="1" Width="350">
+                                <controls:DaisyStepItem Content="Register" Color="Primary"/>
+                                <controls:DaisyStepItem Content="Plan" Color="Primary"/>
+                                <controls:DaisyStepItem Content="Purchase"/>
+                                <controls:DaisyStepItem Content="Done"/>
+                            </controls:DaisySteps>
+                        </StackPanel>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Small" FontSize="12" Opacity="0.7"/>
+                            <controls:DaisySteps Size="Small" SelectedIndex="1" Width="350">
+                                <controls:DaisyStepItem Content="Register" Color="Primary"/>
+                                <controls:DaisyStepItem Content="Plan" Color="Primary"/>
+                                <controls:DaisyStepItem Content="Purchase"/>
+                                <controls:DaisyStepItem Content="Done"/>
+                            </controls:DaisySteps>
+                        </StackPanel>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Medium (default)" FontSize="12" Opacity="0.7"/>
+                            <controls:DaisySteps Size="Medium" SelectedIndex="1" Width="350">
+                                <controls:DaisyStepItem Content="Register" Color="Primary"/>
+                                <controls:DaisyStepItem Content="Plan" Color="Primary"/>
+                                <controls:DaisyStepItem Content="Purchase"/>
+                                <controls:DaisyStepItem Content="Done"/>
+                            </controls:DaisySteps>
+                        </StackPanel>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Large" FontSize="12" Opacity="0.7"/>
+                            <controls:DaisySteps Size="Large" SelectedIndex="1" Width="400">
+                                <controls:DaisyStepItem Content="Register" Color="Primary"/>
+                                <controls:DaisyStepItem Content="Plan" Color="Primary"/>
+                                <controls:DaisyStepItem Content="Purchase"/>
+                                <controls:DaisyStepItem Content="Done"/>
+                            </controls:DaisySteps>
+                        </StackPanel>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Extra Large" FontSize="12" Opacity="0.7"/>
+                            <controls:DaisySteps Size="ExtraLarge" SelectedIndex="1" Width="450">
+                                <controls:DaisyStepItem Content="Register" Color="Primary"/>
+                                <controls:DaisyStepItem Content="Plan" Color="Primary"/>
+                                <controls:DaisyStepItem Content="Purchase"/>
+                                <controls:DaisyStepItem Content="Done"/>
+                            </controls:DaisySteps>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- With Scrollable Wrapper -->
+                    <TextBlock Text="With Scrollable Wrapper (many steps)" FontWeight="SemiBold" Margin="0,8,0,0"/>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" MaxWidth="500" Padding="0,0,0,16">
+                        <controls:DaisySteps Width="900">
+                            <controls:DaisyStepItem Content="start"/>
+                            <controls:DaisyStepItem Content="2" Color="Secondary"/>
+                            <controls:DaisyStepItem Content="3" Color="Secondary"/>
+                            <controls:DaisyStepItem Content="4" Color="Secondary"/>
+                            <controls:DaisyStepItem Content="5"/>
+                            <controls:DaisyStepItem Content="6" Color="Accent"/>
+                            <controls:DaisyStepItem Content="7" Color="Accent"/>
+                            <controls:DaisyStepItem Content="8"/>
+                            <controls:DaisyStepItem Content="9" Color="Error"/>
+                            <controls:DaisyStepItem Content="10" Color="Error"/>
+                            <controls:DaisyStepItem Content="11"/>
+                            <controls:DaisyStepItem Content="12"/>
+                            <controls:DaisyStepItem Content="13" Color="Warning"/>
+                            <controls:DaisyStepItem Content="14" Color="Warning"/>
+                            <controls:DaisyStepItem Content="15"/>
+                            <controls:DaisyStepItem Content="16" Color="Neutral"/>
+                            <controls:DaisyStepItem Content="17" Color="Neutral"/>
+                            <controls:DaisyStepItem Content="end" Color="Neutral"/>
+                        </controls:DaisySteps>
+                    </ScrollViewer>
+
+                    <!-- Interactive Example -->
+                    <TextBlock Text="Interactive Example (click to change step)" FontWeight="SemiBold" Margin="0,8,0,0"/>
+                    <controls:DaisyCard Padding="24" HorizontalAlignment="Left">
+                        <StackPanel Spacing="16" HorizontalAlignment="Center">
+                            <controls:DaisySteps x:Name="InteractiveSteps" SelectedIndex="0" Width="400" HorizontalAlignment="Center">
+                                <controls:DaisyStepItem Content="Step 1" Color="Primary"/>
+                                <controls:DaisyStepItem Content="Step 2"/>
+                                <controls:DaisyStepItem Content="Step 3"/>
+                                <controls:DaisyStepItem Content="Step 4"/>
+                            </controls:DaisySteps>
+                            <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
+                                <controls:DaisyButton Content="Previous" Click="OnStepsPrevious"/>
+                                <controls:DaisyButton Content="Next" Variant="Primary" Click="OnStepsNext"/>
+                                <controls:DaisyButton Content="Reset" ButtonStyle="Outline" Click="OnStepsReset"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </controls:DaisyCard>
                 </StackPanel>
 
                 <controls:DaisyDivider />
