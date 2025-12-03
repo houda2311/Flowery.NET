@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Avalonia.Controls;
 using Flowery.Controls;
@@ -32,10 +33,21 @@ public partial class MainWindow : Window
             ["Weather"] = () => new WeatherExamples()
         };
 
-        // Initialize with HomePage (with event handler attached)
-        var mainContent = this.FindControl<ContentControl>("MainContent");
-        if (mainContent != null)
-            mainContent.Content = CreateHomePage();
+        // Restore last viewed page or show home
+        var sidebar = this.FindControl<DaisyComponentSidebar>("ComponentSidebar");
+        var (lastItem, category) = sidebar?.GetLastViewedItem() ?? (null, null);
+        if (lastItem != null && category != null)
+        {
+            var item = category.Items.FirstOrDefault(i => i.Name == lastItem);
+            if (item != null)
+                NavigateToCategory(item.TabHeader, item.Name);
+        }
+        else
+        {
+            var mainContent = this.FindControl<ContentControl>("MainContent");
+            if (mainContent != null)
+                mainContent.Content = CreateHomePage();
+        }
     }
 
     private Control CreateHomePage()

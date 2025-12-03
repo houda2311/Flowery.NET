@@ -95,7 +95,9 @@
             <!-- DaisyGlass Control - Simulated -->
             <StackPanel Spacing="12">
                 <local:SectionHeader Title="DaisyGlass (Simulated Glass)" />
-                <TextBlock Text="Default mode uses gradient overlays to simulate frosted glass appearance. No real blur - compare with below." Opacity="0.7" FontSize="13"/>
+                <TextBlock Text="Default mode. Uses gradient overlays to simulate frosted glass. No real blur." Opacity="0.7" FontSize="13"/>
+                <TextBlock Text="✅ Fastest performance (no rendering overhead)" FontSize="12" Foreground="Green" Opacity="0.8" Margin="0,-8,0,0"/>
+                <TextBlock Text="❌ No actual blur of background content" FontSize="12" Foreground="Red" Opacity="0.8" Margin="0,-8,0,0"/>
                 <Border CornerRadius="16" Height="320" ClipToBounds="True">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
@@ -143,7 +145,9 @@
             <!-- DaisyGlass Control - Bitmap Capture Mode -->
             <StackPanel Spacing="12">
                 <local:SectionHeader Title="DaisyGlass (Bitmap Capture Mode)" />
-                <TextBlock Text="BlurMode=BitmapCapture captures and blurs the background. Good quality, one-time capture." Opacity="0.7" FontSize="13"/>
+                <TextBlock Text="BlurMode=BitmapCapture. Captures background once and blurs it." Opacity="0.7" FontSize="13"/>
+                <TextBlock Text="✅ Good quality blur, works without SkiaSharp GPU shaders" FontSize="12" Foreground="Green" Opacity="0.8" Margin="0,-8,0,0"/>
+                <TextBlock Text="❌ Static snapshot (doesn't update if content moves), slower initial render" FontSize="12" Foreground="Red" Opacity="0.8" Margin="0,-8,0,0"/>
                 <Border CornerRadius="16" Height="280" ClipToBounds="True">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
@@ -188,8 +192,43 @@
 
             <!-- DaisyGlass Control - SkiaSharp Mode (Experimental) -->
             <StackPanel Spacing="12">
-                <local:SectionHeader Title="DaisyGlass (SkiaSharp Mode - Experimental)" />
-                <TextBlock Text="BlurMode=SkiaSharp uses GPU-accelerated blur via SkiaSharp. Potentially real-time but experimental." Opacity="0.7" FontSize="13"/>
+                <local:SectionHeader Title="DaisyGlass (SkiaSharp Mode Matrix)" />
+                <TextBlock Text="BlurMode=SkiaSharp. Real-time GPU-accelerated blur with Saturation control." Opacity="0.7" FontSize="13"/>
+                <TextBlock Text="✅ Best quality, real-time updates, saturation support" FontSize="12" Foreground="Green" Opacity="0.8" Margin="0,-8,0,0"/>
+                <TextBlock Text="⚠️ Experimental, higher GPU usage" FontSize="12" Foreground="Orange" Opacity="0.8" Margin="0,-8,0,0"/>
+
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                    <Border CornerRadius="16" MinHeight="600" ClipToBounds="True">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                <GradientStop Color="#11998e" Offset="0"/>
+                                <GradientStop Color="#38ef7d" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <!-- Background Pattern -->
+                            <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <!-- Clean background, content is now inside tiles -->
+                            </Canvas>
+
+                            <!-- Matrix Container -->
+                            <StackPanel x:Name="SkiaMatrixContainer"
+                                        Orientation="Vertical"
+                                        Spacing="8"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Margin="20"/>
+                        </Grid>
+                    </Border>
+                </ScrollViewer>
+            </StackPanel>
+
+            <controls:DaisyDivider />
+
+            <!-- Full Width Example -->
+            <StackPanel Spacing="12">
+                <local:SectionHeader Title="DaisyGlass (Full Width Example)" />
+                <TextBlock Text="Blur=30, Saturation=0.5 (Milky Effect)" Opacity="0.7" FontSize="13"/>
                 <Border CornerRadius="16" Height="280" ClipToBounds="True">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
@@ -199,8 +238,8 @@
                     </Border.Background>
                     <Grid>
                         <StackPanel Margin="20">
-                            <TextBlock Text="SKIA BLUR TEST" FontSize="32" FontWeight="Black" Foreground="White" Opacity="0.9"/>
-                            <TextBlock Text="Testing SkiaSharp GPU blur" FontSize="16" Foreground="White" Opacity="0.8" Margin="0,8,0,0"/>
+                            <TextBlock Text="FULL WIDTH TEST" FontSize="32" FontWeight="Black" Foreground="White" Opacity="0.9"/>
+                            <TextBlock Text="Testing SkiaSharp GPU blur + Saturation" FontSize="16" Foreground="White" Opacity="0.8" Margin="0,8,0,0"/>
                             <TextBlock Text="◆ ◆ ◆ ◆ ◆" FontSize="28" Foreground="#FFD700" Margin="0,12,0,0"/>
                             <TextBlock Text="Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae."
                                        FontSize="14" Foreground="#2D4A3E" Opacity="0.9" Margin="0,8,0,0" TextWrapping="Wrap" Width="500"/>
@@ -208,23 +247,16 @@
                         <TextBlock Text="GPU" FontSize="72" FontWeight="Black" Foreground="#40FFFFFF"
                                    HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="20"/>
 
-                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="32">
-                            <controls:DaisyGlass Padding="24" CornerRadius="16" Margin="10" Width="220"
-                                                 EnableBackdropBlur="True" BlurMode="SkiaSharp" GlassBlur="15" GlassTint="#FFFFFF" GlassTintOpacity="0.3">
-                                <StackPanel Spacing="8">
-                                    <TextBlock Text="SkiaSharp" FontWeight="Bold" FontSize="18"/>
-                                    <TextBlock Text="GlassBlur=15" TextWrapping="Wrap"/>
-                                </StackPanel>
-                            </controls:DaisyGlass>
-
-                            <controls:DaisyGlass Padding="24" CornerRadius="16" Margin="10" Width="220"
-                                                 EnableBackdropBlur="True" BlurMode="SkiaSharp" GlassBlur="30" GlassTint="#000000" GlassTintOpacity="0.2">
-                                <StackPanel Spacing="8">
-                                    <TextBlock Text="Dark Skia" FontWeight="Bold" FontSize="18" Foreground="White"/>
-                                    <TextBlock Text="GlassBlur=30" TextWrapping="Wrap" Foreground="White"/>
-                                </StackPanel>
-                            </controls:DaisyGlass>
-                        </WrapPanel>
+                        <controls:DaisyGlass Margin="40" Height="120" VerticalAlignment="Center"
+                                             EnableBackdropBlur="True" BlurMode="SkiaSharp"
+                                             GlassBlur="30" GlassSaturation="0.5"
+                                             GlassTint="#FFFFFF" GlassTintOpacity="0.15"
+                                             GlassBorderOpacity="0.3">
+                            <StackPanel Spacing="8" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock Text="Milky Glass Panel" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Blur=30, Sat=0.5" HorizontalAlignment="Center" Opacity="0.8"/>
+                            </StackPanel>
+                        </controls:DaisyGlass>
                     </Grid>
                 </Border>
             </StackPanel>

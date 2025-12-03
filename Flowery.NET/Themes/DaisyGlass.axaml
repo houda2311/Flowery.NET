@@ -77,17 +77,6 @@
                                     </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
-
-                            <!-- Secondary texture layer -->
-                            <Border CornerRadius="{TemplateBinding CornerRadius}">
-                                <Border.Background>
-                                    <RadialGradientBrush Center="30%,30%" GradientOrigin="20%,20%" Opacity="0.15">
-                                        <GradientStop Offset="0" Color="#FFFFFF" />
-                                        <GradientStop Offset="0.5" Color="#C0C0C0" />
-                                        <GradientStop Offset="1" Color="#00FFFFFF" />
-                                    </RadialGradientBrush>
-                                </Border.Background>
-                            </Border>
                         </Panel>
 
                         <!-- Tint overlay (shown on top of backdrop blur) -->

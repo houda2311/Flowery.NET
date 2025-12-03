@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
@@ -13,12 +15,18 @@ using Avalonia.VisualTree;
 
 namespace Flowery.Controls
 {
-    public class SidebarCategory
+    public class SidebarCategory : INotifyPropertyChanged
     {
+        private bool _isExpanded = true;
         public string Name { get; set; } = string.Empty;
         public string IconKey { get; set; } = string.Empty;
-        public bool IsExpanded { get; set; } = true;
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set { if (_isExpanded != value) { _isExpanded = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsExpanded))); } }
+        }
         public ObservableCollection<SidebarItem> Items { get; set; } = new();
+        public event PropertyChangedEventHandler? PropertyChanged;
     }
 
     public class SidebarItem
@@ -44,6 +52,10 @@ namespace Flowery.Controls
     public class DaisyComponentSidebar : TemplatedControl
     {
         protected override Type StyleKeyOverride => typeof(DaisyComponentSidebar);
+
+        private static readonly string StateFile = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "FloweryGallery", "sidebar.state");
 
         private ObservableCollection<SidebarCategory> _allCategories = new();
 
@@ -102,6 +114,9 @@ namespace Flowery.Controls
         public DaisyComponentSidebar()
         {
             _allCategories = CreateDefaultCategories();
+            LoadState();
+            foreach (var cat in _allCategories)
+                cat.PropertyChanged += (s, e) => { if (e.PropertyName == nameof(SidebarCategory.IsExpanded)) SaveState(SelectedItem?.Name); };
             Categories = _allCategories;
         }
 
@@ -207,7 +222,66 @@ namespace Flowery.Controls
         internal void SelectItem(SidebarItem item, SidebarCategory category)
         {
             SelectedItem = item;
+            SaveState(item.Name);
             RaiseEvent(new SidebarItemSelectedEventArgs(ItemSelectedEvent, item, category));
+        }
+
+        public (string? lastItem, SidebarCategory? category) GetLastViewedItem()
+        {
+            if (SelectedItem != null)
+            {
+                var cat = FindCategoryForItem(SelectedItem);
+                return (SelectedItem.Name, cat);
+            }
+            return (null, null);
+        }
+
+        private void LoadState()
+        {
+            try
+            {
+                if (!File.Exists(StateFile)) return;
+                var lines = File.ReadAllLines(StateFile);
+                string? lastItem = null;
+                var collapsed = new HashSet<string>();
+                foreach (var line in lines)
+                {
+                    if (line.StartsWith("last:"))
+                        lastItem = line.Substring(5);
+                    else if (line.StartsWith("collapsed:"))
+                        collapsed.Add(line.Substring(10));
+                }
+                foreach (var cat in _allCategories)
+                    cat.IsExpanded = !collapsed.Contains(cat.Name);
+                if (lastItem != null)
+                {
+                    foreach (var cat in _allCategories)
+                    {
+                        var item = cat.Items.FirstOrDefault(i => i.Name == lastItem);
+                        if (item != null)
+                        {
+                            SelectedItem = item;
+                            break;
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+
+        private void SaveState(string? currentItem)
+        {
+            try
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(StateFile)!);
+                var lines = new List<string>();
+                if (!string.IsNullOrEmpty(currentItem))
+                    lines.Add("last:" + currentItem);
+                foreach (var cat in _allCategories.Where(c => !c.IsExpanded))
+                    lines.Add("collapsed:" + cat.Name);
+                File.WriteAllLines(StateFile, lines);
+            }
+            catch { }
         }
 
         private static ObservableCollection<SidebarCategory> CreateDefaultCategories()

@@ -55,7 +55,7 @@
                                             <Border Height="1" Background="{DynamicResource DaisyBase300Brush}" Margin="16,0,4,8" />
                                             <!-- Collapsible Category -->
                                             <controls:DaisyCollapse Classes="sidebar-category"
-                                                                    IsExpanded="{Binding IsExpanded}"
+                                                                    IsExpanded="{Binding IsExpanded, Mode=TwoWay}"
                                                                     Background="Transparent"
                                                                     CornerRadius="0"
                                                                     Padding="0">

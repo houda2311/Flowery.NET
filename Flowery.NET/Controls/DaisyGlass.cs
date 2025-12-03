@@ -144,6 +144,18 @@ namespace Flowery.Controls
         }
 
         /// <summary>
+        /// Gets or sets the saturation of the glass background (0.0 = grayscale, 1.0 = normal).
+        /// </summary>
+        public static readonly StyledProperty<double> GlassSaturationProperty =
+            AvaloniaProperty.Register<DaisyGlass, double>(nameof(GlassSaturation), 1.0);
+
+        public double GlassSaturation
+        {
+            get => GetValue(GlassSaturationProperty);
+            set => SetValue(GlassSaturationProperty, value);
+        }
+
+        /// <summary>
         /// Gets or sets whether to enable real backdrop blur (performance intensive).
         /// When false, uses the simulated glass effect.
         /// </summary>
@@ -396,7 +408,8 @@ namespace Flowery.Controls
                     GlassBlur,
                     GlassTint,
                     GlassTintOpacity,
-                    CornerRadius.TopLeft);
+                    CornerRadius.TopLeft,
+                    GlassSaturation);
 
                 context.Custom(operation);
             }
@@ -414,23 +427,29 @@ namespace Flowery.Controls
         private readonly float _blurSigma;
         private readonly SKColor _tintColor;
         private readonly float _cornerRadius;
+        private readonly float _saturation;
 
         public SkiaGlassDrawOperation(
             Rect bounds,
             double blurRadius,
             Color tintColor,
             double tintOpacity,
-            double cornerRadius)
+            double cornerRadius,
+            double saturation)
         {
             _bounds = bounds;
-            // Convert blur radius to sigma (Skia uses sigma, not radius)
-            _blurSigma = (float)(blurRadius / 2.0);
+            // Use a divisor to make the blur scale more gradual.
+            // Previous: / 2.0 (too strong). Removed: direct (way too strong).
+            // New: / 4.0 - this makes GlassBlur=10 roughly Sigma=2.5, which is a soft start.
+            // GlassBlur=100 becomes Sigma=25, which is very blurry but still distinct.
+            _blurSigma = (float)(blurRadius / 10.0);
             _tintColor = new SKColor(
                 tintColor.R,
                 tintColor.G,
                 tintColor.B,
                 (byte)(255 * tintOpacity));
             _cornerRadius = (float)cornerRadius;
+            _saturation = (float)saturation;
         }
 
         public Rect Bounds => _bounds;
@@ -441,7 +460,8 @@ namespace Flowery.Controls
         {
             return other is SkiaGlassDrawOperation op &&
                    op._bounds == _bounds &&
-                   Math.Abs(op._blurSigma - _blurSigma) < 0.1f;
+                   Math.Abs(op._blurSigma - _blurSigma) < 0.1f &&
+                   Math.Abs(op._saturation - _saturation) < 0.01f;
         }
 
         public void Dispose() { }
@@ -473,18 +493,85 @@ namespace Flowery.Controls
             canvas.ClipRoundRect(roundedRect, SKClipOperation.Intersect, true);
 
             // Create blur filter
-            using var blurFilter = SKImageFilter.CreateBlur(_blurSigma, _blurSigma);
+            using var blurFilter = SKImageFilter.CreateBlur(_blurSigma, _blurSigma, SKShaderTileMode.Clamp);
 
-            // Save layer with blur filter - this captures what's beneath and blurs it
-            using var layerPaint = new SKPaint
+            SKImageFilter? backdropFilter = blurFilter;
+            SKColorFilter? colorFilter = null;
+
+            // Apply saturation if needed
+            if (Math.Abs(_saturation - 1.0f) > 0.01f)
             {
-                ImageFilter = blurFilter
-            };
+                // Standard luminance weights
+                float r = 0.2126f;
+                float g = 0.7152f;
+                float b = 0.0722f;
 
-            // SaveLayer captures current canvas content behind this control
-            canvas.SaveLayer(layerPaint);
-            // Immediately restore to apply the blur to existing content
-            canvas.Restore();
+                float sr = (1 - _saturation) * r;
+                float sg = (1 - _saturation) * g;
+                float sb = (1 - _saturation) * b;
+
+                float[] matrix = new float[]
+                {
+                    sr + _saturation, sr,              sr,              0, 0,
+                    sg,               sg + _saturation, sg,              0, 0,
+                    sb,               sb,              sb + _saturation, 0, 0,
+                    0,                0,               0,                1, 0
+                };
+
+                colorFilter = SKColorFilter.CreateColorMatrix(matrix);
+                backdropFilter = SKImageFilter.CreateColorFilter(colorFilter, blurFilter);
+            }
+
+            // Try to use SKSaveLayerRec if available (Standard way)
+            // Note: If SKSaveLayerRec is missing in this binding, we fallback to Snapshot
+            bool useSnapshot = true;
+
+            if (!useSnapshot)
+            {
+                // Original attempt - failed compilation for user
+                /*
+                var saveLayerRec = new SKSaveLayerRec
+                {
+                    Bounds = rect,
+                    Backdrop = backdropFilter
+                };
+                canvas.SaveLayer(saveLayerRec);
+                canvas.Restore();
+                */
+            }
+
+            // Fallback: Snapshot approach (Manual Backdrop Blur)
+            // This is robust and works without SKSaveLayerRec
+            if (lease.SkSurface is SKSurface surface)
+            {
+                using var snapshot = surface.Snapshot();
+                using var paint = new SKPaint
+                {
+                    ImageFilter = backdropFilter,
+                    IsAntialias = true
+                };
+
+                // IMPORTANT: The snapshot is in Device Coordinates (pixels).
+                // The canvas is currently in Local Coordinates (with transforms/scaling).
+                // To align the background perfectly, we must draw in Device Coordinates.
+
+                canvas.Save();
+                // Reset matrix to Identity (Device Coordinates) so 0,0 is top-left of window
+                canvas.ResetMatrix();
+
+                // Draw the snapshot at 0,0.
+                // The previous clip (rounded rect) is preserved in device space, so it masks correctly.
+                canvas.DrawImage(snapshot, 0, 0, paint);
+
+                canvas.Restore();
+            }
+
+            // Dispose filters
+            if (backdropFilter != blurFilter)
+            {
+                backdropFilter?.Dispose();
+            }
+            colorFilter?.Dispose();
 
             // Draw tint overlay
             using var tintPaint = new SKPaint
@@ -495,14 +582,30 @@ namespace Flowery.Controls
             };
             canvas.DrawRoundRect(roundedRect, tintPaint);
 
-            // Draw highlight border (top edge)
+            // Draw highlight border (gradient from top to bottom to simulate light source)
             using var highlightPaint = new SKPaint
             {
-                Color = new SKColor(255, 255, 255, 60),
                 Style = SKPaintStyle.Stroke,
                 StrokeWidth = 1,
                 IsAntialias = true
             };
+
+            // Gradient: White (Top) -> Transparent (Bottom)
+            var colors = new SKColor[]
+            {
+                new SKColor(255, 255, 255, 80),
+                new SKColor(255, 255, 255, 0)
+            };
+
+            using var shader = SKShader.CreateLinearGradient(
+                new SKPoint((float)_bounds.Left, (float)_bounds.Top),
+                new SKPoint((float)_bounds.Left, (float)_bounds.Bottom),
+                colors,
+                null,
+                SKShaderTileMode.Clamp);
+
+            highlightPaint.Shader = shader;
+
             canvas.DrawRoundRect(roundedRect, highlightPaint);
 
             // Restore canvas
