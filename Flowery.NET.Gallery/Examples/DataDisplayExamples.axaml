@@ -483,43 +483,93 @@
                 <local:SectionHeader SectionId="stat" Title="Stat" />
                 <WrapPanel Orientation="Horizontal">
                     <StackPanel Spacing="16" Margin="0,0,40,20">
+                        <!-- Basic Stats -->
+                        <TextBlock Text="Basic Stats" FontWeight="SemiBold" Opacity="0.7" />
                         <controls:DaisyStats>
                             <controls:DaisyStat Title="Total Page Views" Value="89,400" Description="21% more than last month" />
                             <controls:DaisyStat Title="Downloads" Value="31K" Description="Jan 1st - Feb 1st" />
                             <controls:DaisyStat Title="New Users" Value="4,200" Description="↗︎ 400 (22%)" />
                         </controls:DaisyStats>
 
+                        <!-- Stats with Value Variants -->
+                        <TextBlock Text="Value Color Variants" FontWeight="SemiBold" Opacity="0.7" />
                         <controls:DaisyStats>
                             <controls:DaisyStat Title="Total Likes" Value="25.6K" Description="21% more than last month" Variant="Primary" />
                             <controls:DaisyStat Title="Page Views" Value="2.6M" Description="21% more than last month" Variant="Secondary" />
                             <controls:DaisyStat Title="Tasks done" Value="86%" Description="31 tasks remaining" Variant="Accent" />
                         </controls:DaisyStats>
 
+                        <!-- Stats with Icons -->
+                        <TextBlock Text="With Icons (Figure)" FontWeight="SemiBold" Opacity="0.7" />
                         <controls:DaisyStats>
-                            <controls:DaisyStat Title="Downloads" Value="31K" Description="Jan 1st - Feb 1st">
+                            <controls:DaisyStat Title="Total Likes" Value="25.6K" Description="21% more than last month" Variant="Primary">
                                 <controls:DaisyStat.Figure>
-                                    <PathIcon Data="{StaticResource ArrowDownloadRegular}" Width="28" Height="28" Foreground="{DynamicResource DaisySecondaryBrush}" />
+                                    <PathIcon Data="{StaticResource DaisyIconHeart}" Width="32" Height="32" Foreground="{DynamicResource DaisyPrimaryBrush}" />
+                                </controls:DaisyStat.Figure>
+                            </controls:DaisyStat>
+                            <controls:DaisyStat Title="Page Views" Value="2.6M" Description="21% more than last month" Variant="Secondary">
+                                <controls:DaisyStat.Figure>
+                                    <PathIcon Data="{StaticResource DaisyIconInfo}" Width="32" Height="32" Foreground="{DynamicResource DaisySecondaryBrush}" />
                                 </controls:DaisyStat.Figure>
                             </controls:DaisyStat>
                             <controls:DaisyStat Title="New Users" Value="4,200" Description="↗︎ 400 (22%)">
                                 <controls:DaisyStat.Figure>
-                                    <PathIcon Data="{StaticResource PersonRegular}" Width="28" Height="28" Foreground="{DynamicResource DaisySecondaryBrush}" />
+                                    <PathIcon Data="{StaticResource DaisyIconUser}" Width="32" Height="32" Foreground="{DynamicResource DaisySecondaryBrush}" />
                                 </controls:DaisyStat.Figure>
                             </controls:DaisyStat>
                         </controls:DaisyStats>
 
+                        <!-- Stats with Avatar -->
+                        <TextBlock Text="With Avatar" FontWeight="SemiBold" Opacity="0.7" />
+                        <controls:DaisyStats>
+                            <controls:DaisyStat Title="Downloads" Value="31K" Description="Jan 1st - Feb 1st">
+                                <controls:DaisyStat.Figure>
+                                    <PathIcon Data="{StaticResource DaisyIconDownload}" Width="28" Height="28" Foreground="{DynamicResource DaisySecondaryBrush}" />
+                                </controls:DaisyStat.Figure>
+                            </controls:DaisyStat>
+                            <controls:DaisyStat Title="Settings" Value="4,200" Description="↗︎ 400 (22%)">
+                                <controls:DaisyStat.Figure>
+                                    <PathIcon Data="{StaticResource DaisyIconSettings}" Width="28" Height="28" Foreground="{DynamicResource DaisySecondaryBrush}" />
+                                </controls:DaisyStat.Figure>
+                            </controls:DaisyStat>
+                            <controls:DaisyStat Value="86%" Title="Tasks done" Description="31 tasks remaining" DescriptionVariant="Secondary">
+                                <controls:DaisyStat.Figure>
+                                    <controls:DaisyAvatar Size="Medium" Status="Online" IsPlaceholder="True">
+                                        <TextBlock Text="AN"
+                                                   FontWeight="Bold"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center" />
+                                    </controls:DaisyAvatar>
+                                </controls:DaisyStat.Figure>
+                            </controls:DaisyStat>
+                        </controls:DaisyStats>
+
+                        <!-- Centered Stats with Description Variant -->
+                        <TextBlock Text="Centered with Description Variants" FontWeight="SemiBold" Opacity="0.7" />
                         <controls:DaisyStats>
                             <controls:DaisyStat Title="Downloads" Value="31K" Description="From January 1st to February 1st" IsCentered="True" />
-                            <controls:DaisyStat Title="Users" Value="4,200" Description="↗︎ 40 (2%)" Variant="Secondary" IsCentered="True" />
-                            <controls:DaisyStat Title="New Registers" Value="1,200" Description="↘︎ 90 (14%)" IsCentered="True" />
+                            <controls:DaisyStat Title="Users" Value="4,200" Description="↗︎ 40 (2%)" Variant="Secondary" DescriptionVariant="Secondary" IsCentered="True" />
+                            <controls:DaisyStat Title="New Registers" Value="1,200" Description="↘︎ 90 (14%)" Variant="Error" DescriptionVariant="Error" IsCentered="True" />
                         </controls:DaisyStats>
 
+                        <!-- All Description Variants -->
+                        <TextBlock Text="All Description Variants" FontWeight="SemiBold" Opacity="0.7" />
+                        <controls:DaisyStats>
+                            <controls:DaisyStat Title="Info" Value="1,234" Description="Info colored" DescriptionVariant="Info" />
+                            <controls:DaisyStat Title="Success" Value="5,678" Description="Success colored" DescriptionVariant="Success" />
+                            <controls:DaisyStat Title="Warning" Value="910" Description="Warning colored" DescriptionVariant="Warning" />
+                        </controls:DaisyStats>
+
+                        <!-- Vertical Stats -->
+                        <TextBlock Text="Vertical Orientation" FontWeight="SemiBold" Opacity="0.7" />
                         <controls:DaisyStats Orientation="Vertical" HorizontalAlignment="Left">
                             <controls:DaisyStat Title="Downloads" Value="31K" Description="Jan 1st - Feb 1st" />
-                            <controls:DaisyStat Title="New Users" Value="4,200" Description="↗︎ 400 (22%)" />
-                            <controls:DaisyStat Title="New Registers" Value="1,200" Description="↘︎ 90 (14%)" />
+                            <controls:DaisyStat Title="New Users" Value="4,200" Description="↗︎ 400 (22%)" DescriptionVariant="Success" />
+                            <controls:DaisyStat Title="New Registers" Value="1,200" Description="↘︎ 90 (14%)" DescriptionVariant="Error" />
                         </controls:DaisyStats>
 
+                        <!-- Stats with Actions -->
+                        <TextBlock Text="With Action Buttons" FontWeight="SemiBold" Opacity="0.7" />
                         <controls:DaisyStats>
                             <controls:DaisyStat Title="Account balance" Value="$89,400">
                                 <controls:DaisyStat.Actions>
@@ -532,6 +582,19 @@
                                         <controls:DaisyButton Size="ExtraSmall" Content="Withdrawal" />
                                         <controls:DaisyButton Size="ExtraSmall" Content="Deposit" />
                                     </StackPanel>
+                                </controls:DaisyStat.Actions>
+                            </controls:DaisyStat>
+                        </controls:DaisyStats>
+
+                        <!-- Single Stat with Figure and Actions -->
+                        <TextBlock Text="Single Stat Card" FontWeight="SemiBold" Opacity="0.7" />
+                        <controls:DaisyStats HorizontalAlignment="Left">
+                            <controls:DaisyStat Title="Server Uptime" Value="99.9%" Description="Last 30 days" Variant="Success" DescriptionVariant="Success">
+                                <controls:DaisyStat.Figure>
+                                    <PathIcon Data="{StaticResource DaisyIconSuccess}" Width="40" Height="40" Foreground="{DynamicResource DaisySuccessBrush}" />
+                                </controls:DaisyStat.Figure>
+                                <controls:DaisyStat.Actions>
+                                    <controls:DaisyButton Size="ExtraSmall" ButtonStyle="Outline" Content="View details" />
                                 </controls:DaisyStat.Actions>
                             </controls:DaisyStat>
                         </controls:DaisyStats>

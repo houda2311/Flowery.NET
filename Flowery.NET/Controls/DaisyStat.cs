@@ -86,6 +86,15 @@ namespace Flowery.Controls
             get => GetValue(VariantProperty);
             set => SetValue(VariantProperty, value);
         }
+
+        public static readonly StyledProperty<DaisyStatVariant> DescriptionVariantProperty =
+            AvaloniaProperty.Register<DaisyStat, DaisyStatVariant>(nameof(DescriptionVariant), DaisyStatVariant.Default);
+
+        public DaisyStatVariant DescriptionVariant
+        {
+            get => GetValue(DescriptionVariantProperty);
+            set => SetValue(DescriptionVariantProperty, value);
+        }
     }
 
     public class DaisyStats : ItemsControl

@@ -5,25 +5,36 @@
     <Design.PreviewWith>
         <Border Padding="20" Background="{DynamicResource DaisyBase200Brush}">
             <StackPanel Spacing="20">
+                <!-- Basic Stats -->
                 <controls:DaisyStats>
                     <controls:DaisyStat Title="Total Page Views" Value="89,400" Description="21% more than last month" />
                     <controls:DaisyStat Title="Downloads" Value="31K" Description="Jan 1st - Feb 1st" Variant="Primary" />
                     <controls:DaisyStat Title="New Users" Value="4,200" Description="↗︎ 400 (22%)" Variant="Secondary" />
                 </controls:DaisyStats>
 
+                <!-- With DescriptionVariant -->
+                <controls:DaisyStats>
+                    <controls:DaisyStat Title="Success" Value="99.9%" Description="All systems operational" Variant="Success" DescriptionVariant="Success" />
+                    <controls:DaisyStat Title="Warning" Value="3" Description="Issues pending" Variant="Warning" DescriptionVariant="Warning" />
+                    <controls:DaisyStat Title="Error" Value="1" Description="Critical failure" Variant="Error" DescriptionVariant="Error" />
+                </controls:DaisyStats>
+
+                <!-- Vertical -->
                 <controls:DaisyStats Orientation="Vertical">
                     <controls:DaisyStat Title="Downloads" Value="31K" Description="Jan 1st - Feb 1st" />
-                    <controls:DaisyStat Title="New Users" Value="4,200" Description="↗︎ 400 (22%)" />
+                    <controls:DaisyStat Title="New Users" Value="4,200" Description="↗︎ 400 (22%)" DescriptionVariant="Success" />
                 </controls:DaisyStats>
 
+                <!-- Centered -->
                 <controls:DaisyStats>
                     <controls:DaisyStat Title="Downloads" Value="31K" Description="Jan 1st - Feb 1st" IsCentered="True" />
-                    <controls:DaisyStat Title="Users" Value="4,200" Description="↗︎ 40 (2%)" Variant="Secondary" IsCentered="True" />
+                    <controls:DaisyStat Title="Users" Value="4,200" Description="↗︎ 40 (2%)" Variant="Secondary" DescriptionVariant="Secondary" IsCentered="True" />
                 </controls:DaisyStats>
 
+                <!-- With Figure and Actions -->
                 <controls:DaisyStat Title="Account balance" Value="$89,400">
                     <controls:DaisyStat.Figure>
-                        <PathIcon Data="{StaticResource CurrencyDollarCircleRegular}" Width="32" Height="32" />
+                        <PathIcon Data="{StaticResource DaisyIconStar}" Width="32" Height="32" Foreground="{DynamicResource DaisyWarningBrush}" />
                     </controls:DaisyStat.Figure>
                     <controls:DaisyStat.Actions>
                         <StackPanel Orientation="Horizontal" Spacing="4">
@@ -66,7 +77,8 @@
                                        HorizontalAlignment="{Binding IsCentered, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static controls:StatConverters.CenteredToAlignment}}" />
 
                             <!-- Description -->
-                            <TextBlock Text="{TemplateBinding Description}"
+                            <TextBlock x:Name="DescriptionText"
+                                       Text="{TemplateBinding Description}"
                                        FontSize="12"
                                        Opacity="0.6"
                                        Margin="0,4,0,0"
@@ -112,6 +124,36 @@
         </Style>
         <Style Selector="^[Variant=Error] /template/ TextBlock#ValueText">
             <Setter Property="Foreground" Value="{DynamicResource DaisyErrorBrush}" />
+        </Style>
+
+        <!-- DescriptionVariant styles for Description text color -->
+        <Style Selector="^[DescriptionVariant=Primary] /template/ TextBlock#DescriptionText">
+            <Setter Property="Foreground" Value="{DynamicResource DaisyPrimaryBrush}" />
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^[DescriptionVariant=Secondary] /template/ TextBlock#DescriptionText">
+            <Setter Property="Foreground" Value="{DynamicResource DaisySecondaryBrush}" />
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^[DescriptionVariant=Accent] /template/ TextBlock#DescriptionText">
+            <Setter Property="Foreground" Value="{DynamicResource DaisyAccentBrush}" />
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^[DescriptionVariant=Info] /template/ TextBlock#DescriptionText">
+            <Setter Property="Foreground" Value="{DynamicResource DaisyInfoBrush}" />
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^[DescriptionVariant=Success] /template/ TextBlock#DescriptionText">
+            <Setter Property="Foreground" Value="{DynamicResource DaisySuccessBrush}" />
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^[DescriptionVariant=Warning] /template/ TextBlock#DescriptionText">
+            <Setter Property="Foreground" Value="{DynamicResource DaisyWarningBrush}" />
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^[DescriptionVariant=Error] /template/ TextBlock#DescriptionText">
+            <Setter Property="Foreground" Value="{DynamicResource DaisyErrorBrush}" />
+            <Setter Property="Opacity" Value="1" />
         </Style>
     </ControlTheme>
 
