@@ -153,7 +153,8 @@ The DaisyLoading theme styles are organized into multiple files for maintainabil
 | `Themes/DaisyLoading/DaisyLoading.Classic.axaml` | Dots, Ring, Ball, Bars, Infinity variants |
 | `Themes/DaisyLoading/DaisyLoading.Terminal.axaml` | Orbit, Snake, Pulse, Wave, Bounce variants |
 | `Themes/DaisyLoading/DaisyLoading.Matrix.axaml` | Matrix, MatrixInward, MatrixOutward, MatrixVertical variants |
-| `Themes/DaisyLoading/DaisyLoading.Special.axaml` | MatrixRain, Hourglass, SignalSweep, BitFlip, PacketBurst, CometTrail, Heartbeat, TunnelZoom, GlitchReveal, RippleMatrix, CursorBlink, CountdownSpinner variants |
+| `Themes/DaisyLoading/DaisyLoading.Dots.axaml` | MatrixRain, BitFlip, PacketBurst, CometTrail, RippleMatrix, CountdownSpinner variants (dot-based animations) |
+| `Themes/DaisyLoading/DaisyLoading.Special.axaml` | Hourglass, SignalSweep, Heartbeat, TunnelZoom, GlitchReveal, CursorBlink variants (non-dot special effects) |
 
 ### Adding New Variants
 
