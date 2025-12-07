@@ -222,7 +222,12 @@ class SiteGenerator:
         # Collect all controls
         print("\n[1/4] Scanning control docs...")
         seen_controls = set()
-        
+        # Helper/internal classes shown in a separate section
+        helper_control_names = {
+            'DaisyPaginationItem',  # Part of DaisyPagination
+            'DaisyAccessibility',   # Accessibility utilities
+        }
+
         if self.use_curated_only:
             # First, read curated docs from llms-static/
             for md_file in sorted(self.curated_dir.glob("Daisy*.md")):
@@ -230,10 +235,11 @@ class SiteGenerator:
                 self.controls.append({
                     'name': name,
                     'file': md_file,
-                    'html_name': f"{name}.html"
+                    'html_name': f"{name}.html",
+                    'is_helper': name in helper_control_names
                 })
                 seen_controls.add(name)
-            
+
             # Then, also include auto-generated docs from llms/controls/ for controls
             # that don't have curated docs (e.g., weather controls, custom controls)
             controls_dir = self.docs_dir / "controls"
@@ -241,11 +247,13 @@ class SiteGenerator:
                 for md_file in sorted(controls_dir.glob("*.md")):
                     name = md_file.stem
                     if name.startswith("Daisy") and name not in seen_controls:
-                        self.controls.append({
+                        entry = {
                             'name': name,
                             'file': md_file,
-                            'html_name': f"{name}.html"
-                        })
+                            'html_name': f"{name}.html",
+                            'is_helper': name in helper_control_names
+                        }
+                        self.controls.append(entry)
                         seen_controls.add(name)
         else:
             # Read from llms/controls/
@@ -256,8 +264,12 @@ class SiteGenerator:
                     self.controls.append({
                         'name': name,
                         'file': md_file,
-                        'html_name': f"{name}.html"
+                        'html_name': f"{name}.html",
+                        'is_helper': name in helper_control_names
                     })
+
+        # Sort all controls alphabetically by name
+        self.controls.sort(key=lambda c: c['name'])
         print(f"      Found {len(self.controls)} controls")
 
         # Collect categories (always from llms/categories/)
@@ -308,521 +320,15 @@ class SiteGenerator:
         print(f"      Copied {copied} image(s)")
 
     def _write_css(self):
-        """Write the stylesheet."""
-        css = ''':root {
-    /* Dark Theme (Default) - Neutral/Zinc Palette */
-    --bg: #0a0a0a;
-    --bg-card: #171717;
-    --bg-code: #262626;
-    --text: #e5e5e5;
-    --text-muted: #a3a3a3;
-    --primary: #38bdf8;
-    --primary-dim: #0ea5e9;
-    --accent: #2dd4bf;
-    --border: #404040;
-    --link: #38bdf8;
-    --link-visited: #7dd3fc;
-    --font-sans: system-ui, -apple-system, sans-serif;
-    --font-mono: 'Cascadia Code', 'Fira Code', Consolas, monospace;
-}
-
-[data-theme="light"] {
-    --bg: #ffffff;
-    --bg-card: #f9fafb;
-    --bg-code: #f3f4f6;
-    --text: #1f2937;
-    --text-muted: #6b7280;
-    --primary: #0284c7;
-    --primary-dim: #0369a1;
-    --accent: #0d9488;
-    --border: #e5e7eb;
-    --link: #0284c7;
-    --link-visited: #0369a1;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-    font-family: var(--font-sans);
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    min-height: 100vh;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-/* Links */
-a {
-    color: var(--link);
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-a:visited {
-    color: var(--link-visited);
-}
-
-a:hover {
-    color: var(--primary-dim);
-    text-decoration: underline;
-}
-
-/* Shell Layout (index.html) */
-.shell {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    height: 100vh;
-    overflow: hidden;
-}
-
-/* Sidebar */
-.sidebar {
-    background: var(--bg-card);
-    border-right: 1px solid var(--border);
-    padding: 1.5rem;
-    overflow-y: auto;
-    height: 100%;
-}
-
-.sidebar h1 {
-    font-size: 1.25rem;
-    color: var(--primary);
-    margin-bottom: 0.25rem;
-    align-items: center;
-    gap: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.theme-toggle {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    padding: 0.4rem;
-    border-radius: 0.5rem;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.theme-toggle:hover {
-    color: var(--primary);
-    background: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="light"] .theme-toggle:hover {
-    background: rgba(0, 0, 0, 0.05);
-}
-
-.sidebar .subtitle {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-bottom: 1.5rem;
-}
-
-.sidebar h2 {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
-    margin: 1.5rem 0 0.5rem;
-}
-
-.sidebar ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.sidebar li {
-    margin-bottom: 0.2rem;
-}
-
-.sidebar a {
-    display: block;
-    padding: 0.35rem 0.75rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.875rem;
-    border-radius: 0.375rem;
-    transition: all 0.15s;
-}
-
-.sidebar a:hover {
-    color: var(--text);
-    background: rgba(255,255,255,0.05);
-}
-
-.sidebar a.active {
-    color: var(--primary);
-    background: rgba(56, 189, 248, 0.1);
-}
-
-/* Viewer (Iframe) */
-.viewer {
-    width: 100%;
-    height: 100%;
-    border: none;
-    background: var(--bg);
-}
-
-/* Content Pages (inside iframe) */
-.content-body {
-    padding: 2rem 3rem;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.content-body h1 {
-    font-size: 2rem;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-    border-bottom: 2px solid var(--primary);
-    padding-bottom: 0.5rem;
-}
-
-.content-body h2 {
-    font-size: 1.35rem;
-    color: var(--accent);
-    margin: 2rem 0 1rem;
-}
-
-.content-body h3 {
-    font-size: 1.1rem;
-    color: var(--text);
-    margin: 1.5rem 0 0.75rem;
-}
-
-.content-body p {
-    margin-bottom: 1rem;
-    color: var(--text-muted);
-}
-
-.content-body strong {
-    color: var(--text);
-}
-
-/* Code */
-code {
-    font-family: var(--font-mono);
-    font-size: 0.85em;
-    background: var(--bg-code);
-    padding: 0.15em 0.4em;
-    border-radius: 0.25rem;
-    color: var(--primary);
-}
-
-pre {
-    background: var(--bg-code);
-    border: 1px solid var(--border);
-    border-radius: 0.5rem;
-    padding: 1rem;
-    overflow-x: auto;
-    margin: 1rem 0;
-}
-
-pre code {
-    background: none;
-    padding: 0;
-    color: var(--text);
-    font-size: 0.8rem;
-    line-height: 1.5;
-}
-
-/* Tables */
-.table-wrapper {
-    overflow-x: auto;
-    margin: 1rem 0;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.875rem;
-}
-
-th, td {
-    text-align: left;
-    padding: 0.75rem;
-    border-bottom: 1px solid var(--border);
-}
-
-th {
-    background: var(--bg-code);
-    color: var(--text);
-    font-weight: 600;
-}
-
-td {
-    color: var(--text-muted);
-}
-
-tr:hover td {
-    background: rgba(255,255,255,0.02);
-}
-
-/* Lists in content */
-.content-body ul {
-    margin: 1rem 0;
-    padding-left: 1.5rem;
-}
-
-.content-body li {
-    margin-bottom: 0.5rem;
-    color: var(--text-muted);
-}
-
-/* Cards grid for home */
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-    margin: 1.5rem 0;
-}
-
-.card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 0.5rem;
-    padding: 1rem;
-    text-decoration: none;
-    transition: all 0.15s;
-}
-
-.card:hover {
-    border-color: var(--primary);
-    transform: translateY(-2px);
-}
-
-.card h3 {
-    color: var(--text);
-    font-size: 0.95rem;
-    margin: 0 0 0.25rem;
-}
-
-.card p {
-    color: var(--text-muted);
-    font-size: 0.8rem;
-    margin: 0;
-}
-
-/* LLM documentation link */
-.llm-link {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--accent);
-    border-radius: 0.5rem;
-    padding: 1rem 1.5rem;
-    margin: 2rem 0;
-}
-
-.llm-link h2 {
-    margin: 0 0 0.5rem;
-    font-size: 1rem;
-    color: var(--accent);
-}
-
-.llm-link p {
-    margin: 0;
-    color: var(--text-muted);
-}
-
-.llm-link a {
-    color: var(--primary);
-}
-
-.github-link {
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s;
-    display: inline-flex;
-    line-height: 1;
-}
-
-.github-link:hover {
-    color: var(--primary);
-}
-
-.github-icon {
-    display: block;
-}
-
-/* Index page footer */
-.footer-separator {
-    margin: 3rem 0 1.5rem;
-    border: none;
-    border-top: 1px solid var(--border);
-}
-
-.index-footer {
-    text-align: center;
-    padding: 1rem 0 2rem;
-    color: var(--text-muted);
-}
-
-.index-footer p {
-    margin: 0 0 1rem;
-    font-size: 0.9rem;
-}
-
-.index-footer .disclaimer {
-    font-size: 0.8rem;
-    opacity: 0.7;
-    margin-bottom: 0.5rem;
-}
-
-.footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.footer-links a {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: color 0.2s;
-}
-
-.footer-links a:hover {
-    color: var(--primary);
-}
-
-.footer-icon {
-    flex-shrink: 0;
-}
-
-/* Breadcrumbs & Navigation */
-.breadcrumbs {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: 2rem;
-}
-
-.breadcrumbs a {
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.breadcrumbs a:hover {
-    color: var(--primary);
-}
-
-.doc-nav {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 4rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border);
-}
-
-.doc-nav a {
-    display: inline-block;
-    padding: 0.75rem 1.25rem;
-    border-radius: 0.5rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: var(--text);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: all 0.2s;
-}
-
-.doc-nav a:hover {
-    border-color: var(--primary);
-    transform: translateY(-2px);
-}
-
-.nav-prev {
-    margin-right: auto;
-}
-
-.nav-next {
-    margin-left: auto;
-}
-
-/* Responsive */
-.menu-toggle {
-    display: none;
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 2000;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 900;
-    backdrop-filter: blur(2px);
-}
-
-@media (max-width: 768px) {
-    .shell {
-        grid-template-columns: 1fr;
-    }
-
-    .sidebar {
-        /* Mobile sidebar hidden by default (off-canvas) */
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        width: 260px;
-        z-index: 1000;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease-in-out;
-        box-shadow: 4px 0 24px rgba(0,0,0,0.5);
-    }
-
-    .sidebar.open {
-        transform: translateX(0);
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-    .overlay.open {
-        display: block;
-    }
-
-    .content-body {
-        padding: 1.5rem;
-        padding-top: 4rem; /* Space for toggle button */
-    }
-}
-'''
+        """Write the stylesheet (read from external template file)."""
+        css_template = Path(__file__).parent / "site_template.css"
+        css = css_template.read_text(encoding='utf-8')
         (self.output_dir / "style.css").write_text(css, encoding='utf-8')
 
     def _page_template(self, title: str, content: str, depth: int = 0) -> str:
         """Generate HTML page for content (loaded in iframe)."""
         css_prefix = "../" * depth
+        content_js = (Path(__file__).parent / "site_content.js").read_text(encoding='utf-8')
         return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -838,29 +344,14 @@ tr:hover td {
 <body class="content-body">
     {content}
     <script>
-        hljs.highlightAll();
-
-        // Theme Sync Logic for Iframe Content
-        function applyTheme(theme) {{
-            document.documentElement.setAttribute('data-theme', theme);
-        }}
-
-        // 1. Initial Load: Try to get theme from localStorage
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        applyTheme(savedTheme);
-
-        // 2. Listen for messages from parent (shell)
-        window.addEventListener('message', (event) => {{
-            if (event.data && event.data.type === 'setTheme') {{
-                applyTheme(event.data.theme);
-            }}
-        }});
+{content_js}
     </script>
 </body>
 </html>'''
 
     def _generate_shell(self):
         """Generate the main app shell (index.html) with sidebar and iframe."""
+        shell_js = (Path(__file__).parent / "site_shell.js").read_text(encoding='utf-8')
 
         sidebar_items = []
 
@@ -873,11 +364,25 @@ tr:hover td {
             for cat in self.categories:
                 sidebar_items.append(f'<li><a href="categories/{cat["html_name"]}" target="viewer">{cat["name"]}</a></li>')
 
-        # Controls
+        # Controls (main controls only, not helpers)
         sidebar_items.append('<li><h2>Controls</h2></li>')
-        for ctrl in self.controls:
+        # Custom controls (Avalonia-specific, not in original DaisyUI)
+        custom_prefixes = ('Color', 'Weather', 'ModifierKeys', 'ComponentSidebar')
+        main_controls = [c for c in self.controls if not c.get('is_helper', False)]
+        helper_controls = [c for c in self.controls if c.get('is_helper', False)]
+
+        for ctrl in main_controls:
             display_name = ctrl['name'].replace('Daisy', '')
-            sidebar_items.append(f'<li><a href="controls/{ctrl["html_name"]}" target="viewer">{display_name}</a></li>')
+            is_custom = display_name.startswith(custom_prefixes)
+            badge = '<sup class="custom-badge">✦</sup>' if is_custom else ''
+            sidebar_items.append(f'<li><a href="controls/{ctrl["html_name"]}" target="viewer">{display_name}{badge}</a></li>')
+
+        # Helpers section (if any)
+        if helper_controls:
+            sidebar_items.append('<li><h2 class="helpers-header">Helpers</h2></li>')
+            for ctrl in helper_controls:
+                display_name = ctrl['name'].replace('Daisy', '')
+                sidebar_items.append(f'<li><a href="controls/{ctrl["html_name"]}" target="viewer">{display_name}</a></li>')
 
         sidebar_html = '\n'.join(sidebar_items)
 
@@ -907,7 +412,7 @@ tr:hover td {
                         <svg class="github-icon" viewBox="0 0 16 16" width="20" height="20">
                             <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
                         </svg>
-                    </a> 
+                    </a>
                     <span>Flowery.NET</span>
                 </div>
                 <button class="theme-toggle" aria-label="Toggle Theme" title="Toggle Theme">
@@ -938,93 +443,7 @@ tr:hover td {
     </div>
 
     <script>
-        // --- Theme Logic ---
-        const themeToggle = document.querySelector('.theme-toggle');
-        const sunIcon = document.querySelector('.sun-icon');
-        const moonIcon = document.querySelector('.moon-icon');
-        const iframe = document.querySelector('iframe');
-
-        // Check local storage or default to dark
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        applyTheme(currentTheme);
-
-        function applyTheme(theme) {{
-            document.documentElement.setAttribute('data-theme', theme);
-
-            // Update icons
-            if (theme === 'dark') {{
-                sunIcon.style.display = 'block';
-                moonIcon.style.display = 'none';
-            }} else {{
-                sunIcon.style.display = 'none';
-                moonIcon.style.display = 'block';
-            }}
-
-            // Sync iframe (Direct access + PostMessage fallback for local files)
-            try {{
-                // 1. Try direct access (works for same origin)
-                if (iframe.contentDocument && iframe.contentDocument.documentElement) {{
-                    iframe.contentDocument.documentElement.setAttribute('data-theme', theme);
-                }}
-            }} catch(e) {{
-                // console.log('Direct access restricted');
-            }}
-
-            // 2. PostMessage (works for cross-origin/local files)
-            try {{
-                if (iframe.contentWindow) {{
-                    iframe.contentWindow.postMessage({{ type: 'setTheme', theme: theme }}, '*');
-                }}
-            }} catch(e) {{}}
-        }}
-
-        themeToggle.addEventListener('click', () => {{
-            const current = document.documentElement.getAttribute('data-theme');
-            const newTheme = current === 'dark' ? 'light' : 'dark';
-            localStorage.setItem('theme', newTheme);
-            applyTheme(newTheme);
-        }});
-
-        // When iframe loads, ensure it gets the theme
-        iframe.addEventListener('load', () => {{
-            const theme = localStorage.getItem('theme') || 'dark';
-            applyTheme(theme);
-        }});
-
-        // --- Sidebar Logic ---
-        const sidebar = document.querySelector('.sidebar');
-        const overlay = document.querySelector('.overlay');
-        const toggleBtn = document.querySelector('.menu-toggle');
-        const links = document.querySelectorAll('.sidebar a');
-
-        function toggleMenu() {{
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('open');
-        }}
-
-        function closeMenu() {{
-            sidebar.classList.remove('open');
-            overlay.classList.remove('open');
-        }}
-
-        toggleBtn.addEventListener('click', toggleMenu);
-        overlay.addEventListener('click', closeMenu);
-
-        // Handle active state & mobile close
-        links.forEach(link => {{
-            link.addEventListener('click', (e) => {{
-                // Don't mess with external links
-                if (link.target === '_blank') return;
-
-                links.forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-
-                // Close menu on mobile when link is clicked
-                if (window.innerWidth <= 768) {{
-                    closeMenu();
-                }}
-            }});
-        }});
+{shell_js}
     </script>
 </body>
 </html>'''
@@ -1055,16 +474,6 @@ tr:hover td {
             insert_pos = html_content.find('</pre>') + len('</pre>')
             html_content = html_content[:insert_pos] + '\n' + llm_link_html + html_content[insert_pos:]
 
-        # Add control cards section
-        cards_html = ['<h2>All Controls</h2>', '<div class="cards">']
-        for ctrl in self.controls:
-            display_name = ctrl['name'].replace('Daisy', '')
-            cards_html.append(f'''<a href="controls/{ctrl['html_name']}" class="card">
-    <h3>{display_name}</h3>
-    <p>{ctrl['name']}</p>
-</a>''')
-        cards_html.append('</div>')
-
         # Add footer with project links
         footer_html = '''
 <hr class="footer-separator">
@@ -1092,7 +501,7 @@ tr:hover td {
 </footer>
 '''
 
-        full_content = html_content + '\n' + '\n'.join(cards_html) + footer_html
+        full_content = html_content + footer_html
         page = self._page_template("Documentation", full_content, depth=0)
         (self.output_dir / "home.html").write_text(page, encoding='utf-8')
 
@@ -1112,15 +521,22 @@ tr:hover td {
         lines.append("```")
         lines.append("")
 
-        # Controls Overview
+        # Controls Overview (main controls only)
         lines.append("## Controls Overview")
         lines.append("")
         lines.append("| Control | Description |")
         lines.append("|---------|-------------|")
 
-        for ctrl in sorted(self.controls, key=lambda c: c['name']):
+        # Custom controls (Avalonia-specific, not in original DaisyUI)
+        custom_prefixes = ('Color', 'Weather', 'ModifierKeys', 'ComponentSidebar')
+        main_controls = [c for c in self.controls if not c.get('is_helper', False)]
+        helper_controls = [c for c in self.controls if c.get('is_helper', False)]
+
+        for ctrl in sorted(main_controls, key=lambda c: c['name']):
             name = ctrl['name']
             display_name = name.replace('Daisy', '')
+            is_custom = display_name.startswith(custom_prefixes)
+            badge = ' <sup>✦</sup>' if is_custom else ''
             # Try to extract description from the markdown file
             desc = f"{display_name} control"
             try:
@@ -1131,35 +547,77 @@ tr:hover td {
                 for line in content_clean.split('\n'):
                     line = line.strip()
                     if line and not line.startswith('#') and not line.startswith('|') and not line.startswith('-'):
-                        desc = line[:80] + "..." if len(line) > 80 else line
+                        desc = line
                         break
             except Exception:
                 pass
-            lines.append(f"| [{name}](controls/{name}.html) | {desc} |")
+            lines.append(f"| [{name}](controls/{name}.html){badge} | {desc} |")
+
+        # Helpers section
+        if helper_controls:
+            lines.append("")
+            lines.append("### Helper Classes")
+            lines.append("")
+            lines.append("| Class | Description |")
+            lines.append("|-------|-------------|")
+            for ctrl in sorted(helper_controls, key=lambda c: c['name']):
+                name = ctrl['name']
+                desc = f"{name.replace('Daisy', '')} helper"
+                try:
+                    content = ctrl['file'].read_text(encoding='utf-8')
+                    content_clean = re.sub(r'<!--.*?-->', '', content, flags=re.DOTALL)
+                    for line in content_clean.split('\n'):
+                        line = line.strip()
+                        if line and not line.startswith('#') and not line.startswith('|') and not line.startswith('-'):
+                            desc = line
+                            break
+                except Exception:
+                    pass
+                lines.append(f"| [{name}](controls/{name}.html) | {desc} |")
 
         lines.append("")
         lines.append("## Common Patterns")
         lines.append("")
-        lines.append("### Variants")
-        lines.append("Most controls support a `Variant` property:")
-        lines.append("- `Primary`, `Secondary`, `Accent` - Brand colors")
-        lines.append("- `Info`, `Success`, `Warning`, `Error` - Status colors")
-        lines.append("- `Neutral`, `Ghost`, `Link` - Subtle styles")
+        lines.append("### Shared Enums")
         lines.append("")
-        lines.append("### Sizes")
-        lines.append("Controls support a `Size` property:")
-        lines.append("`ExtraSmall`, `Small`, `Medium` (default), `Large`, `ExtraLarge`")
+        lines.append("**DaisyColor** - Theme colors used across many controls:")
+        lines.append("```")
+        lines.append("Default, Primary, Secondary, Accent, Neutral, Info, Success, Warning, Error")
+        lines.append("```")
+        lines.append("")
+        lines.append("**DaisySize** - Size variants:")
+        lines.append("```")
+        lines.append("ExtraSmall, Small, Medium (default), Large, ExtraLarge")
+        lines.append("```")
+        lines.append("")
+        lines.append("**DaisyPlacement** - Position options:")
+        lines.append("```")
+        lines.append("Top, Bottom, Start, End")
+        lines.append("```")
+        lines.append("")
+        lines.append("### Control-Specific Enums")
+        lines.append("")
+        lines.append("- **DaisyButtonStyle**: `Default`, `Outline`, `Dash`, `Soft`")
+        lines.append("- **DaisyButtonShape**: `Default`, `Wide`, `Block`, `Square`, `Circle`")
+        lines.append("- **DaisyMaskVariant**: `Squircle`, `Heart`, `Hexagon`, `Circle`, `Square`, `Diamond`, `Triangle`")
+        lines.append("- **DaisyAvatarShape**: `Square`, `Rounded`, `Circle`")
+        lines.append("- **DaisyStatus**: `None`, `Online`, `Offline`")
+        lines.append("- **DaisyAlertVariant**: `Info`, `Success`, `Warning`, `Error`")
+        lines.append("- **DaisyLoadingVariant**: `Spinner`, `Dots`, `Ring`, `Ball`, `Bars`, `Infinity`, `Orbit`, `Snake`, `Pulse`, `Wave`, `Bounce`, `Matrix`, `Hourglass`, `Heartbeat`, `CursorBlink`, ...")
+        lines.append("- **DaisyStatusIndicatorVariant**: `Default`, `Ping`, `Bounce`, `Pulse`, `Blink`, `Ripple`, `Heartbeat`, `Spin`, `Wave`, `Glow`, `Radar`, `Sonar`, `Beacon`, ...")
+        lines.append("- **WeatherCondition**: `Sunny`, `PartlyCloudy`, `Cloudy`, `Overcast`, `Mist`, `Fog`, `LightRain`, `Rain`, `HeavyRain`, `Drizzle`, `Showers`, `Thunderstorm`, `LightSnow`, `Snow`, `HeavySnow`, `Sleet`, `FreezingRain`, `Hail`, `Windy`, `Clear`")
+        lines.append("- **ColorSliderChannel**: `Red`, `Green`, `Blue`, `Alpha`, `Hue`, `Saturation`, `Lightness`")
         lines.append("")
         lines.append("### Theming")
+        lines.append("")
         lines.append("Use `DaisyThemeManager` to switch themes:")
         lines.append("```csharp")
         lines.append('DaisyThemeManager.ApplyTheme("dracula");')
         lines.append("```")
         lines.append("")
-        lines.append("Available themes: light, dark, cupcake, bumblebee, emerald, corporate,")
-        lines.append("synthwave, retro, cyberpunk, valentine, halloween, garden, forest,")
-        lines.append("aqua, lofi, pastel, fantasy, wireframe, black, luxury, dracula, cmyk,")
-        lines.append("autumn, business, acid, lemonade, night, coffee, winter, dim, nord, sunset")
+        lines.append("**Light themes:** acid, autumn, bumblebee, cmyk, corporate, cupcake, emerald, fantasy, garden, lemonade, light, lofi, nord, pastel, retro, valentine, winter, wireframe")
+        lines.append("")
+        lines.append("**Dark themes:** aqua, black, business, coffee, cyberpunk, dark, dim, dracula, forest, halloween, luxury, night, sunset, synthwave")
         lines.append("")
         return '\n'.join(lines)
 
@@ -1202,7 +660,7 @@ tr:hover td {
             if category:
                 # Breadcrumbs
                 nav_html += f'''<div class="breadcrumbs">
-    <a href="../home.html">Home</a> &gt; 
+    <a href="../home.html">Home</a> &gt;
     <a href="../categories/{category["html_name"]}">{category["name"]}</a>
 </div>'''
 
@@ -1237,7 +695,7 @@ tr:hover td {
 
             # Actually, let's keep it simple: Breadcrumbs top, Nav bottom
             breadcrumbs = f'''<div class="breadcrumbs">
-    <a href="../home.html">Home</a> &gt; 
+    <a href="../home.html">Home</a> &gt;
     <a href="../categories/{category["html_name"]}">{category["name"]}</a>
 </div>''' if category else f'<div class="breadcrumbs"><a href="../home.html">Home</a></div>'
 

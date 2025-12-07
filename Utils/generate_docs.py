@@ -1041,6 +1041,7 @@ class DocumentationGenerator:
             'colorpicker': 'DaisyColorPickerDialog',
             # Custom controls (from CustomControls.axaml)
             'modifierkeys': 'DaisyModifierKeys',
+            'weathericon': 'DaisyWeatherIcon',
             'weathercard': 'DaisyWeatherCard',
             'currentweather': 'DaisyWeatherCurrent',
             'weatherforecast': 'DaisyWeatherForecast',
@@ -1059,7 +1060,7 @@ class DocumentationGenerator:
             filepath = self.examples_dir / f"{stem}.axaml"
             if not filepath.exists():
                 continue
-                
+
             snippets = self.axaml_parser.parse_file(filepath)
 
             for snippet in snippets:

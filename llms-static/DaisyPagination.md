@@ -55,3 +55,7 @@ DaisyPagination renders joined page buttons with support for numeric and non-num
 - Use `ButtonStyle="Outline"` on colored backgrounds to avoid heavy fills.
 - Include `"..."` items as non-numeric separators; they remain disabled by default.
 - Keep button sizes consistent across the pagination bar; let `Size` handle padding and corner radii.
+
+## See Also
+
+- [DaisyPaginationItem](DaisyPaginationItem.html) - The individual page button control used within pagination
