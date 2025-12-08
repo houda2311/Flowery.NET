@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Flowery.NET\Flowery.NET.csproj" />
+    <ProjectReference Include="..\Flowery.Capture.NET\Flowery.Capture.NET.csproj" />
   </ItemGroup>
 
   <ItemGroup>
