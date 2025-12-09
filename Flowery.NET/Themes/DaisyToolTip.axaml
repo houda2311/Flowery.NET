@@ -35,19 +35,19 @@
     </Style>
     <Style Selector="ToolTip.info">
         <Setter Property="Background" Value="{DynamicResource DaisyInfoBrush}" />
-        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Foreground" Value="{DynamicResource DaisyInfoContentBrush}" />
     </Style>
     <Style Selector="ToolTip.success">
         <Setter Property="Background" Value="{DynamicResource DaisySuccessBrush}" />
-        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Foreground" Value="{DynamicResource DaisySuccessContentBrush}" />
     </Style>
     <Style Selector="ToolTip.warning">
         <Setter Property="Background" Value="{DynamicResource DaisyWarningBrush}" />
-        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Foreground" Value="{DynamicResource DaisyWarningContentBrush}" />
     </Style>
     <Style Selector="ToolTip.error">
         <Setter Property="Background" Value="{DynamicResource DaisyErrorBrush}" />
-        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Foreground" Value="{DynamicResource DaisyErrorContentBrush}" />
     </Style>
 
 </Styles>
