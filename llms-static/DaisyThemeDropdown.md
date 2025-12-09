@@ -21,6 +21,15 @@ This control uses `DaisyThemeManager` internally, which works with Avalonia's `T
 | ItemsSource | Auto-populated from `DaisyThemeManager.AvailableThemes` with preview brushes. |
 | Sync | Subscribes to `ThemeChanged` to update selection when themes change elsewhere. |
 
+## Initialization Behavior
+
+The dropdown automatically syncs to the current theme during construction:
+
+- If `DaisyThemeManager.CurrentThemeName` is already set (e.g., app restored theme from settings), the dropdown syncs to that theme **without re-applying it**.
+- If no theme is set yet, the dropdown defaults to "Dark" **without triggering `ApplyTheme`**.
+
+This ensures apps can restore persisted theme preferences before constructing UI controls without worrying about dropdowns overriding the saved theme.
+
 ## Quick Examples
 
 In your `.axaml` file (e.g., `MainWindow.axaml`), add the namespace and control:

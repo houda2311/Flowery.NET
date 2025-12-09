@@ -40,6 +40,7 @@ DaisyThemeLoader.ApplyThemeToApplication(theme);
 |--------|-------------|
 | `AvailableThemes` | Read-only list of `DaisyThemeInfo` (Name, IsDark) for all bundled themes. |
 | `ApplyTheme(string name)` | Loads `Themes/Palettes/Daisy{name}.axaml`, swaps the palette, updates `RequestedThemeVariant`, and raises `ThemeChanged`. Uses `CustomThemeApplicator` if set. |
+| `SuppressThemeApplication` | When true, `ApplyTheme` only updates internal state without actually applying. Use during initialization. |
 | `CustomThemeApplicator` | Optional `Func<string, bool>` delegate. When set, called instead of the default MergedDictionaries approach. |
 | `SetCurrentTheme(string name)` | Updates internal state and fires `ThemeChanged`. Used by custom applicators after applying a theme. |
 | `CurrentThemeName` | Name of the currently applied theme. |
@@ -68,9 +69,33 @@ var target = DaisyThemeManager.CurrentThemeName == DaisyThemeManager.BaseThemeNa
 DaisyThemeManager.ApplyTheme(target);
 ```
 
+## Initialization & Theme Suppression
+
+Theme controls like `DaisyThemeDropdown`, `DaisyThemeController`, and `DaisyThemeRadio` automatically sync to `CurrentThemeName` during construction. However, in complex scenarios with many controls or custom initialization order, you can use `SuppressThemeApplication` for explicit control:
+
+```csharp
+// In App.axaml.cs OnFrameworkInitializationCompleted:
+var savedTheme = LoadThemeFromSettings() ?? "Dark";
+
+// Option 1: Simple apps - just apply the theme first
+// Theme controls will sync to it automatically
+DaisyThemeManager.ApplyTheme(savedTheme);
+
+// Option 2: Complex apps - suppress during UI construction
+DaisyThemeManager.SuppressThemeApplication = true;
+DaisyThemeManager.ApplyTheme(savedTheme); // Only updates internal state
+
+// Create windows and controls...
+desktop.MainWindow = new MainWindow();
+
+// After initialization - now actually apply
+DaisyThemeManager.SuppressThemeApplication = false;
+DaisyThemeManager.ApplyTheme(savedTheme); // Actually applies
+```
+
 ## Custom Theme Applicator
 
-> Available since v1.0.9
+* Available since v1.0.9
 
 > 📖 **[Full Migration Example](../MigrationExample.md)** - Step-by-step guide for integrating Flowery.NET into existing apps with custom resources.
 

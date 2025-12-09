@@ -33,12 +33,51 @@ namespace Flowery.Controls
         }
 
         private static List<ThemePreviewInfo>? _cachedThemes;
+        private bool _isSyncing;
 
         public DaisyThemeDropdown()
         {
             var themes = GetThemeInfos();
             ItemsSource = themes;
-            SelectedIndex = themes.FindIndex(t => t.Name == "Dark");
+
+            // Sync to current theme if one is already set by the app
+            var currentTheme = DaisyThemeManager.CurrentThemeName;
+            if (!string.IsNullOrEmpty(currentTheme))
+            {
+                SyncToTheme(currentTheme!, themes);
+            }
+            else
+            {
+                // No theme set yet - use default without triggering ApplyTheme
+                _isSyncing = true;
+                try
+                {
+                    SelectedIndex = themes.FindIndex(t => t.Name == "Dark");
+                }
+                finally
+                {
+                    _isSyncing = false;
+                }
+            }
+        }
+
+        private void SyncToTheme(string themeName, List<ThemePreviewInfo>? themes = null)
+        {
+            themes ??= GetThemeInfos();
+            var match = themes.FirstOrDefault(t => string.Equals(t.Name, themeName, StringComparison.OrdinalIgnoreCase));
+            if (match != null && SelectedItem != match)
+            {
+                _isSyncing = true;
+                try
+                {
+                    SelectedItem = match;
+                    SelectedTheme = match.Name;
+                }
+                finally
+                {
+                    _isSyncing = false;
+                }
+            }
         }
 
         private static List<ThemePreviewInfo> GetThemeInfos()
@@ -85,7 +124,10 @@ namespace Flowery.Controls
             if (change.Property == SelectedItemProperty && change.NewValue is ThemePreviewInfo themeInfo)
             {
                 SelectedTheme = themeInfo.Name;
-                ApplyTheme(themeInfo);
+                if (!_isSyncing)
+                {
+                    ApplyTheme(themeInfo);
+                }
             }
         }
 
@@ -117,12 +159,7 @@ namespace Flowery.Controls
             var currentTheme = DaisyThemeManager.CurrentThemeName;
             if (string.IsNullOrEmpty(currentTheme)) return;
 
-            var themes = GetThemeInfos();
-            var match = themes.FirstOrDefault(t => string.Equals(t.Name, currentTheme, StringComparison.OrdinalIgnoreCase));
-            if (match != null && SelectedItem != match)
-            {
-                SelectedItem = match;
-            }
+            SyncToTheme(currentTheme!);
         }
     }
 }

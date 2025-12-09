@@ -35,6 +35,27 @@ namespace Flowery.Controls
         private static readonly Dictionary<string, DaisyThemeInfo> _themesByName;
 
         /// <summary>
+        /// When true, ApplyTheme calls only update internal state without actually applying the theme.
+        /// Use this during app initialization to prevent theme controls from overriding persisted themes.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// // During startup
+        /// DaisyThemeManager.SuppressThemeApplication = true;
+        ///
+        /// // Restore saved theme (updates internal state only)
+        /// DaisyThemeManager.ApplyTheme(savedTheme);
+        ///
+        /// // Create windows and controls...
+        ///
+        /// // After initialization - now actually apply
+        /// DaisyThemeManager.SuppressThemeApplication = false;
+        /// DaisyThemeManager.ApplyTheme(savedTheme); // Actually applies
+        /// </code>
+        /// </example>
+        public static bool SuppressThemeApplication { get; set; }
+
+        /// <summary>
         /// Optional custom theme applicator. When set, this delegate is called
         /// instead of the default MergedDictionaries approach. The delegate receives
         /// the theme name and should return true if the theme was applied successfully.
@@ -181,6 +202,13 @@ namespace Flowery.Controls
             // Skip if already applied
             if (string.Equals(_currentThemeName, themeInfo.Name, StringComparison.OrdinalIgnoreCase))
                 return true;
+
+            // When suppressed, only update internal state without applying
+            if (SuppressThemeApplication)
+            {
+                _currentThemeName = themeInfo.Name;
+                return true;
+            }
 
             // Use custom applicator if set
             if (CustomThemeApplicator != null)

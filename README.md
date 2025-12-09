@@ -38,65 +38,36 @@ This library provides native Avalonia controls that mimic the utility-first, sem
 
 📖 **[View the full documentation](https://tobitege.github.io/Flowery.NET/)** - Browse all controls with properties, enum values, and XAML usage examples.
 
-The documentation is generated from curated markdown (with optional auto-parsed metadata) and kept up-to-date via CI.
+## Quick Start
 
-## Installation
+1. Install the NuGet package:
 
-1. Add the NuGet package or project reference to `Flowery.NET`.
+```bash
+dotnet add package Flowery.NET
+```
 
-2. Configure your **`App.axaml`** with DaisyUITheme (and a base theme like FluentTheme if you're not using another):
+2. Add to your `App.axaml`:
 
 ```xml
-<Application xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:daisy="clr-namespace:Flowery;assembly=Flowery.NET"
-             x:Class="YourApp.App"
-             RequestedThemeVariant="Dark">
-    <!-- RequestedThemeVariant can be "Default", "Light", or "Dark" -->
-
-    <Application.Styles>
-        <FluentTheme />           <!-- Or another base theme (Semi, Material, etc.) -->
-        <daisy:DaisyUITheme />    <!-- Flowery.NET styles and themes -->
-    </Application.Styles>
-</Application>
+<Application.Styles>
+    <FluentTheme />
+    <daisy:DaisyUITheme />
+</Application.Styles>
 ```
 
-> **Note:** The `Flowery` namespace is only for `DaisyUITheme`. For actual controls, use `Flowery.Controls` (see Usage Example below).
-
-3. Your **`App.axaml.cs`** remains standard:
-
-```csharp
-public partial class App : Application
-{
-    public override void Initialize() => AvaloniaXamlLoader.Load(this);
-
-    public override void OnFrameworkInitializationCompleted()
-    {
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            desktop.MainWindow = new MainWindow();
-        base.OnFrameworkInitializationCompleted();
-    }
-}
-```
-
-## Usage Example
-
-The best way to explore the controls is to run the included **Gallery App**. It demonstrates every component, theme switching, and various configuration options.
-
-In your view files (e.g., `MainWindow.axaml`), add the controls namespace:
+3. Use controls in your views:
 
 ```xml
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET"
-        ...>
+xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET"
 
-    <StackPanel Spacing="10">
-        <controls:DaisyButton Content="Primary Button" Variant="Primary" />
-        <controls:DaisyInput Watermark="Type here" Variant="Bordered" />
-        <controls:DaisyRating Value="3.5" />
-    </StackPanel>
-</Window>
+<controls:DaisyButton Content="Primary Button" Variant="Primary" />
+<controls:DaisyInput Watermark="Type here" Variant="Bordered" />
+<controls:DaisyThemeDropdown Width="220" />
 ```
+
+📖 **[Full Installation & Theming Guide](THEMING.md)** - Detailed setup, theme switching, persistence, and custom theme loading.
+
+---
 
 ## Components
 
@@ -175,331 +146,83 @@ In your view files (e.g., `MainWindow.axaml`), add the controls namespace:
 
 ### Theme Controls
 
-- **Theme Swap** (`DaisyThemeSwap`): Toggle button to switch between light and dark themes with animated sun/moon icons.
-- **Theme Dropdown** (`DaisyThemeDropdown`): Dropdown to select from all 35 available DaisyUI themes at runtime.
-- **Theme Radio** (`DaisyThemeRadio`): Radio button to select a specific theme.
-- **Theme Controller** (`DaisyThemeController`): Flexible theme toggle with multiple presentation modes (Toggle, Checkbox, Swap, ToggleWithText, ToggleWithIcons). Automatically syncs with theme changes app-wide.
-- **Theme Manager** (`DaisyThemeManager`): Centralized static class for theme management. Provides `ApplyTheme()`, `CurrentThemeName`, `AvailableThemes`, and `ThemeChanged` event for app-wide synchronization.
-
-## Available Themes
-
-**Light Themes:** Light, Acid, Autumn, Bumblebee, Caramellatte, Cmyk, Corporate, Cupcake, Cyberpunk, Emerald, Fantasy, Garden, Lemonade, Lofi, Nord, Pastel, Retro, Silk, Valentine, Winter, Wireframe
-
-**Dark Themes:** Dark, Abyss, Aqua, Black, Business, Coffee, Dim, Dracula, Forest, Halloween, Luxury, Night, Sunset, Synthwave
+- **Theme Swap** (`DaisyThemeSwap`): Toggle button with animated sun/moon icons.
+- **Theme Dropdown** (`DaisyThemeDropdown`): Dropdown to select from all 35 themes.
+- **Theme Radio** (`DaisyThemeRadio`): Radio button for theme selection.
+- **Theme Controller** (`DaisyThemeController`): Flexible toggle with multiple modes (Toggle, Checkbox, Swap, ToggleWithText, ToggleWithIcons).
+- **Theme Manager** (`DaisyThemeManager`): Static class for programmatic theme control.
 
 ---
 
 ## ✨ Flowery.NET Exclusives
 
-> **Beyond DaisyUI**  -  The following features and controls are **not part of the original DaisyUI CSS specification**. They are unique to Flowery.NET, built natively for Avalonia to provide production-ready components for real-world .NET applications.
+> **Beyond DaisyUI**  -  The following features and controls are **not part of the original DaisyUI CSS specification**. They are unique to Flowery.NET, built natively for Avalonia.
 
 ### Accessibility
 
-Controls that convey state visually (loading indicators, progress bars, status dots) include built-in screen reader support via the `AccessibleText` property:
+Controls that convey state visually include built-in screen reader support via `AccessibleText`:
 
 ```xml
-<!-- Screen reader announces "Loading your profile" -->
 <daisy:DaisyLoading Variant="Spinner" AccessibleText="Loading your profile" />
-
-<!-- Auto-announces "Online" based on color; or customize -->
 <daisy:DaisyStatusIndicator Color="Success" />
-<daisy:DaisyStatusIndicator Color="Error" AccessibleText="Server offline" />
-
-<!-- Announces "Upload progress, 45%" -->
 <daisy:DaisyProgress Value="45" AccessibleText="Upload progress" />
 ```
 
-Supported controls: `DaisyLoading`, `DaisyProgress`, `DaisyRadialProgress`, `DaisyStatusIndicator`, `DaisyCountdown`, `DaisySkeleton`, `DaisyRating`.
+Supported: `DaisyLoading`, `DaisyProgress`, `DaisyRadialProgress`, `DaisyStatusIndicator`, `DaisyCountdown`, `DaisySkeleton`, `DaisyRating`.
 
 ### Utility Controls
 
-- **Component Sidebar** (`DaisyComponentSidebar`): A pre-built documentation/admin sidebar with categories, search support, and navigation events.
-- **Modifier Keys** (`DaisyModifierKeys`): Visualizes the state of keyboard modifiers (Shift, Ctrl, Alt) and locks (Caps, Num, Scroll).
+- **Component Sidebar** (`DaisyComponentSidebar`): Pre-built documentation/admin sidebar with categories and search.
+- **Modifier Keys** (`DaisyModifierKeys`): Visualizes keyboard modifiers (Shift, Ctrl, Alt) and locks.
 
 ### Color Picker Suite
 
-A complete suite of color selection components inspired by [Cyotek's ColorPicker](https://github.com/cyotek/Cyotek.Windows.Forms.ColorPicker), rebuilt natively for Avalonia with DaisyUI styling.
+A complete suite rebuilt natively for Avalonia with DaisyUI styling, inspired by [Cyotek's ColorPicker](https://github.com/cyotek/Cyotek.Windows.Forms.ColorPicker):
 
-- **Color Wheel** (`DaisyColorWheel`): Circular HSL color wheel for intuitive hue/saturation selection. Supports configurable lightness and optional center crosshairs.
-- **Color Grid** (`DaisyColorGrid`): Grid-based palette selector with configurable cell sizes and column count. Ships with a default paint-style palette.
-- **Color Slider** (`DaisyColorSlider`): Channel-specific sliders for **Red**, **Green**, **Blue**, **Alpha**, **Hue**, **Saturation**, and **Lightness**. Each renders a gradient showing the channel's range.
-- **Color Editor** (`DaisyColorEditor`): Comprehensive editor combining RGB/HSL sliders with numeric inputs. Supports optional alpha channel and HSL slider visibility.
-- **Screen Color Picker** (`DaisyScreenColorPicker`): Eyedropper tool using click-and-drag to sample colors from anywhere on screen (Windows only). Shows live preview during drag.
-- **Color Picker Dialog** (`DaisyColorPickerDialog`): Full-featured modal dialog combining wheel, grid, editor, and screen picker with OK/Cancel actions.
+- **Color Wheel** (`DaisyColorWheel`): Circular HSL color wheel.
+- **Color Grid** (`DaisyColorGrid`): Grid-based palette selector.
+- **Color Slider** (`DaisyColorSlider`): Channel-specific sliders (R/G/B/A/H/S/L).
+- **Color Editor** (`DaisyColorEditor`): Comprehensive RGB/HSL editor.
+- **Screen Color Picker** (`DaisyScreenColorPicker`): Eyedropper tool (Windows only).
+- **Color Picker Dialog** (`DaisyColorPickerDialog`): Full-featured modal dialog.
 
 ### Advanced Numeric Input
 
-- **Numeric Up/Down** (`DaisyNumericUpDown`): A numeric input control with spin buttons supporting **6 number bases** (Decimal, Hexadecimal, Binary, Octal, ColorHex, IPv4 Address). Features real-time input filtering, thousand separators, prefix/suffix display (e.g., `$`, `%`, `kg`), and visual error flash on invalid input. Includes helper methods like `ToHexString()`, `ToIPAddressString()`, and `ToColorHexString()` for runtime value conversion.
+- **Numeric Up/Down** (`DaisyNumericUpDown`): Numeric input with **6 number bases** (Decimal, Hex, Binary, Octal, ColorHex, IPv4). Features real-time filtering, thousand separators, prefix/suffix display.
 
 ### Weather Widgets
 
-A set of weather display widgets with animated condition icons, support for both manual binding and automatic data fetching via `IWeatherService`.
+Weather display widgets with animated condition icons:
 
-- **Weather Icon** (`DaisyWeatherIcon`): Animated weather condition icon with unique animations per condition type (sun rotation, cloud drift, rain drops, snow float, lightning flash, wind sway, fog fade). Toggle animations via `IsAnimated` property.
-- **Weather Card** (`DaisyWeatherCard`): Composite weather widget combining current conditions, forecast, and metrics. Supports auto-refresh and configurable sections (ShowCurrent, ShowForecast, ShowMetrics).
-- **Weather Current** (`DaisyWeatherCurrent`): Displays current temperature, feels-like, animated condition icon, and sunrise/sunset times.
-- **Weather Forecast** (`DaisyWeatherForecast`): Horizontal strip of daily forecasts with day name, animated condition icon, and high/low temperatures.
-- **Weather Metrics** (`DaisyWeatherMetrics`): Table display for UV index, wind speed, and humidity with progress bars.
+- **Weather Icon** (`DaisyWeatherIcon`): Animated weather condition icon.
+- **Weather Card** (`DaisyWeatherCard`): Composite widget with current, forecast, and metrics.
+- **Weather Current** (`DaisyWeatherCurrent`): Current temperature and conditions.
+- **Weather Forecast** (`DaisyWeatherForecast`): Daily forecast strip.
+- **Weather Metrics** (`DaisyWeatherMetrics`): UV, wind, humidity display.
 
 ```xml
-<!-- Standalone animated icon -->
-<controls:DaisyWeatherIcon Condition="Sunny" IconSize="48" />
-<controls:DaisyWeatherIcon Condition="Thunderstorm" IconSize="64" IsAnimated="True" />
-
-<!-- Standalone current weather (uses animated icon internally) -->
-<controls:DaisyWeatherCurrent Temperature="22" FeelsLike="24"
-    Condition="Sunny" TemperatureUnit="C" />
-
-<!-- Composite card with all sections -->
-<controls:DaisyWeatherCard Temperature="18" Condition="PartlyCloudy"
-    ShowForecast="True" ShowMetrics="True" />
+<controls:DaisyWeatherIcon Condition="Sunny" IconSize="48" IsAnimated="True" />
+<controls:DaisyWeatherCard Temperature="18" Condition="PartlyCloudy" ShowForecast="True" />
 ```
 
 ---
----
-
-## Theme Controller
-
-The `DaisyThemeController` provides multiple ways to toggle between two themes, mimicking the DaisyUI theme-controller component:
-
-```xml
-<!-- Simple toggle switch -->
-<controls:DaisyThemeController Mode="Toggle" />
-
-<!-- Checkbox style -->
-<controls:DaisyThemeController Mode="Checkbox" />
-
-<!-- Animated sun/moon swap -->
-<controls:DaisyThemeController Mode="Swap" />
-
-<!-- Toggle with text labels -->
-<controls:DaisyThemeController Mode="ToggleWithText"
-    UncheckedTheme="Light" CheckedTheme="Synthwave"
-    UncheckedLabel="Light" CheckedLabel="Synthwave" />
-
-<!-- Toggle with sun/moon icons -->
-<controls:DaisyThemeController Mode="ToggleWithIcons" />
-```
-
-When the app's theme changes (e.g., via `DaisyThemeDropdown`), the controller automatically updates its `CheckedTheme`and`CheckedLabel` to reflect the new theme.
-
-## How Theming Works
-
-Flowery.NET uses Avalonia's `ThemeDictionaries` to provide seamless theme switching. Understanding this architecture helps you choose the right API for your needs.
-
-### Theme Architecture
-
-1. **Colors.axaml** contains `ResourceDictionary.ThemeDictionaries` with `Light` and `Dark` variants
-2. Setting `Application.RequestedThemeVariant` triggers Avalonia's built-in resource refresh
-3. For the 35 built-in themes, each is mapped to either `Light` or `Dark` variant with its unique color palette
-
-### When to Use Which API
-
-| Scenario | Recommended API |
-|----------|-----------------|
-| Switch between built-in themes (Light, Dark, Dracula, etc.) | `DaisyThemeManager.ApplyTheme()` |
-| **Custom theme application strategy** (in-place updates, persistence) | **Set `DaisyThemeManager.CustomThemeApplicator`** |
-| Toggle Light/Dark modes | `RequestedThemeVariant = ThemeVariant.Light/Dark` |
-| Load custom themes from CSS at runtime | `DaisyThemeLoader.ApplyThemeToApplication()` |
-| Parse DaisyUI CSS files | `DaisyUiCssParser.ParseFile()` |
-
-### Key Difference
-
-- **`DaisyThemeManager.ApplyTheme()`** - Adds palette resources to `MergedDictionaries` and sets the appropriate `RequestedThemeVariant`. Best for switching between the 35 built-in themes.
-- **`DaisyThemeLoader.ApplyThemeToApplication()`** - Updates resources in-place within ThemeDictionaries. Use this for custom themes loaded from CSS files at runtime.
-
-### Quick Start Examples
-
-**Switch between built-in themes** (in any code-behind or ViewModel):
-
-```csharp
-using Flowery.Controls;
-
-// One-liner to switch themes - call from button click, menu, etc.
-DaisyThemeManager.ApplyTheme("Synthwave");
-```
-
-**Or use XAML controls** (in your `.axaml` files like `MainWindow.axaml`):
-
-```xml
-<!-- Add namespace at top of file -->
-xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET"
-
-<!-- Drop-in theme switcher - no code-behind needed -->
-<controls:DaisyThemeDropdown Width="220" />
-
-<!-- Or a simple toggle -->
-<controls:DaisyThemeController Mode="Swap" />
-```
-
-**Load custom CSS themes at runtime** (in code-behind):
-
-```csharp
-using Flowery.Theming;
-
-// Parse a DaisyUI CSS file and apply it immediately
-var theme = DaisyUiCssParser.ParseFile("path/to/mytheme.css");
-DaisyThemeLoader.ApplyThemeToApplication(theme);
-```
-
-This is the same pattern used in the Gallery app's "CSS Theme Converter" demo.
-
-## Theme Manager
-
-`DaisyThemeManager` provides simple theme switching for the 35 built-in DaisyUI themes. It works best when using the pre-bundled themes and handles the complexity of palette loading and variant selection automatically.
-
-```csharp
-using Flowery.Controls;
-
-// Apply a theme by name
-DaisyThemeManager.ApplyTheme("Synthwave");
-
-// Get current theme
-var current = DaisyThemeManager.CurrentThemeName;
-
-// List all available themes
-foreach (var theme in DaisyThemeManager.AvailableThemes)
-{
-    Console.WriteLine($"{theme.Name} (Dark: {theme.IsDark})");
-}
-
-// Listen for theme changes
-DaisyThemeManager.ThemeChanged += (sender, themeName) =>
-{
-    Console.WriteLine($"Theme changed to: {themeName}");
-};
-
-// Check if a theme is dark
-bool isDark = DaisyThemeManager.IsDarkTheme("Dracula");
-```
-
-### Custom Theme Applicator (v1.0.9+)
-
-> 📖 **[Full Migration Guide](https://tobitege.github.io/Flowery.NET/#MigrationExample)** - Step-by-step guide for integrating Flowery.NET into existing apps with custom resources.
-
-If your app has a custom theming architecture (e.g., in-place `ThemeDictionary` updates, persisting theme settings, or chaining additional actions), you can override the default theme application behavior by setting `CustomThemeApplicator`:
-
-```csharp
-// In App.axaml.cs OnFrameworkInitializationCompleted:
-DaisyThemeManager.CustomThemeApplicator = themeName =>
-{
-    var themeInfo = DaisyThemeManager.GetThemeInfo(themeName);
-    if (themeInfo == null) return false;
-    
-    // Your custom theme application logic here
-    // e.g., in-place ThemeDictionary updates, settings persistence, etc.
-    
-    MyApp.ApplyThemeInPlace(themeInfo);
-    AppSettings.Current.Theme = themeName;
-    AppSettings.Save();
-    
-    return true;
-};
-```
-
-Once set, **all** built-in theme controls (`DaisyThemeDropdown`, `DaisyThemeController`, `DaisyThemeRadio`, `DaisyThemeSwap`) will automatically use your custom applicator instead of the default `MergedDictionaries` approach. This means you can drop in any Flowery.NET theme control without modification - they'll all respect your app's theming strategy.
-
-## Optional Features
-
-### Theme Parsing & Generation Utilities
-
-The library includes helper utilities for parsing DaisyUI CSS theme files and generating Avalonia AXAML resources. These are **not wired up by default** but can be used for custom theme workflows.
-
-#### Parse a DaisyUI CSS Theme File
-
-```csharp
-using Flowery.Theming;
-
-// Parse a single CSS file
-var theme = DaisyUiCssParser.ParseFile("path/to/synthwave.css");
-
-// Or parse from string
-var cssContent = File.ReadAllText("mytheme.css");
-var customTheme = DaisyUiCssParser.Parse(cssContent, "mytheme");
-
-// Access parsed data
-Console.WriteLine($"Theme: {theme.Name}, IsDark: {theme.IsDark}");
-foreach (var color in theme.Colors)
-{
-    Console.WriteLine($"  {color.Key}: {color.Value}");
-}
-```
-
-#### Generate AXAML from Parsed Theme
-
-```csharp
-using Flowery.Theming;
-
-var theme = DaisyUiCssParser.ParseFile("dracula.css");
-
-// Generate single theme AXAML
-var axaml = DaisyUiAxamlGenerator.Generate(theme);
-File.WriteAllText("Themes/Palettes/Dracula.axaml", axaml);
-
-// Generate combined Light/Dark AXAML with ThemeDictionaries
-var lightTheme = DaisyUiCssParser.ParseFile("corporate.css");
-var darkTheme = DaisyUiCssParser.ParseFile("business.css");
-var combinedAxaml = DaisyUiAxamlGenerator.GenerateCombined(lightTheme, darkTheme);
-File.WriteAllText("Themes/Colors.axaml", combinedAxaml);
-```
-
-#### Runtime Theme Loading
-
-```csharp
-using Flowery.Theming;
-
-// Create a loader instance
-var loader = new DaisyThemeLoader();
-
-// Load themes from a directory
-loader.LoadFromDirectory("themes/");
-
-// Or load individual files
-loader.LoadFromFile("custom/mytheme.css");
-
-// Get a loaded theme by name
-var synthwave = loader.GetTheme("synthwave");
-if (synthwave != null)
-{
-    // Apply theme to the application at runtime
-    DaisyThemeLoader.ApplyThemeToApplication(synthwave);
-}
-
-// Export a theme to AXAML for embedding
-var axaml = DaisyThemeLoader.ExportToAxaml(synthwave);
-```
-
-#### Color Conversion
-
-```csharp
-using Flowery.Theming;
-
-// Convert OKLCH (used by DaisyUI CSS) to Hex
-var hex = ColorConverter.OklchToHex("65.69% 0.196 275.75");
-// Result: "#5B21B6"
-
-// Parse hex to RGB
-var (r, g, b) = ColorConverter.HexToRgb("#5B21B6");
-```
 
 ## Control Template Guidelines
 
-For contributors creating or modifying control templates, follow these architectural patterns to ensure consistent behavior:
+For contributors creating or modifying control templates:
 
 ### Background Border Architecture
 
-Background borders should be **siblings** of content, not parents. This prevents opacity issues where styling the border would inadvertently affect text readability.
+Background borders should be **siblings** of content, not parents:
 
 ```xml
-<!-- ✅ Correct: Border and content are siblings in a Panel -->
+<!-- ✅ Correct: Border and content are siblings -->
 <Panel>
-    <Border x:Name="PART_Background"
-            Background="{TemplateBinding Background}"
-            BorderBrush="{TemplateBinding BorderBrush}" />
+    <Border x:Name="PART_Background" Background="{TemplateBinding Background}" />
     <ContentPresenter Content="{TemplateBinding Content}" />
 </Panel>
 
-<!-- ❌ Avoid: Content nested inside the border -->
+<!-- ❌ Avoid: Content nested inside border -->
 <Border Background="{TemplateBinding Background}">
     <ContentPresenter Content="{TemplateBinding Content}" />
 </Border>
@@ -507,35 +230,32 @@ Background borders should be **siblings** of content, not parents. This prevents
 
 ### Opacity Guidelines
 
-- **Never** set `Opacity` on containers that hold text content
-- Use separate background layers for disabled/hover states that require transparency
-- For disabled states, reduce opacity on `PART_Background` only, keeping text at full opacity
+- **Never** set `Opacity` on containers holding text
+- Use separate background layers for disabled/hover states
+- For disabled states, reduce opacity on `PART_Background` only
 
-This pattern is used by `DaisyButton`, `DaisyInput`, and other controls to maintain text legibility across all states.
+---
 
 ## Technical Requirements
 
-To use the library in your project:
+**To use the library:**
 
-- **.NET Standard 2.0** compatible framework (.NET Core 2.0+, .NET Framework 4.6.1+, .NET 5/6/7/8+).
-- **Avalonia UI 11.0+**.
+- .NET Standard 2.0 compatible framework (.NET Core 2.0+, .NET Framework 4.6.1+, .NET 5/6/7/8+)
+- Avalonia UI 11.0+
 
-To build and run the source code/gallery:
+**To build from source:**
 
-- **.NET 8.0 SDK** or later.
-- **Visual Studio 2022**, JetBrains Rider, or VS Code.
-- Supports Windows, macOS, and Linux.
+- .NET 8.0 SDK or later
+- Visual Studio 2022, JetBrains Rider, or VS Code
+- Windows, macOS, or Linux
 
 ## Windows SmartScreen Warning
 
-When running the Gallery app for the first time on Windows, you may see a "Windows protected your PC" SmartScreen warning. This appears because the app is not code-signed (certificates are expensive 💸).
+When running the Gallery app for the first time, you may see a SmartScreen warning (app is not code-signed).
 
-**To run anyway:**
+**To run:** Click "More info" → "Run anyway"
 
-1. Click **"More info"**
-2. Click **"Run anyway"**
-
-Alternatively: Right-click the `.exe` → **Properties** → Check **"Unblock"** → **OK**
+Or: Right-click `.exe` → Properties → Check "Unblock" → OK
 
 ## License
 
@@ -553,11 +273,9 @@ See [CHANGELOG.md](CHANGELOG.md) for version history and release notes.
 
 ## Credits & References
 
-This project is built upon and inspired by the following amazing projects:
-
 - [**Avalonia UI**](https://avaloniaui.net/) - The cross-platform UI framework.
-- [**DaisyUI**](https://daisyui.com/) - The original Tailwind CSS component library that inspired this port.
+- [**DaisyUI**](https://daisyui.com/) - The original Tailwind CSS component library.
 - [**Avalonia.Fonts.Inter**](https://www.nuget.org/packages/Avalonia.Fonts.Inter) - The font used in the gallery.
-- [**Cyotek ColorPicker**](https://github.com/cyotek/Cyotek.Windows.Forms.ColorPicker) - The color picker controls are inspired by Cyotek's excellent Windows Forms ColorPicker library (MIT License).
+- [**Cyotek ColorPicker**](https://github.com/cyotek/Cyotek.Windows.Forms.ColorPicker) - Inspiration for color picker controls.
 
 > **Disclaimer:** This project is not affiliated with, endorsed by, or sponsored by any of the above.

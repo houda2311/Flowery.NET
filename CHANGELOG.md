@@ -6,6 +6,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-12-09
+
+### Added
+
+- DaisyThemeManager: `SuppressThemeApplication` property to prevent theme controls from overriding persisted themes during app initialization
+
+### Fixed
+
+- DaisyThemeDropdown: Constructor no longer overrides app's persisted theme preference. Dropdowns now sync to `CurrentThemeName` instead of applying "Dark" during construction.
+
 ## [1.0.9] - 2025-12-09
 
 ### Added
@@ -128,6 +138,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Custom controls: ComponentSidebar, ModifierKeys
 - Gallery demo application
 
+[1.1.0]: https://github.com/tobitege/Flowery.NET/compare/v1.0.9...v1.1.0
 [1.0.9]: https://github.com/tobitege/Flowery.NET/compare/v1.0.8...v1.0.9
 [1.0.8]: https://github.com/tobitege/Flowery.NET/compare/v1.0.7...v1.0.8
 [1.0.7]: https://github.com/tobitege/Flowery.NET/compare/v1.0.6...v1.0.7
