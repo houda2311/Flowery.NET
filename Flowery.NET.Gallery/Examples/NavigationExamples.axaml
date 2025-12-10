@@ -1020,9 +1020,14 @@
                 <!-- Tabs -->
                 <StackPanel Spacing="12">
                     <local:SectionHeader SectionId="tabs" Title="Tabs" />
+                    <TextBlock Text="Tabs are used to show different content in a tabbed interface"
+                        Opacity="0.7" FontSize="13" />
+
+                    <!-- Tab Variants -->
+                    <TextBlock Text="Variants" FontWeight="SemiBold" Margin="0,8,0,0" />
                     <WrapPanel Orientation="Horizontal">
                         <StackPanel Spacing="10" Margin="0,0,20,10">
-                            <TextBlock Text="None" FontSize="12" Opacity="0.7"/>
+                            <TextBlock Text="None (text only)" FontSize="12" Opacity="0.7" />
                             <controls:DaisyTabs Variant="None">
                                 <TabItem Header="Tab 1">
                                     <TextBlock Text="Content 1" Padding="10"/>
@@ -1034,7 +1039,7 @@
                         </StackPanel>
 
                         <StackPanel Spacing="10" Margin="0,0,20,10">
-                            <TextBlock Text="Bordered" FontSize="12" Opacity="0.7"/>
+                            <TextBlock Text="Bordered (default)" FontSize="12" Opacity="0.7" />
                             <controls:DaisyTabs Variant="Bordered">
                                 <TabItem Header="Tab 1">
                                     <TextBlock Text="Content 1" Padding="10"/>
@@ -1046,7 +1051,7 @@
                         </StackPanel>
 
                         <StackPanel Spacing="10" Margin="0,0,20,10">
-                            <TextBlock Text="Lifted" FontSize="12" Opacity="0.7"/>
+                            <TextBlock Text="Lifted (folder style)" FontSize="12" Opacity="0.7" />
                             <controls:DaisyTabs Variant="Lifted">
                                 <TabItem Header="Tab 1">
                                     <TextBlock Text="Content 1" Padding="10"/>
@@ -1058,7 +1063,7 @@
                         </StackPanel>
 
                         <StackPanel Spacing="10" Margin="0,0,20,10">
-                            <TextBlock Text="Boxed" FontSize="12" Opacity="0.7"/>
+                            <TextBlock Text="Boxed (pill style)" FontSize="12" Opacity="0.7" />
                             <controls:DaisyTabs Variant="Boxed">
                                 <TabItem Header="Tab 1">
                                     <TextBlock Text="Content 1" Padding="10"/>
@@ -1069,6 +1074,175 @@
                             </controls:DaisyTabs>
                         </StackPanel>
                     </WrapPanel>
+
+                    <!-- Tab Sizes -->
+                    <TextBlock Text="Sizes" FontWeight="SemiBold" Margin="0,16,0,0" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="10" Margin="0,0,20,10">
+                            <TextBlock Text="Extra Small" FontSize="12" Opacity="0.7" />
+                            <controls:DaisyTabs Variant="Boxed" Size="ExtraSmall">
+                                <TabItem Header="Tab 1">
+                                    <TextBlock Text="XS" Padding="8" />
+                                </TabItem>
+                                <TabItem Header="Tab 2">
+                                    <TextBlock Text="XS" Padding="8" />
+                                </TabItem>
+                            </controls:DaisyTabs>
+                        </StackPanel>
+
+                        <StackPanel Spacing="10" Margin="0,0,20,10">
+                            <TextBlock Text="Small" FontSize="12" Opacity="0.7" />
+                            <controls:DaisyTabs Variant="Boxed" Size="Small">
+                                <TabItem Header="Tab 1">
+                                    <TextBlock Text="Small" Padding="8" />
+                                </TabItem>
+                                <TabItem Header="Tab 2">
+                                    <TextBlock Text="Small" Padding="8" />
+                                </TabItem>
+                            </controls:DaisyTabs>
+                        </StackPanel>
+
+                        <StackPanel Spacing="10" Margin="0,0,20,10">
+                            <TextBlock Text="Medium (default)" FontSize="12" Opacity="0.7" />
+                            <controls:DaisyTabs Variant="Boxed" Size="Medium">
+                                <TabItem Header="Tab 1">
+                                    <TextBlock Text="Medium" Padding="8" />
+                                </TabItem>
+                                <TabItem Header="Tab 2">
+                                    <TextBlock Text="Medium" Padding="8" />
+                                </TabItem>
+                            </controls:DaisyTabs>
+                        </StackPanel>
+
+                        <StackPanel Spacing="10" Margin="0,0,20,10">
+                            <TextBlock Text="Large" FontSize="12" Opacity="0.7" />
+                            <controls:DaisyTabs Variant="Boxed" Size="Large">
+                                <TabItem Header="Tab 1">
+                                    <TextBlock Text="Large" Padding="8" />
+                                </TabItem>
+                                <TabItem Header="Tab 2">
+                                    <TextBlock Text="Large" Padding="8" />
+                                </TabItem>
+                            </controls:DaisyTabs>
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <!-- Tab Width Modes -->
+                    <TextBlock Text="Tab Width Modes" FontWeight="SemiBold" Margin="0,16,0,0" />
+                    <TextBlock
+                        Text="Control tab sizing behavior to prevent layout shifts or create uniform navigation"
+                        Opacity="0.7" FontSize="13" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="10" Margin="0,0,20,10">
+                            <TextBlock Text="Auto (default)" FontSize="12" Opacity="0.7" />
+                            <controls:DaisyTabs Variant="Boxed" TabWidthMode="Auto">
+                                <TabItem Header="Short">
+                                    <TextBlock Text="Content 1" Padding="10" />
+                                </TabItem>
+                                <TabItem Header="Medium Tab">
+                                    <TextBlock Text="Content 2" Padding="10" />
+                                </TabItem>
+                                <TabItem Header="Longer Tab Name">
+                                    <TextBlock Text="Content 3" Padding="10" />
+                                </TabItem>
+                            </controls:DaisyTabs>
+                        </StackPanel>
+
+                        <StackPanel Spacing="10" Margin="0,0,20,10">
+                            <TextBlock Text="Equal (all same width)" FontSize="12" Opacity="0.7" />
+                            <controls:DaisyTabs Variant="Boxed" TabWidthMode="Equal">
+                                <TabItem Header="Short">
+                                    <TextBlock Text="Content 1" Padding="10" />
+                                </TabItem>
+                                <TabItem Header="Medium Tab">
+                                    <TextBlock Text="Content 2" Padding="10" />
+                                </TabItem>
+                                <TabItem Header="Longer Tab Name">
+                                    <TextBlock Text="Content 3" Padding="10" />
+                                </TabItem>
+                            </controls:DaisyTabs>
+                        </StackPanel>
+
+                        <StackPanel Spacing="10" Margin="0,0,20,10">
+                            <TextBlock Text="Fixed (100px each)" FontSize="12" Opacity="0.7" />
+                            <controls:DaisyTabs Variant="Boxed" TabWidthMode="Fixed" TabWidth="100">
+                                <TabItem Header="Tab 1">
+                                    <TextBlock Text="Content 1" Padding="10" />
+                                </TabItem>
+                                <TabItem Header="Tab 2">
+                                    <TextBlock Text="Content 2" Padding="10" />
+                                </TabItem>
+                                <TabItem Header="Tab 3">
+                                    <TextBlock Text="Content 3" Padding="10" />
+                                </TabItem>
+                            </controls:DaisyTabs>
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <!-- Tab Width Constraints -->
+                    <TextBlock Text="Width Constraints" FontWeight="SemiBold" Margin="0,16,0,0" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="10" Margin="0,0,20,10">
+                            <TextBlock Text="With MaxWidth (120px)" FontSize="12" Opacity="0.7" />
+                            <controls:DaisyTabs Variant="Bordered" TabMaxWidth="120">
+                                <TabItem Header="Short">
+                                    <TextBlock Text="Content" Padding="4" />
+                                </TabItem>
+                                <TabItem
+                                    Header="This is a very long tab header that will be truncated">
+                                    <TextBlock Text="Content" Padding="4" />
+                                </TabItem>
+                                <TabItem Header="Normal">
+                                    <TextBlock Text="Content" Padding="4" />
+                                </TabItem>
+                            </controls:DaisyTabs>
+                        </StackPanel>
+
+                        <StackPanel Spacing="10" Margin="0,0,20,10">
+                            <TextBlock Text="With MinWidth (80px)" FontSize="12" Opacity="0.7" />
+                            <controls:DaisyTabs Variant="Lifted" TabMinWidth="80">
+                                <TabItem Header="A">
+                                    <TextBlock Text="Content" Padding="4" />
+                                </TabItem>
+                                <TabItem Header="B">
+                                    <TextBlock Text="Content" Padding="4" />
+                                </TabItem>
+                                <TabItem Header="C">
+                                    <TextBlock Text="Content" Padding="4" />
+                                </TabItem>
+                            </controls:DaisyTabs>
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <!-- Real-World Example -->
+                    <TextBlock Text="Real-World Example" FontWeight="SemiBold" Margin="0,16,0,0" />
+                    <StackPanel Spacing="10">
+                        <TextBlock
+                            Text="App-style navigation with Equal width (prevents layout shift when switching tabs)"
+                            FontSize="12" Opacity="0.7" />
+                        <controls:DaisyTabs Variant="Boxed" TabWidthMode="Equal" Size="Small">
+                            <TabItem Header="Converter">
+                                <TextBlock Text="Color converter content..." Padding="16"
+                                    Opacity="0.7" />
+                            </TabItem>
+                            <TabItem Header="Palette">
+                                <TextBlock Text="Palette generator content..." Padding="16"
+                                    Opacity="0.7" />
+                            </TabItem>
+                            <TabItem Header="Gradients">
+                                <TextBlock Text="Gradient editor content..." Padding="16"
+                                    Opacity="0.7" />
+                            </TabItem>
+                            <TabItem Header="Accessibility">
+                                <TextBlock Text="Contrast checker content..." Padding="16"
+                                    Opacity="0.7" />
+                            </TabItem>
+                            <TabItem Header="Shades">
+                                <TextBlock Text="Shade generator content..." Padding="16"
+                                    Opacity="0.7" />
+                            </TabItem>
+                        </controls:DaisyTabs>
+                    </StackPanel>
                 </StackPanel>
 
             </StackPanel>

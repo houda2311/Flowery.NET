@@ -20,6 +20,30 @@
                      <TabItem Header="Tab 1"><TextBlock Text="Content 1" Margin="8"/></TabItem>
                      <TabItem Header="Tab 2"><TextBlock Text="Content 2" Margin="8"/></TabItem>
                  </controls:DaisyTabs>
+                <TextBlock Text="Equal Width Tabs" Foreground="White" />
+                <controls:DaisyTabs Variant="Boxed" TabWidthMode="Equal">
+                    <TabItem Header="Short">
+                        <TextBlock Text="Content 1" Margin="8" />
+                    </TabItem>
+                    <TabItem Header="Much Longer Tab">
+                        <TextBlock Text="Content 2" Margin="8" />
+                    </TabItem>
+                    <TabItem Header="Med">
+                        <TextBlock Text="Content 3" Margin="8" />
+                    </TabItem>
+                </controls:DaisyTabs>
+                <TextBlock Text="Fixed Width (100px)" Foreground="White" />
+                <controls:DaisyTabs Variant="Boxed" TabWidthMode="Fixed" TabWidth="100">
+                    <TabItem Header="Tab 1">
+                        <TextBlock Text="Content 1" Margin="8" />
+                    </TabItem>
+                    <TabItem Header="Tab 2">
+                        <TextBlock Text="Content 2" Margin="8" />
+                    </TabItem>
+                    <TabItem Header="Tab 3">
+                        <TextBlock Text="Content 3" Margin="8" />
+                    </TabItem>
+                </controls:DaisyTabs>
              </StackPanel>
         </Border>
     </Design.PreviewWith>
@@ -131,6 +155,9 @@
 
     <!-- ==================== BOXED VARIANT ==================== -->
     <!-- Rounded container with visible border on selected -->
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem">
+        <Setter Property="FontWeight" Value="Medium" />
+    </Style>
     <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem /template/ Border#PART_LayoutRoot">
         <Setter Property="CornerRadius" Value="8" />
         <Setter Property="BorderThickness" Value="2" />
@@ -143,9 +170,6 @@
         <Setter Property="BorderBrush" Value="{DynamicResource DaisyPrimaryBrush}" />
         <Setter Property="Background" Value="Transparent" />
     </Style>
-    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem:selected">
-        <Setter Property="FontWeight" Value="Medium" />
-    </Style>
     <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem:selected:pointerover /template/ Border#PART_LayoutRoot">
         <Setter Property="BorderBrush" Value="{DynamicResource DaisyPrimaryBrush}" />
         <Setter Property="Background" Value="Transparent" />
@@ -153,6 +177,9 @@
 
     <!-- ==================== LIFTED VARIANT ==================== -->
     <!-- Folder-tab style: border on top/sides only, selected has background -->
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem">
+        <Setter Property="FontWeight" Value="Medium" />
+    </Style>
     <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem /template/ Border#PART_LayoutRoot">
         <Setter Property="CornerRadius" Value="8,8,0,0" />
         <Setter Property="BorderThickness" Value="1,1,1,0" />
@@ -166,9 +193,6 @@
     <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem:selected /template/ Border#PART_LayoutRoot">
         <Setter Property="BorderBrush" Value="{DynamicResource DaisyBase300Brush}" />
         <Setter Property="Background" Value="{DynamicResource DaisyBase100Brush}" />
-    </Style>
-    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem:selected">
-        <Setter Property="FontWeight" Value="Medium" />
     </Style>
     <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem:selected:pointerover /template/ Border#PART_LayoutRoot">
         <Setter Property="BorderBrush" Value="{DynamicResource DaisyBase300Brush}" />
