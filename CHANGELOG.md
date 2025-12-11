@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Gallery: New "Date Display" section with DateTimeline and Timeline examples
 - DaisyIcons: Added DaisyIconDateDisplay (calendar icon)
 
+![DaisyDateTimeline Examples](https://tobitege.github.io/Flowery.NET/images/DaisyDateTimeline.png)
+
 ### Changed
 
 - Gallery: Moved Timeline examples from "Data Display" to new "Date Display" section
