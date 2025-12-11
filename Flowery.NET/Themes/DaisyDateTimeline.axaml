@@ -328,21 +328,21 @@
     <!-- Change StackPanel to horizontal, hide month, adjust sizing -->
     <Style Selector="controls|DaisyDateTimelineItem[Layout=Horizontal]">
         <!-- Wider width for horizontal layout -->
-        <Setter Property="MinWidth" Value="100" />
+        <Setter Property="MinWidth" Value="90" />
         <Setter Property="MinHeight" Value="48" />
-        <Setter Property="Padding" Value="16,8" />
+        <Setter Property="Padding" Value="8,8" />
     </Style>
     
     <Style Selector="controls|DaisyDateTimelineItem[Layout=Horizontal] /template/ StackPanel">
         <Setter Property="Orientation" Value="Horizontal" />
         <Setter Property="Spacing" Value="6" />
     </Style>
-    
+
     <!-- Hide month name in horizontal layout -->
     <Style Selector="controls|DaisyDateTimelineItem[Layout=Horizontal] /template/ TextBlock#PART_MonthName">
         <Setter Property="IsVisible" Value="False" />
     </Style>
-    
+
     <!-- Reorder: Day name comes first, same size as day number -->
     <Style Selector="controls|DaisyDateTimelineItem[Layout=Horizontal] /template/ TextBlock#PART_DayName">
         <Setter Property="FontSize" Value="14" />
@@ -350,7 +350,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Opacity" Value="0.7" />
     </Style>
-    
+
     <!-- Day number is prominent -->
     <Style Selector="controls|DaisyDateTimelineItem[Layout=Horizontal] /template/ TextBlock#PART_DayNumber">
         <Setter Property="FontSize" Value="20" />

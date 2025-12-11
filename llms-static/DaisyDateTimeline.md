@@ -3,7 +3,7 @@
 
 # Overview
 
-DaisyDateTimeline is a **horizontal scrollable date picker** inspired by Flutter's [easy_date_timeline](https://github.com/FadyFayezYounan/easy_date_timeline) package. It displays dates in a horizontal strip where each date appears as a card showing the day name, day number, and month. Perfect for booking systems, scheduling apps, calendars, and any UI requiring date selection from a visible range.
+DaisyDateTimeline is a **horizontal scrollable date picker** inspired by FadyFayezYounan's [easy_date_timeline](https://github.com/FadyFayezYounan/easy_date_timeline) package. It displays dates in a horizontal strip where each date appears as a card showing the day name, day number, and month. Perfect for booking systems, scheduling apps, calendars, and any UI requiring date selection from a visible range.
 
 * Available in **DaisyUI v1.2.1** and later.
 
@@ -82,7 +82,7 @@ Configure which parts of each date item are shown using the `DisplayElements` fl
 
 ## Quick Examples
 
-```axaml
+```xml
 <!-- Basic usage with defaults -->
 <controls:DaisyDateTimeline />
 
@@ -257,7 +257,7 @@ Each date item can display the following visual states:
 
 3. **Combine with `DaisyCard`**: Wrap the timeline in a card for a polished booking widget:
 
-```axaml
+```xml
 <controls:DaisyCard>
     <StackPanel Spacing="12">
         <TextBlock Text="Select Date" FontWeight="SemiBold" />
@@ -268,7 +268,7 @@ Each date item can display the following visual states:
 
 4. **Locale support**: For international apps, bind `Locale` to a user preference:
 
-```axaml
+```xml
     <controls:DaisyDateTimeline Locale="{Binding UserCulture}" />
 ```
 

@@ -106,6 +106,10 @@ class MarkdownToHtml:
             # Convert .md to .html for local links (not http/https)
             if not url.startswith(('http://', 'https://')) and url.endswith('.md'):
                 url = url[:-3] + '.html'
+                return f'<a href="{url}">{text}</a>'
+            # External links open in new tab
+            if url.startswith(('http://', 'https://')):
+                return f'<a href="{url}" target="_blank" rel="noopener">{text}</a>'
             return f'<a href="{url}">{text}</a>'
         html = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', convert_link, html)
 
@@ -233,7 +237,7 @@ class SiteGenerator:
     """Generates static HTML site from markdown docs."""
     
     # Custom controls (Avalonia-specific, not in original DaisyUI)
-    CUSTOM_CONTROL_PREFIXES = ('Color', 'Weather', 'ModifierKeys', 'ComponentSidebar', 'NumericUpDown')
+    CUSTOM_CONTROL_PREFIXES = ('Color', 'DateTimeline', 'ModifierKeys', 'NumericUpDown', 'Weather', 'ComponentSidebar')
     
     # Standalone guide files (not control docs) to include in the sidebar
     GUIDE_FILES = ['MigrationExample.md', 'DesignTokens.md']

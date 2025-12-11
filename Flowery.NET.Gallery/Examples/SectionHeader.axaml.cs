@@ -63,6 +63,9 @@ public partial class SectionHeader : UserControl
         ["list"] = "DaisyList",
         ["stat"] = "DaisyStat",
         ["table"] = "DaisyTable",
+
+        // Date Display
+        ["date-timeline"] = "DaisyDateTimeline",
         ["timeline"] = "DaisyTimeline",
 
         // Navigation

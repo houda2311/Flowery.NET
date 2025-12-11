@@ -42,6 +42,7 @@ public partial class MainWindow : Window
             ["Data Input"] = () => new DataInputExamples(),
             ["Navigation"] = () => new NavigationExamples(),
             ["Data Display"] = () => new DataDisplayExamples(),
+            ["Date Display"] = () => new DateDisplayExamples(),
             ["Feedback"] = () => new FeedbackExamples(),
             ["Cards"] = () => new CardsExamples(),
             ["Divider"] = () => new DividerExamples(),

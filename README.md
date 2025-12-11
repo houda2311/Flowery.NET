@@ -177,7 +177,7 @@ Supported: `DaisyLoading`, `DaisyProgress`, `DaisyRadialProgress`, `DaisyStatusI
 
 ### Color Picker Suite
 
-A complete suite rebuilt natively for Avalonia with DaisyUI styling, inspired by [Cyotek's ColorPicker](https://github.com/cyotek/Cyotek.Windows.Forms.ColorPicker):
+A complete suite rebuilt natively for Avalonia with DaisyUI styling, inspired by Cyotek's `ColorPicker`:
 
 - **Color Wheel** (`DaisyColorWheel`): Circular HSL color wheel.
 - **Color Grid** (`DaisyColorGrid`): Grid-based palette selector.
@@ -186,9 +186,16 @@ A complete suite rebuilt natively for Avalonia with DaisyUI styling, inspired by
 - **Screen Color Picker** (`DaisyScreenColorPicker`): Eyedropper tool (Windows only).
 - **Color Picker Dialog** (`DaisyColorPickerDialog`): Full-featured modal dialog.
 
-### Advanced Numeric Input
+### Date Timeline
 
-- **Numeric Up/Down** (`DaisyNumericUpDown`): Numeric input with **6 number bases** (Decimal, Hex, Binary, Octal, ColorHex, IPv4). Features real-time filtering, thousand separators, prefix/suffix display.
+A horizontal scrollable date picker inspired by FadyFayezYounan's `easy_date_timeline`:
+
+- **Date Timeline** (`DaisyDateTimeline`): Scrollable date picker with selectable date items. Supports multiple header types (MonthYear, Switcher, None), sizes, disable strategies, and marked dates with tooltips.
+- **Date Timeline Item** (`DaisyDateTimelineItem`): Individual date cell with day name, date number, and month. Supports selection, disable states, and marker highlights.
+
+### Numeric Input
+
+- **Numeric Up/Down** (`DaisyNumericUpDown`): Advanced numeric input with **6 number bases** (Decimal, Hex, Binary, Octal, ColorHex, IPv4). Features real-time filtering, thousand separators, prefix/suffix display.
 
 ### Weather Widgets
 
@@ -277,5 +284,6 @@ See [CHANGELOG.md](CHANGELOG.md) for version history and release notes.
 - [**DaisyUI**](https://daisyui.com/) - The original Tailwind CSS component library.
 - [**Avalonia.Fonts.Inter**](https://www.nuget.org/packages/Avalonia.Fonts.Inter) - The font used in the gallery.
 - [**Cyotek ColorPicker**](https://github.com/cyotek/Cyotek.Windows.Forms.ColorPicker) - Inspiration for color picker controls.
+- [**Easy Date Timeline**](https://github.com/FadyFayezYounan/easy_date_timeline) - Inspiration for date timeline controls.
 
 > **Disclaimer:** This project is not affiliated with, endorsed by, or sponsored by any of the above.

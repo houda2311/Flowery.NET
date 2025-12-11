@@ -343,8 +343,17 @@ namespace Flowery.Controls
                         new SidebarItem { Id = "stat", Name = "Stat", TabHeader = "Data Display" },
                         new SidebarItem { Id = "status", Name = "Status", TabHeader = "Data Display" },
                         new SidebarItem { Id = "table", Name = "Table", TabHeader = "Data Display" },
-                        new SidebarItem { Id = "text-rotate", Name = "Text Rotate", TabHeader = "Data Display" },
-                        new SidebarItem { Id = "timeline", Name = "Timeline", TabHeader = "Data Display" }
+                        new SidebarItem { Id = "text-rotate", Name = "Text Rotate", TabHeader = "Data Display" }
+                    }
+                },
+                new SidebarCategory
+                {
+                    Name = "Date Display",
+                    IconKey = "DaisyIconDateDisplay",
+                    Items = new ObservableCollection<SidebarItem>
+                    {
+                        new SidebarItem { Id = "date-timeline", Name = "Date Timeline", TabHeader = "Date Display" },
+                        new SidebarItem { Id = "timeline", Name = "Timeline", TabHeader = "Date Display" }
                     }
                 },
                 new SidebarCategory
