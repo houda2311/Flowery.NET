@@ -23,6 +23,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Localization\FloweryStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>FloweryStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.3.9" />
     <PackageReference Include="Avalonia.Skia" Version="11.3.9" />
     <PackageReference Include="System.Text.Json" Version="8.0.5" />

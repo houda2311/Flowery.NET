@@ -2,6 +2,7 @@ using System;
 using Avalonia;
 using Avalonia.Automation.Peers;
 using Avalonia.Controls.Primitives;
+using Flowery.Localization;
 
 namespace Flowery.Controls
 {
@@ -151,18 +152,17 @@ namespace Flowery.Controls
 
         internal string GetDefaultAccessibleText()
         {
+            // Color-specific text is also localizable
             return Color switch
             {
-                DaisyColor.Success => "Online",
-                DaisyColor.Error => "Error",
-                DaisyColor.Warning => "Warning",
-                DaisyColor.Info => "Information",
-                DaisyColor.Primary => "Active",
-                DaisyColor.Secondary => "Secondary",
-                DaisyColor.Accent => "Highlighted",
-                DaisyColor.Neutral => DefaultAccessibleText,
-                DaisyColor.Default => DefaultAccessibleText,
-                _ => DefaultAccessibleText
+                DaisyColor.Success => FloweryLocalization.GetString("Accessibility_StatusOnline"),
+                DaisyColor.Error => FloweryLocalization.GetString("Accessibility_StatusError"),
+                DaisyColor.Warning => FloweryLocalization.GetString("Accessibility_StatusWarning"),
+                DaisyColor.Info => FloweryLocalization.GetString("Accessibility_StatusInfo"),
+                DaisyColor.Primary => FloweryLocalization.GetString("Accessibility_StatusActive"),
+                DaisyColor.Secondary => FloweryLocalization.GetString("Accessibility_StatusSecondary"),
+                DaisyColor.Accent => FloweryLocalization.GetString("Accessibility_StatusHighlighted"),
+                _ => FloweryLocalization.GetString("Accessibility_Status")
             };
         }
 

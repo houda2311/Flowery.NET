@@ -2,6 +2,7 @@ using System;
 using Avalonia;
 using Avalonia.Automation.Peers;
 using Avalonia.Controls.Primitives;
+using Flowery.Localization;
 
 namespace Flowery.Controls
 {
@@ -73,13 +74,15 @@ namespace Flowery.Controls
     /// </summary>
     public class DaisyLoading : TemplatedControl
     {
-        private const string DefaultAccessibleText = "Loading";
+        private const string DefaultAccessibleTextKey = "Accessibility_Loading";
+        private const string DefaultAccessibleTextFallback = "Loading";
 
         protected override Type StyleKeyOverride => typeof(DaisyLoading);
 
         static DaisyLoading()
         {
-            DaisyAccessibility.SetupAccessibility<DaisyLoading>(DefaultAccessibleText);
+            // Use fallback for static initialization; runtime will use localized string
+            DaisyAccessibility.SetupAccessibility<DaisyLoading>(DefaultAccessibleTextFallback);
         }
 
         /// <summary>
@@ -167,7 +170,8 @@ namespace Flowery.Controls
         protected override string? GetNameCore()
         {
             var loading = (DaisyLoading)Owner;
-            return DaisyAccessibility.GetEffectiveAccessibleText(loading, DefaultAccessibleText);
+            var localizedDefault = FloweryLocalization.GetString("Accessibility_Loading");
+            return DaisyAccessibility.GetEffectiveAccessibleText(loading, localizedDefault);
         }
 
         protected override bool IsContentElementCore() => true;

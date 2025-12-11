@@ -27,12 +27,12 @@
                         <Ellipse Grid.Row="2" Grid.Column="2" Width="8" Height="8" Fill="{Binding Accent}" />
                     </Grid>
                 </Border>
-                <!-- Theme name -->
+                <!-- Theme name (localized) -->
                 <TextBlock Grid.Column="1"
-                           Text="{Binding Name}"
-                           VerticalAlignment="Center"
-                           Margin="10,0,0,0"
-                           FontSize="14"/>
+                    Text="{Binding DisplayName}"
+                    VerticalAlignment="Center"
+                    Margin="10,0,0,0"
+                    FontSize="14" />
             </Grid>
         </DataTemplate>
 

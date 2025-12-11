@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="0" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- Control defaults -->
+  <data name="Select_Placeholder" xml:space="preserve">
+    <value>请选择</value>
+  </data>
+
+  <!-- Accessibility text for screen readers -->
+  <data name="Accessibility_Loading" xml:space="preserve">
+    <value>加载中</value>
+  </data>
+  <data name="Accessibility_Progress" xml:space="preserve">
+    <value>进度</value>
+  </data>
+  <data name="Accessibility_Rating" xml:space="preserve">
+    <value>评分</value>
+  </data>
+  <data name="Accessibility_LoadingPlaceholder" xml:space="preserve">
+    <value>加载占位符</value>
+  </data>
+  <data name="Accessibility_Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Accessibility_StatusOnline" xml:space="preserve">
+    <value>在线</value>
+  </data>
+  <data name="Accessibility_StatusError" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="Accessibility_StatusWarning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="Accessibility_StatusInfo" xml:space="preserve">
+    <value>信息</value>
+  </data>
+  <data name="Accessibility_StatusActive" xml:space="preserve">
+    <value>活跃</value>
+  </data>
+  <data name="Accessibility_StatusSecondary" xml:space="preserve">
+    <value>次要</value>
+  </data>
+  <data name="Accessibility_StatusHighlighted" xml:space="preserve">
+    <value>突出显示</value>
+  </data>
+  <data name="Accessibility_Countdown" xml:space="preserve">
+    <value>倒计时</value>
+  </data>
+</root>

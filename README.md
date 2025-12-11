@@ -30,6 +30,7 @@ This library provides native Avalonia controls that mimic the utility-first, sem
 - **Native Controls**: C# classes inheriting from Avalonia primitives (e.g., `DaisyButton : Button`).
 - **35 DaisyUI Themes**: All official DaisyUI themes included (Light, Dark, Cupcake, Dracula, Nord, Synthwave, and more).
 - **Runtime Theme Switching**: Use `DaisyThemeDropdown` to switch themes at runtime.
+- **Localization Support**: Built-in i18n with **10 languages** (🇺🇸 🇩🇪 🇫🇷 🇪🇸 🇨🇳 🇰🇷 🇯🇵 🇸🇦 🇹🇷 🇺🇦), localizable theme names, and runtime language switching. [📖 Guide](LOCALIZATION.md)
 - **Variants**: Supports `Primary`, `Secondary`, `Accent`, `Ghost`, etc.
 - **Framework Support**: Library targets `netstandard2.0` for maximum compatibility.
 - **Gallery App**: Includes a full demo application (`Flowery.NET.Gallery`) showcasing all controls and features.

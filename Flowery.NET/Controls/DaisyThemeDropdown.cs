@@ -1,16 +1,31 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Flowery.Localization;
 
 namespace Flowery.Controls
 {
+    /// <summary>
+    /// Contains preview information for a theme including colors and localized display name.
+    /// </summary>
     public class ThemePreviewInfo
     {
+        /// <summary>
+        /// Internal theme name (e.g., "Synthwave"). Used as key for theme application.
+        /// </summary>
         public string Name { get; set; } = "";
+
+        /// <summary>
+        /// Localized display name for the theme (e.g., "Synth Wave" in German).
+        /// Falls back to Name if no localization is available.
+        /// </summary>
+        public string DisplayName => FloweryLocalization.GetThemeDisplayName(Name);
+
         public bool IsDark { get; set; }
         public IBrush Base100 { get; set; } = Brushes.Gray;
         public IBrush BaseContent { get; set; } = Brushes.Gray;
@@ -140,6 +155,7 @@ namespace Flowery.Controls
         {
             base.OnAttachedToVisualTree(e);
             DaisyThemeManager.ThemeChanged += OnThemeChanged;
+            FloweryLocalization.CultureChanged += OnCultureChanged;
             SyncWithCurrentTheme();
         }
 
@@ -147,6 +163,13 @@ namespace Flowery.Controls
         {
             base.OnDetachedFromVisualTree(e);
             DaisyThemeManager.ThemeChanged -= OnThemeChanged;
+            FloweryLocalization.CultureChanged -= OnCultureChanged;
+        }
+
+        private void OnCultureChanged(object? sender, CultureInfo culture)
+        {
+            // Force UI refresh when culture changes (DisplayName property will return new value)
+            InvalidateVisual();
         }
 
         private void OnThemeChanged(object? sender, string themeName)

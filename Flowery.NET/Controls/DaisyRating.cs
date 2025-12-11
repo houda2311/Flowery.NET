@@ -4,6 +4,7 @@ using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Flowery.Localization;
 
 namespace Flowery.Controls
 {
@@ -248,7 +249,8 @@ namespace Flowery.Controls
         protected override string? GetNameCore()
         {
             var rating = (DaisyRating)Owner;
-            var text = DaisyAccessibility.GetEffectiveAccessibleText(rating, DefaultAccessibleText);
+            var localizedDefault = FloweryLocalization.GetString("Accessibility_Rating");
+            var text = DaisyAccessibility.GetEffectiveAccessibleText(rating, localizedDefault);
             var valueText = FormatValue(rating.Value, rating.Precision);
             var maxText = FormatValue(rating.Maximum, RatingPrecision.Full);
             return $"{text}: {valueText} of {maxText} stars";

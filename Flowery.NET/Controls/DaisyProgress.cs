@@ -2,6 +2,7 @@ using System;
 using Avalonia;
 using Avalonia.Automation.Peers;
 using Avalonia.Controls;
+using Flowery.Localization;
 
 namespace Flowery.Controls
 {
@@ -90,7 +91,8 @@ namespace Flowery.Controls
         protected override string? GetNameCore()
         {
             var progress = (DaisyProgress)Owner;
-            var text = DaisyAccessibility.GetEffectiveAccessibleText(progress, DefaultAccessibleText);
+            var localizedDefault = FloweryLocalization.GetString("Accessibility_Progress");
+            var text = DaisyAccessibility.GetEffectiveAccessibleText(progress, localizedDefault);
             var range = progress.Maximum - progress.Minimum;
             if (range > 0)
             {

@@ -2,6 +2,7 @@ using System;
 using Avalonia;
 using Avalonia.Automation.Peers;
 using Avalonia.Controls;
+using Flowery.Localization;
 
 namespace Flowery.Controls
 {
@@ -78,7 +79,8 @@ namespace Flowery.Controls
         protected override string? GetNameCore()
         {
             var skeleton = (DaisySkeleton)Owner;
-            return DaisyAccessibility.GetEffectiveAccessibleText(skeleton, DefaultAccessibleText);
+            var localizedDefault = FloweryLocalization.GetString("Accessibility_LoadingPlaceholder");
+            return DaisyAccessibility.GetEffectiveAccessibleText(skeleton, localizedDefault);
         }
 
         protected override bool IsContentElementCore() => true;
