@@ -73,6 +73,46 @@ Open the new file and translate each value. Example for German:
 
 After adding the resource file, rebuild the project. The new translations will be automatically available.
 
+## Resource Maintenance Tools
+
+Two helper scripts exist under `Utils/` to keep all `.resx` files consistent.
+
+### Check for Missing Keys
+
+Use `Utils/check_resx_keys.py` to verify that every `FloweryStrings.*.resx` contains all `<data name="...">` keys from `FloweryStrings.resx`.
+
+```bash
+python "Utils/check_resx_keys.py" "Flowery.NET/Localization/FloweryStrings.resx" "Flowery.NET/Localization"
+```
+
+This command exits with a non-zero code if any keys are missing (useful for CI).
+
+### Sync Missing Keys (Add Only)
+
+Use `Utils/sync_resx_keys.py` to copy missing `<data ...>...</data>` blocks from the default resource file into the localized files.
+
+- It only adds missing keys.
+- It never overwrites existing translations.
+- Missing entries are appended near the end of each file.
+
+Sync all missing keys:
+
+```bash
+python "Utils/sync_resx_keys.py" "Flowery.NET/Localization/FloweryStrings.resx" "Flowery.NET/Localization"
+```
+
+Sync only a group of keys (example: theme display names):
+
+```bash
+python "Utils/sync_resx_keys.py" "Flowery.NET/Localization/FloweryStrings.resx" "Flowery.NET/Localization" --prefix Theme_
+```
+
+Preview changes without writing files:
+
+```bash
+python "Utils/sync_resx_keys.py" "Flowery.NET/Localization/FloweryStrings.resx" "Flowery.NET/Localization" --dry-run
+```
+
 ## Available Resource Keys
 
 | Key | English (Default) | Description |

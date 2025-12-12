@@ -257,4 +257,369 @@
         <Setter Property="Background" Value="Transparent" />
     </Style>
 
+    <!-- ==================== TAB COLORS (per-tab semantic colors) ==================== -->
+    <!-- These styles use the attached property controls:DaisyTabs.TabColor on TabItem -->
+
+    <!-- ==================== TAB PALETTE COLORS (theme-independent) ==================== -->
+    <!-- These styles use the attached property controls:DaisyTabs.TabPaletteColor on TabItem -->
+
+    <!-- BORDERED VARIANT - palette underline -->
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabPaletteColor)=Purple] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#7c3aed" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabPaletteColor)=Indigo] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#6366f1" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabPaletteColor)=Pink] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#f472b6" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabPaletteColor)=SkyBlue] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#38bdf8" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabPaletteColor)=Blue] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#0ea5e9" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabPaletteColor)=Lime] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#84cc16" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabPaletteColor)=Green] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#22c55e" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabPaletteColor)=Yellow] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#eab308" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabPaletteColor)=Orange] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#f59e0b" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabPaletteColor)=Red] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#ef4444" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabPaletteColor)=Gray] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#64748b" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+
+    <!-- BOXED VARIANT - palette border -->
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabPaletteColor)=Purple] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#7c3aed" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabPaletteColor)=Indigo] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#6366f1" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabPaletteColor)=Pink] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#f472b6" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabPaletteColor)=SkyBlue] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#38bdf8" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabPaletteColor)=Blue] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#0ea5e9" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabPaletteColor)=Lime] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#84cc16" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabPaletteColor)=Green] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#22c55e" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabPaletteColor)=Yellow] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#eab308" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabPaletteColor)=Orange] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#f59e0b" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabPaletteColor)=Red] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#ef4444" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabPaletteColor)=Gray] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#64748b" />
+    </Style>
+
+    <!-- LIFTED VARIANT - palette border -->
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabPaletteColor)=Purple] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#7c3aed" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabPaletteColor)=Indigo] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#6366f1" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabPaletteColor)=Pink] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#f472b6" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabPaletteColor)=SkyBlue] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#38bdf8" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabPaletteColor)=Blue] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#0ea5e9" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabPaletteColor)=Lime] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#84cc16" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabPaletteColor)=Green] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#22c55e" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabPaletteColor)=Yellow] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#eab308" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabPaletteColor)=Orange] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#f59e0b" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabPaletteColor)=Red] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#ef4444" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabPaletteColor)=Gray] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="#64748b" />
+    </Style>
+
+    <!-- NONE VARIANT - palette foreground -->
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabPaletteColor)=Purple]">
+        <Setter Property="Foreground" Value="#7c3aed" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabPaletteColor)=Indigo]">
+        <Setter Property="Foreground" Value="#6366f1" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabPaletteColor)=Pink]">
+        <Setter Property="Foreground" Value="#f472b6" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabPaletteColor)=SkyBlue]">
+        <Setter Property="Foreground" Value="#38bdf8" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabPaletteColor)=Blue]">
+        <Setter Property="Foreground" Value="#0ea5e9" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabPaletteColor)=Lime]">
+        <Setter Property="Foreground" Value="#84cc16" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabPaletteColor)=Green]">
+        <Setter Property="Foreground" Value="#22c55e" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabPaletteColor)=Yellow]">
+        <Setter Property="Foreground" Value="#eab308" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabPaletteColor)=Orange]">
+        <Setter Property="Foreground" Value="#f59e0b" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabPaletteColor)=Red]">
+        <Setter Property="Foreground" Value="#ef4444" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabPaletteColor)=Gray]">
+        <Setter Property="Foreground" Value="#64748b" />
+    </Style>
+
+    <!-- BORDERED VARIANT - Tab Colors (underline uses tab color) -->
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabColor)=Primary] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyPrimaryBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabColor)=Primary]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyPrimaryBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabColor)=Secondary] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisySecondaryBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabColor)=Secondary]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisySecondaryBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabColor)=Accent] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyAccentBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabColor)=Accent]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyAccentBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabColor)=Info] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyInfoBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabColor)=Info]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyInfoBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabColor)=Success] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisySuccessBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabColor)=Success]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisySuccessBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabColor)=Warning] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyWarningBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabColor)=Warning]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyWarningBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabColor)=Error] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyErrorBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabColor)=Error]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyErrorBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabColor)=Neutral] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyNeutralBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Bordered] TabItem[(controls|DaisyTabs.TabColor)=Neutral]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyNeutralBrush}" />
+    </Style>
+
+    <!-- BOXED VARIANT - Tab Colors (border uses tab color) -->
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabColor)=Primary] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyPrimaryBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabColor)=Primary]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyPrimaryBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabColor)=Secondary] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisySecondaryBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabColor)=Secondary]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisySecondaryBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabColor)=Accent] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyAccentBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabColor)=Accent]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyAccentBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabColor)=Info] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyInfoBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabColor)=Info]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyInfoBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabColor)=Success] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisySuccessBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabColor)=Success]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisySuccessBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabColor)=Warning] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyWarningBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabColor)=Warning]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyWarningBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabColor)=Error] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyErrorBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabColor)=Error]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyErrorBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabColor)=Neutral] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyNeutralBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Boxed] TabItem[(controls|DaisyTabs.TabColor)=Neutral]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyNeutralBrush}" />
+    </Style>
+
+    <!-- LIFTED VARIANT - Tab Colors (top border accent) -->
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabColor)=Primary] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyPrimaryBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabColor)=Primary]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyPrimaryBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabColor)=Secondary] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisySecondaryBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabColor)=Secondary]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisySecondaryBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabColor)=Accent] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyAccentBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabColor)=Accent]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyAccentBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabColor)=Info] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyInfoBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabColor)=Info]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyInfoBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabColor)=Success] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisySuccessBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabColor)=Success]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisySuccessBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabColor)=Warning] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyWarningBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabColor)=Warning]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyWarningBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabColor)=Error] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyErrorBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabColor)=Error]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyErrorBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabColor)=Neutral] /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyNeutralBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=Lifted] TabItem[(controls|DaisyTabs.TabColor)=Neutral]:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyNeutralBrush}" />
+    </Style>
+
+    <!-- NONE VARIANT - Tab Colors (foreground uses tab color) -->
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabColor)=Primary]">
+        <Setter Property="Foreground" Value="{DynamicResource DaisyPrimaryBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabColor)=Primary]:selected">
+        <Setter Property="Foreground" Value="{DynamicResource DaisyPrimaryBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabColor)=Secondary]">
+        <Setter Property="Foreground" Value="{DynamicResource DaisySecondaryBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabColor)=Secondary]:selected">
+        <Setter Property="Foreground" Value="{DynamicResource DaisySecondaryBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabColor)=Accent]">
+        <Setter Property="Foreground" Value="{DynamicResource DaisyAccentBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabColor)=Accent]:selected">
+        <Setter Property="Foreground" Value="{DynamicResource DaisyAccentBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabColor)=Info]">
+        <Setter Property="Foreground" Value="{DynamicResource DaisyInfoBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabColor)=Info]:selected">
+        <Setter Property="Foreground" Value="{DynamicResource DaisyInfoBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabColor)=Success]">
+        <Setter Property="Foreground" Value="{DynamicResource DaisySuccessBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabColor)=Success]:selected">
+        <Setter Property="Foreground" Value="{DynamicResource DaisySuccessBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabColor)=Warning]">
+        <Setter Property="Foreground" Value="{DynamicResource DaisyWarningBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabColor)=Warning]:selected">
+        <Setter Property="Foreground" Value="{DynamicResource DaisyWarningBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabColor)=Error]">
+        <Setter Property="Foreground" Value="{DynamicResource DaisyErrorBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabColor)=Error]:selected">
+        <Setter Property="Foreground" Value="{DynamicResource DaisyErrorBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabColor)=Neutral]">
+        <Setter Property="Foreground" Value="{DynamicResource DaisyNeutralBrush}" />
+    </Style>
+    <Style Selector="controls|DaisyTabs[Variant=None] TabItem[(controls|DaisyTabs.TabColor)=Neutral]:selected">
+        <Setter Property="Foreground" Value="{DynamicResource DaisyNeutralBrush}" />
+    </Style>
+
 </Styles>

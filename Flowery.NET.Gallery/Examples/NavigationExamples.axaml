@@ -1243,6 +1243,119 @@
                             </TabItem>
                         </controls:DaisyTabs>
                     </StackPanel>
+
+                    <!-- Tab Colors -->
+                    <TextBlock Text="Tab Colors" FontWeight="SemiBold" Margin="0,16,0,0" />
+                    <TextBlock Text="Set semantic colors on individual tabs using the attached property" FontSize="12" Opacity="0.7" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="10" Margin="0,0,20,10">
+                            <TextBlock Text="Bordered with colors" FontSize="12" Opacity="0.7" />
+                            <controls:DaisyTabs Variant="Bordered">
+                                <TabItem Header="Default">
+                                    <TextBlock Text="Default color" Padding="10" />
+                                </TabItem>
+                                <TabItem Header="Primary" controls:DaisyTabs.TabColor="Primary">
+                                    <TextBlock Text="Primary color" Padding="10" />
+                                </TabItem>
+                                <TabItem Header="Error" controls:DaisyTabs.TabColor="Error">
+                                    <TextBlock Text="Error color" Padding="10" />
+                                </TabItem>
+                            </controls:DaisyTabs>
+                        </StackPanel>
+
+                        <StackPanel Spacing="10" Margin="0,0,20,10">
+                            <TextBlock Text="Boxed with colors" FontSize="12" Opacity="0.7" />
+                            <controls:DaisyTabs Variant="Boxed">
+                                <TabItem Header="Accent" controls:DaisyTabs.TabColor="Accent">
+                                    <TextBlock Text="Accent color" Padding="10" />
+                                </TabItem>
+                                <TabItem Header="Success" controls:DaisyTabs.TabColor="Success">
+                                    <TextBlock Text="Success color" Padding="10" />
+                                </TabItem>
+                                <TabItem Header="Warning" controls:DaisyTabs.TabColor="Warning">
+                                    <TextBlock Text="Warning color" Padding="10" />
+                                </TabItem>
+                            </controls:DaisyTabs>
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <!-- Code Editor Tabs Example (VS Code style) -->
+                    <TextBlock Text="Code Editor Example (VS Code style)" FontWeight="SemiBold" Margin="0,16,0,0" />
+                    <TextBlock Text="Right-click tabs to access context menu with close actions and color selection" FontSize="12" Opacity="0.7" />
+                    <StackPanel Spacing="0" Margin="0,0,0,10">
+                        <controls:DaisyTabs x:Name="CodeEditorTabs"
+                                                Variant="Boxed"
+                                                Size="Small"
+                                                EnableTabContextMenu="True"
+                                                CloseTabRequested="OnCodeEditorCloseTab"
+                                                CloseOtherTabsRequested="OnCodeEditorCloseOtherTabs"
+                                                CloseTabsToRightRequested="OnCodeEditorCloseTabsToRight"
+                                                TabPaletteColorChangeRequested="OnCodeEditorTabPaletteColorChange">
+                                <TabItem Header="Program.cs" controls:DaisyTabs.TabPaletteColor="Green">
+                                    <StackPanel Margin="16" Spacing="4" MinHeight="200">
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12" Foreground="{DynamicResource DaisyInfoBrush}" Text="using System;" />
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12" Foreground="{DynamicResource DaisyInfoBrush}" Text="using Avalonia;" />
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12" Foreground="{DynamicResource DaisyInfoBrush}" Text="using Flowery.Controls;" />
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12" Text="" />
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12">
+                                            <Run Foreground="{DynamicResource DaisyInfoBrush}">namespace</Run> <Run>MyApp;</Run>
+                                        </TextBlock>
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12" Text="" />
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12">
+                                            <Run Foreground="{DynamicResource DaisyInfoBrush}">public class</Run> <Run Foreground="{DynamicResource DaisySuccessBrush}"> Program</Run>
+                                        </TextBlock>
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12" Text="{}{" />
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12" Text="    // Entry point" Foreground="{DynamicResource DaisyBase300Brush}" />
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12" Text="{}}" />
+                                    </StackPanel>
+                                </TabItem>
+                                <TabItem Header="MainWindow.axaml" controls:DaisyTabs.TabPaletteColor="Purple">
+                                    <StackPanel Margin="16" Spacing="4" MinHeight="200">
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12" Foreground="{DynamicResource DaisyBase300Brush}" Text="&lt;!-- Main application window --&gt;" />
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12">
+                                            <Run Foreground="{DynamicResource DaisyInfoBrush}">&lt;Window</Run> <Run>x:Class=</Run> <Run Foreground="{DynamicResource DaisyWarningBrush}">"MainWindow"</Run> <Run Foreground="{DynamicResource DaisyInfoBrush}">&gt;</Run>
+                                        </TextBlock>
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12" Text="    &lt;StackPanel&gt;" Foreground="{DynamicResource DaisyInfoBrush}" />
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12" Text="        &lt;TextBlock Text=&quot;Hello!&quot;/&gt;" />
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12" Text="    &lt;/StackPanel&gt;" Foreground="{DynamicResource DaisyInfoBrush}" />
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12" Text="&lt;/Window&gt;" Foreground="{DynamicResource DaisyInfoBrush}" />
+                                    </StackPanel>
+                                </TabItem>
+                                <TabItem Header="App.axaml.cs" controls:DaisyTabs.TabPaletteColor="Lime">
+                                    <StackPanel Margin="16" Spacing="4" MinHeight="200">
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12">
+                                            <Run Foreground="{DynamicResource DaisyInfoBrush}">public partial class</Run> <Run Foreground="{DynamicResource DaisySuccessBrush}">App</Run> <Run>:</Run> <Run Foreground="{DynamicResource DaisySuccessBrush}">Application</Run>
+                                        </TextBlock>
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12" Text="{}{" />
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12" Text="    // Application lifecycle" Foreground="{DynamicResource DaisyBase300Brush}" />
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="12" Text="{}}" />
+                                    </StackPanel>
+                                </TabItem>
+                                <TabItem Header="README.md" controls:DaisyTabs.TabPaletteColor="Blue">
+                                    <StackPanel Margin="16" Spacing="8" MinHeight="200">
+                                        <TextBlock FontSize="18" FontWeight="Bold" Text="# My Flowery.NET App" />
+                                        <TextBlock Text="A cross-platform desktop application built with Flowery.NET." Opacity="0.8" />
+                                        <TextBlock FontSize="14" FontWeight="SemiBold" Text="## Features" Margin="0,8,0,0" />
+                                        <TextBlock Text="- Modern UI components" />
+                                        <TextBlock Text="- Theme support" />
+                                        <TextBlock Text="- Cross-platform" />
+                                    </StackPanel>
+                                </TabItem>
+                                <TabItem Header="errors.log" controls:DaisyTabs.TabPaletteColor="Red">
+                                    <StackPanel Margin="16" Spacing="4" MinHeight="200">
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="11" Foreground="{DynamicResource DaisyErrorBrush}" Text="[ERROR] 2024-01-15 10:23:45 - NullReferenceException" />
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="11" Foreground="{DynamicResource DaisyWarningBrush}" Text="[WARN]  2024-01-15 10:23:44 - Deprecated API call" />
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="11" Foreground="{DynamicResource DaisyInfoBrush}" Text="[INFO]  2024-01-15 10:23:43 - Application started" />
+                                        <TextBlock FontFamily="Consolas,monospace" FontSize="11" Foreground="{DynamicResource DaisyInfoBrush}" Text="[INFO]  2024-01-15 10:23:42 - Loading configuration..." />
+                                    </StackPanel>
+                                </TabItem>
+                            </controls:DaisyTabs>
+                        <TextBlock x:Name="CodeEditorStatus"
+                                   Text="Ready - 5 files open"
+                                   FontSize="11"
+                                   Opacity="0.6"
+                                   Margin="12,6" />
+                    </StackPanel>
                 </StackPanel>
 
             </StackPanel>

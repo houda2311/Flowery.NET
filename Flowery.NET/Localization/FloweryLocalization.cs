@@ -52,6 +52,7 @@ namespace Flowery.Localization
 
             _currentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
+            _resourceManager.ReleaseAllResources();
             CultureChanged?.Invoke(null, culture);
         }
 
@@ -86,22 +87,17 @@ namespace Flowery.Localization
         /// </summary>
         /// <param name="themeName">The internal theme name (e.g., "Synthwave").</param>
         /// <returns>The localized display name.</returns>
-        /// <exception cref="System.Resources.MissingManifestResourceException">
-        /// Thrown when the theme name resource is not found.
-        /// </exception>
         public static string GetThemeDisplayName(string themeName)
         {
             var key = $"Theme_{themeName}";
             var result = _resourceManager.GetString(key, _currentCulture);
-            
+
+            // Fallback to default resources (English/invariant) if missing in the current culture.
             if (string.IsNullOrEmpty(result))
-            {
-                throw new MissingManifestResourceException(
-                    $"Localization resource '{key}' not found for theme '{themeName}'. " +
-                    $"Ensure FloweryStrings.resx contains an entry for this theme.");
-            }
-            
-            return result;
+                result = _resourceManager.GetString(key, CultureInfo.InvariantCulture);
+
+            // Final fallback: use the internal theme name.
+            return string.IsNullOrEmpty(result) ? themeName : result;
         }
     }
 }

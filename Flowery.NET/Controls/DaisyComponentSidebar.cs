@@ -12,6 +12,7 @@ using Avalonia.Data.Converters;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.VisualTree;
+using Flowery.Localization;
 
 namespace Flowery.Controls
 {
@@ -37,6 +38,18 @@ namespace Flowery.Controls
         public string? Badge { get; set; }
     }
 
+    public class SidebarLanguageSelectorItem : SidebarItem
+    {
+    }
+
+    public class SidebarLanguage
+    {
+        public string Code { get; set; } = string.Empty;
+        public string DisplayName { get; set; } = string.Empty;
+
+        public override string ToString() => DisplayName;
+    }
+
     public class SidebarItemSelectedEventArgs : RoutedEventArgs
     {
         public SidebarItem Item { get; }
@@ -59,6 +72,54 @@ namespace Flowery.Controls
             "FloweryGallery", "sidebar.state");
 
         private ObservableCollection<SidebarCategory> _allCategories = new();
+
+        private ObservableCollection<SidebarLanguage> _availableLanguages = new();
+        private SidebarLanguage? _selectedLanguage;
+        private bool _updatingLanguage;
+
+        public static readonly DirectProperty<DaisyComponentSidebar, ObservableCollection<SidebarLanguage>> AvailableLanguagesProperty =
+            AvaloniaProperty.RegisterDirect<DaisyComponentSidebar, ObservableCollection<SidebarLanguage>>(
+                nameof(AvailableLanguages),
+                o => o.AvailableLanguages,
+                (o, v) => o.AvailableLanguages = v);
+
+        public ObservableCollection<SidebarLanguage> AvailableLanguages
+        {
+            get => _availableLanguages;
+            set => SetAndRaise(AvailableLanguagesProperty, ref _availableLanguages, value);
+        }
+
+        public static readonly DirectProperty<DaisyComponentSidebar, SidebarLanguage?> SelectedLanguageProperty =
+            AvaloniaProperty.RegisterDirect<DaisyComponentSidebar, SidebarLanguage?>(
+                nameof(SelectedLanguage),
+                o => o.SelectedLanguage,
+                (o, v) => o.SelectedLanguage = v);
+
+        public SidebarLanguage? SelectedLanguage
+        {
+            get => _selectedLanguage;
+            set
+            {
+                if (!SetAndRaise(SelectedLanguageProperty, ref _selectedLanguage, value))
+                    return;
+
+                if (_updatingLanguage)
+                    return;
+
+                if (value != null)
+                {
+                    _updatingLanguage = true;
+                    try
+                    {
+                        FloweryLocalization.SetCulture(value.Code);
+                    }
+                    finally
+                    {
+                        _updatingLanguage = false;
+                    }
+                }
+            }
+        }
 
         public static readonly RoutedEvent<SidebarItemSelectedEventArgs> ItemSelectedEvent =
             RoutedEvent.Register<DaisyComponentSidebar, SidebarItemSelectedEventArgs>(
@@ -114,11 +175,70 @@ namespace Flowery.Controls
 
         public DaisyComponentSidebar()
         {
+            AvailableLanguages = CreateDefaultLanguages();
+            UpdateSelectedLanguageFromCulture(FloweryLocalization.CurrentCulture);
+            FloweryLocalization.CultureChanged += OnLocalizationCultureChanged;
+
             _allCategories = CreateDefaultCategories();
             LoadState();
             foreach (var cat in _allCategories)
                 cat.PropertyChanged += (s, e) => { if (e.PropertyName == nameof(SidebarCategory.IsExpanded)) SaveState(SelectedItem?.Name); };
             Categories = _allCategories;
+        }
+
+        private void OnLocalizationCultureChanged(object? sender, CultureInfo culture)
+        {
+            if (_updatingLanguage)
+                return;
+
+            UpdateSelectedLanguageFromCulture(culture);
+        }
+
+        private void UpdateSelectedLanguageFromCulture(CultureInfo culture)
+        {
+            var language = FindLanguageForCulture(culture) ??
+                           AvailableLanguages.FirstOrDefault(l => string.Equals(l.Code, "en", StringComparison.OrdinalIgnoreCase)) ??
+                           AvailableLanguages.FirstOrDefault();
+
+            _updatingLanguage = true;
+            try
+            {
+                SetAndRaise(SelectedLanguageProperty, ref _selectedLanguage, language);
+            }
+            finally
+            {
+                _updatingLanguage = false;
+            }
+        }
+
+        private SidebarLanguage? FindLanguageForCulture(CultureInfo culture)
+        {
+            var exact = AvailableLanguages.FirstOrDefault(l =>
+                string.Equals(l.Code, culture.Name, StringComparison.OrdinalIgnoreCase));
+            if (exact != null)
+                return exact;
+
+            var twoLetter = culture.TwoLetterISOLanguageName;
+            return AvailableLanguages.FirstOrDefault(l =>
+                string.Equals(l.Code, twoLetter, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private static ObservableCollection<SidebarLanguage> CreateDefaultLanguages()
+        {
+            return new ObservableCollection<SidebarLanguage>
+            {
+                new SidebarLanguage { Code = "en", DisplayName = "English" },
+                new SidebarLanguage { Code = "de", DisplayName = "Deutsch" },
+                new SidebarLanguage { Code = "es", DisplayName = "Español" },
+                new SidebarLanguage { Code = "fr", DisplayName = "Français" },
+                new SidebarLanguage { Code = "it", DisplayName = "Italiano" },
+                new SidebarLanguage { Code = "ja", DisplayName = "日本語" },
+                new SidebarLanguage { Code = "ko", DisplayName = "한국어" },
+                new SidebarLanguage { Code = "ar", DisplayName = "العربية" },
+                new SidebarLanguage { Code = "tr", DisplayName = "Türkçe" },
+                new SidebarLanguage { Code = "uk", DisplayName = "Українська" },
+                new SidebarLanguage { Code = "zh-CN", DisplayName = "简体中文" },
+            };
         }
 
         private void OnSearchTextChanged()
@@ -296,7 +416,8 @@ namespace Flowery.Controls
                     IconKey = "DaisyIconHome",
                     Items = new ObservableCollection<SidebarItem>
                     {
-                        new SidebarItem { Id = "welcome", Name = "Welcome", TabHeader = "Home" }
+                        new SidebarItem { Id = "welcome", Name = "Welcome", TabHeader = "Home" },
+                        new SidebarLanguageSelectorItem { Id = "language", Name = "Language", TabHeader = "Home" }
                     }
                 },
                 // Alphabetically sorted categories

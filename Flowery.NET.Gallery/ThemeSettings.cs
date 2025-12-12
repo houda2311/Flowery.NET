@@ -10,6 +10,11 @@ public static class ThemeSettings
         "Flowery.NET.Gallery",
         "theme.txt");
 
+    private static readonly string LanguagePath = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+        "Flowery.NET.Gallery",
+        "language.txt");
+
     public static string? Load()
     {
         try
@@ -27,6 +32,27 @@ public static class ThemeSettings
         {
             Directory.CreateDirectory(Path.GetDirectoryName(SettingsPath)!);
             File.WriteAllText(SettingsPath, themeName);
+        }
+        catch { /* ignore */ }
+    }
+
+    public static string? LoadLanguage()
+    {
+        try
+        {
+            if (File.Exists(LanguagePath))
+                return File.ReadAllText(LanguagePath).Trim();
+        }
+        catch { }
+        return null;
+    }
+
+    public static void SaveLanguage(string cultureName)
+    {
+        try
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(LanguagePath)!);
+            File.WriteAllText(LanguagePath, cultureName);
         }
         catch { /* ignore */ }
     }

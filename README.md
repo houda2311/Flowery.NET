@@ -47,7 +47,7 @@ This library provides native Avalonia controls that mimic the utility-first, sem
 dotnet add package Flowery.NET
 ```
 
-2. Add to your `App.axaml`:
+1. Add to your `App.axaml`:
 
 ```xml
 <Application.Styles>
@@ -56,7 +56,7 @@ dotnet add package Flowery.NET
 </Application.Styles>
 ```
 
-3. Use controls in your views:
+1. Use controls in your views:
 
 ```xml
 xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET"
@@ -193,6 +193,12 @@ A horizontal scrollable date picker inspired by FadyFayezYounan's `easy_date_tim
 
 - **Date Timeline** (`DaisyDateTimeline`): Scrollable date picker with selectable date items. Supports multiple header types (MonthYear, Switcher, None), sizes, disable strategies, and marked dates with tooltips.
 - **Date Timeline Item** (`DaisyDateTimelineItem`): Individual date cell with day name, date number, and month. Supports selection, disable states, and marker highlights.
+
+### DaisyTabs Color Features
+
+- **Per-tab palette colors**: `DaisyTabs` supports a **theme-independent color palette** (12 fixed colors) via `TabPaletteColor`, designed for end users (Purple, Indigo, Pink, SkyBlue, Blue, Lime, Green, Yellow, Orange, Red, Gray, Default).
+- **Inline color picker**: Optional tab context menu shows a **two-row dot grid** for quick color changes and reset (hollow dot), without leaving the tab strip.
+- **Semantic colors (optional)**: For apps that want colors to follow the active theme, `TabColor` exposes the semantic Daisy colors (`Primary`, `Success`, etc.) as an alternative API.
 
 ### Mask Input
 

@@ -4,7 +4,7 @@ The pipeline is now **curated-first**. Hand-written markdown in `llms-static/` i
 
 ## At a Glance
 
-```
+```txt
 +--------------------+     +--------------------+
 |   llms-static/     | --> |   Static HTML Site |
 |   (curated docs)   |     |   (docs/ folder)   |
@@ -16,7 +16,7 @@ The pipeline is now **curated-first**. Hand-written markdown in `llms-static/` i
 
 Optional enrichment with auto-parsed metadata:
 
-```
+```txt
 +----------------------+    +-----------------+    +--------------------+
 | C# + AXAML (source)  | -> |   llms/ (md)    | -> |   Static HTML Site |
 +----------------------+    +-----------------+    +--------------------+
@@ -29,7 +29,7 @@ Optional enrichment with auto-parsed metadata:
 
 ## Folder Structure
 
-```
+```txt
 Flowery.NET/
   Flowery.NET/Controls/           # C# control definitions
   Flowery.NET.Gallery/Examples/   # AXAML examples (only used with --auto-parse)
@@ -56,11 +56,13 @@ Flowery.NET/
 ## Workflows
 
 ### Default (curated-only)
+
 1) Write or edit `llms-static/<Control>.md`.
 2) `python Utils/generate_site.py`
 3) Open `docs/index.html`.
 
 ### Optional auto-parse (add Properties/Enums/Examples)
+
 1) `python Utils/generate_docs.py --auto-parse` (creates `llms/` from source + curated content)
 2) `python Utils/generate_site.py --use-generated` (renders site from `llms/`)
 
@@ -69,11 +71,13 @@ Flowery.NET/
 ## Scripts
 
 ### generate_site.py (default entry point)
+
 - **Default mode:** reads curated docs directly from `llms-static/` and emits `docs/` plus `docs/llms.txt`.
 - **Flag:** `--use-generated` switches the input to `llms/` (produced by `generate_docs.py`), which includes auto-parsed Properties/Enums/Examples and categories.
 - **Outputs:** `docs/index.html`, `docs/controls/*.html`, optional `docs/categories/*.html`, `docs/style.css`, `docs/llms.txt`.
 
 Run:
+
 ```bash
 python Utils/generate_site.py
 # or
@@ -81,11 +85,13 @@ python Utils/generate_site.py --use-generated
 ```
 
 ### generate_docs.py (optional)
+
 - Only required when you want auto-parsed metadata (Properties/Enums/Examples) or category markdown.
 - Uses `--auto-parse` to read C# controls and AXAML examples, then merges curated content from `llms-static/` into the generated docs in `llms/`.
 - Without `--auto-parse` it still writes `llms/` from curated content but skips Properties/Enums/Examples (the default workflow no longer needs this mode).
 
 Run:
+
 ```bash
 python Utils/generate_docs.py --auto-parse
 ```
@@ -95,12 +101,14 @@ python Utils/generate_docs.py --auto-parse
 ## Quick Start
 
 Curated-only site (recommended default):
+
 ```bash
 python Utils/generate_site.py
 start docs/index.html  # or open/xdg-open
 ```
 
 Include auto-parsed Properties/Enums/Examples:
+
 ```bash
 python Utils/generate_docs.py --auto-parse
 python Utils/generate_site.py --use-generated
@@ -116,6 +124,7 @@ start docs/index.html
 - HTML comments (`<!-- -->`) are stripped automatically.
 
 Suggested structure:
+
 ````markdown
 ## Overview
 Brief description of what this control does and when to use it.
@@ -142,6 +151,7 @@ Brief description of what this control does and when to use it.
 ````
 
 Best practices:
+
 - Keep it concise; use tables for variants/sizes/colors when helpful.
 - Add 2-3 quick XAML snippets for common use.
 - Use `---` at the end to separate curated content from any auto-parsed sections.
@@ -153,6 +163,7 @@ Best practices:
 1) Create `llms-static/DaisyNewControl.md` with overview, key variants, and a couple of examples.  
 2) Run `python Utils/generate_site.py` to rebuild the site.  
 3) If you want generated Properties/Enums/Examples, run:
+
    ```bash
    python Utils/generate_docs.py --auto-parse
    python Utils/generate_site.py --use-generated

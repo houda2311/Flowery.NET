@@ -72,7 +72,22 @@
                                                 </controls:DaisyCollapse.Header>
                                                 <!-- Category Items -->
                                                 <ItemsControl ItemsSource="{Binding Items}" Margin="4,0,0,0">
-                                                    <ItemsControl.ItemTemplate>
+                                                    <ItemsControl.DataTemplates>
+                                                        <DataTemplate x:DataType="controls:SidebarLanguageSelectorItem">
+                                                            <StackPanel Margin="8,6,0,8" Spacing="6">
+                                                                <TextBlock Text="Controls' Language"
+                                                                           FontSize="12"
+                                                                           Opacity="0.7"
+                                                                           Margin="10,0,0,0" />
+                                                                <controls:DaisySelect Margin="8,0,0,0"
+                                                                                      Size="Small"
+                                                                                      PlaceholderText="Select language"
+                                                                                      ItemsSource="{Binding AvailableLanguages, RelativeSource={RelativeSource AncestorType=controls:DaisyComponentSidebar}}"
+                                                                                      SelectedItem="{Binding SelectedLanguage, RelativeSource={RelativeSource AncestorType=controls:DaisyComponentSidebar}, Mode=TwoWay}"
+                                                                                      DisplayMemberBinding="{Binding DisplayName}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+
                                                         <DataTemplate x:DataType="controls:SidebarItem">
                                                             <Button Classes="sidebar-item"
                                                                     Tag="{Binding}"
@@ -99,7 +114,7 @@
                                                                 </Grid>
                                                             </Button>
                                                         </DataTemplate>
-                                                    </ItemsControl.ItemTemplate>
+                                                    </ItemsControl.DataTemplates>
                                                 </ItemsControl>
                                             </controls:DaisyCollapse>
                                         </StackPanel>

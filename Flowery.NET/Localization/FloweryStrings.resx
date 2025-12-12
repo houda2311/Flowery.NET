@@ -144,6 +144,72 @@
     <comment>Default accessible text for DaisyCountdown</comment>
   </data>
 
+  <!-- DaisyTabs context menu -->
+  <data name="Tabs_CloseTab" xml:space="preserve">
+    <value>Close Tab</value>
+    <comment>Context menu item to close the current tab</comment>
+  </data>
+  <data name="Tabs_CloseOtherTabs" xml:space="preserve">
+    <value>Close Other Tabs</value>
+    <comment>Context menu item to close all tabs except the current one</comment>
+  </data>
+  <data name="Tabs_CloseTabsToRight" xml:space="preserve">
+    <value>Close Tabs to the Right</value>
+    <comment>Context menu item to close all tabs to the right of current</comment>
+  </data>
+  <data name="Tabs_TabColor" xml:space="preserve">
+    <value>Tab Color</value>
+    <comment>Context menu submenu for tab color selection</comment>
+  </data>
+  <data name="Tabs_Palette_Default" xml:space="preserve">
+    <value>Default</value>
+    <comment>Tab palette color option - resets to default</comment>
+  </data>
+  <data name="Tabs_Palette_Purple" xml:space="preserve">
+    <value>Purple</value>
+    <comment>Tab palette color option</comment>
+  </data>
+  <data name="Tabs_Palette_Indigo" xml:space="preserve">
+    <value>Indigo</value>
+    <comment>Tab palette color option</comment>
+  </data>
+  <data name="Tabs_Palette_Pink" xml:space="preserve">
+    <value>Pink</value>
+    <comment>Tab palette color option</comment>
+  </data>
+  <data name="Tabs_Palette_SkyBlue" xml:space="preserve">
+    <value>Sky Blue</value>
+    <comment>Tab palette color option</comment>
+  </data>
+  <data name="Tabs_Palette_Blue" xml:space="preserve">
+    <value>Blue</value>
+    <comment>Tab palette color option</comment>
+  </data>
+  <data name="Tabs_Palette_Lime" xml:space="preserve">
+    <value>Lime</value>
+    <comment>Tab palette color option</comment>
+  </data>
+  <data name="Tabs_Palette_Green" xml:space="preserve">
+    <value>Green</value>
+    <comment>Tab palette color option</comment>
+  </data>
+  <data name="Tabs_Palette_Yellow" xml:space="preserve">
+    <value>Yellow</value>
+    <comment>Tab palette color option</comment>
+  </data>
+  <data name="Tabs_Palette_Orange" xml:space="preserve">
+    <value>Orange</value>
+    <comment>Tab palette color option</comment>
+  </data>
+  <data name="Tabs_Palette_Red" xml:space="preserve">
+    <value>Red</value>
+    <comment>Tab palette color option</comment>
+  </data>
+  <data name="Tabs_Palette_Gray" xml:space="preserve">
+    <value>Gray</value>
+    <comment>Tab palette color option</comment>
+  </data>
+
   <!-- Theme display names -->
   <data name="Theme_Abyss" xml:space="preserve">
     <value>Abyss</value>

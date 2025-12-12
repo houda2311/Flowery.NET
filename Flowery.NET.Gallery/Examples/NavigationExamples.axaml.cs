@@ -114,4 +114,69 @@ public partial class NavigationExamples : UserControl, IScrollableExample
             }
         }
     }
+
+    #region Code Editor Tabs Example
+
+    private void OnCodeEditorCloseTab(object? sender, DaisyTabEventArgs e)
+    {
+        var tabs = this.FindControl<DaisyTabs>("CodeEditorTabs");
+        if (tabs == null) return;
+
+        tabs.Items.Remove(e.TabItem);
+        UpdateCodeEditorStatus();
+        ShowToast($"Closed '{e.TabItem.Header}'");
+    }
+
+    private void OnCodeEditorCloseOtherTabs(object? sender, DaisyTabEventArgs e)
+    {
+        var tabs = this.FindControl<DaisyTabs>("CodeEditorTabs");
+        if (tabs == null) return;
+
+        var toRemove = tabs.Items.OfType<TabItem>()
+            .Where(t => t != e.TabItem)
+            .ToList();
+
+        foreach (var tab in toRemove)
+            tabs.Items.Remove(tab);
+
+        tabs.SelectedItem = e.TabItem;
+        UpdateCodeEditorStatus();
+        ShowToast($"Closed {toRemove.Count} other tab(s)");
+    }
+
+    private void OnCodeEditorCloseTabsToRight(object? sender, DaisyTabEventArgs e)
+    {
+        var tabs = this.FindControl<DaisyTabs>("CodeEditorTabs");
+        if (tabs == null) return;
+
+        var allTabs = tabs.Items.OfType<TabItem>().ToList();
+        var index = allTabs.IndexOf(e.TabItem);
+        var toRemove = allTabs.Skip(index + 1).ToList();
+
+        foreach (var tab in toRemove)
+            tabs.Items.Remove(tab);
+
+        UpdateCodeEditorStatus();
+        if (toRemove.Count > 0)
+            ShowToast($"Closed {toRemove.Count} tab(s) to the right");
+    }
+
+    private void OnCodeEditorTabPaletteColorChange(object? sender, DaisyTabPaletteColorChangedEventArgs e)
+    {
+        var colorName = e.NewColor == DaisyTabPaletteColor.Default ? "default" : e.NewColor.ToString();
+        ShowToast($"Tab '{e.TabItem.Header}' color set to {colorName}");
+    }
+
+    private void UpdateCodeEditorStatus()
+    {
+        var tabs = this.FindControl<DaisyTabs>("CodeEditorTabs");
+        var status = this.FindControl<TextBlock>("CodeEditorStatus");
+        if (tabs != null && status != null)
+        {
+            var count = tabs.Items.Count;
+            status.Text = $"Ready - {count} file{(count != 1 ? "s" : "")} open";
+        }
+    }
+
+    #endregion
 }
