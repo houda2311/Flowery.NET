@@ -18,7 +18,8 @@
 #>
 param(
     [switch]$NoBrowser,
-    [int]$Port = 5235
+    [int]$Port = 5235,
+    [string]$Configuration = "Debug"
 )
 
 $ErrorActionPreference = "Stop"
@@ -35,6 +36,7 @@ $url = "http://localhost:$Port"
 
 Write-Host "Starting Flowery.NET.Gallery.Browser..." -ForegroundColor Cyan
 Write-Host "  URL: $url" -ForegroundColor Gray
+Write-Host "  Configuration: $Configuration" -ForegroundColor Gray
 Write-Host "  Press Ctrl+C to stop" -ForegroundColor Gray
 Write-Host ""
 
@@ -48,7 +50,7 @@ if (-not $NoBrowser) {
 
 Push-Location $browserProject
 try {
-    dotnet run --urls $url
+    dotnet run --configuration "$Configuration" --no-build --urls "$url"
 } finally {
     Pop-Location
 }

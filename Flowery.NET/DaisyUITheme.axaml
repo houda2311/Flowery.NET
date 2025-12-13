@@ -17,7 +17,6 @@
                 <ResourceInclude Source="/Themes/DaisyBadge.axaml" />
                 <ResourceInclude Source="/Themes/DaisyAlert.axaml" />
                 <ResourceInclude Source="/Themes/DaisyCard.axaml" />
-                <ResourceInclude Source="/Themes/DaisySelect.axaml" />
                 <ResourceInclude Source="/Themes/DaisyTextArea.axaml" />
                 <ResourceInclude Source="/Themes/DaisyRating.axaml" />
                 <ResourceInclude Source="/Themes/DaisyFileInput.axaml" />
@@ -74,6 +73,7 @@
     <StyleInclude Source="/Themes/DaisyStatusIndicator.axaml" />
     <StyleInclude Source="/Themes/DaisySteps.axaml" />
     <StyleInclude Source="/Themes/DaisyPagination.axaml" />
+    <StyleInclude Source="/Themes/DaisySelect.axaml" />
     <StyleInclude Source="/Themes/DaisyMenu.axaml" />
     <StyleInclude Source="/Themes/DaisyTabs.axaml" />
     <StyleInclude Source="/Themes/DaisyThemeDropdown.axaml" />

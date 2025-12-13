@@ -148,6 +148,7 @@ pwsh ./scripts/run_browser.ps1 -Port 8080
 |-----------|------|---------|-------------|
 | `-NoBrowser` | switch | false | If specified, does not automatically open the browser |
 | `-Port` | int | `5235` | HTTP port to use for the local server |
+| `-Configuration` | string | `Debug` | Build configuration (`Debug` or `Release`) |
 
 ### Notes
 
