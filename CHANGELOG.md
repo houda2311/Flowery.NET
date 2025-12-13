@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **DaisySelect**: Fixed dropdown popup positioning in Browser/WebAssembly when `SelectedIndex` is set during initialization
+- **DaisyTextArea**: Fixed Filled variant bottom border styling to match other variants
 - **run_browser.ps1**: fixed to run with debug configuration by default
 
 ## [1.4.1] - 2025-12-13

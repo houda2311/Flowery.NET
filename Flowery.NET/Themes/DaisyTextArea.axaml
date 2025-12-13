@@ -209,9 +209,8 @@
 
         <Style Selector="^[Variant=Filled]">
             <Setter Property="Background" Value="{DynamicResource DaisyBase200Brush}" />
-            <Setter Property="BorderThickness" Value="0,0,0,2" />
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
             <Setter Property="BorderBrush" Value="{DynamicResource DaisyNeutralBrush}" />
-            <Setter Property="CornerRadius" Value="8,8,0,0" />
         </Style>
         <Style Selector="^[Variant=Filled]:focus /template/ Border#PART_Background">
             <Setter Property="BorderBrush" Value="{DynamicResource DaisyPrimaryBrush}" />
