@@ -119,6 +119,9 @@ class MarkdownToHtml:
             return f'<a href="{url}">{text}</a>'
         html = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', convert_link, html)
 
+        # Horizontal rules (---, ***, ___)
+        html = re.sub(r'^[\s]*[-*_]{3,}[\s]*$', r'<hr>', html, flags=re.MULTILINE)
+
         # Headers
         html = re.sub(r'^### (.+)$', r'<h3>\1</h3>', html, flags=re.MULTILINE)
         html = re.sub(r'^## (.+)$', r'<h2>\1</h2>', html, flags=re.MULTILINE)

@@ -252,10 +252,12 @@ namespace Flowery.Effects
             panel.Children.Add(follower);
             control.SetValue(FollowerProperty, follower);
 
-            // Hook pointer events
+            // Hook pointer events (including touch)
             control.PointerMoved += OnPointerMoved;
             control.PointerEntered += OnPointerEntered;
             control.PointerExited += OnPointerExited;
+            control.PointerPressed += OnPointerPressed;
+            control.PointerReleased += OnPointerReleased;
 
             // Start animation timer (60 FPS)
             var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) };
@@ -269,6 +271,8 @@ namespace Flowery.Effects
             control.PointerMoved -= OnPointerMoved;
             control.PointerEntered -= OnPointerEntered;
             control.PointerExited -= OnPointerExited;
+            control.PointerPressed -= OnPointerPressed;
+            control.PointerReleased -= OnPointerReleased;
 
             var timer = control.GetValue(TimerProperty);
             if (timer != null)
@@ -314,6 +318,45 @@ namespace Flowery.Effects
 
         private static void OnPointerExited(object? sender, PointerEventArgs e)
         {
+            if (sender is Control control)
+            {
+                var follower = control.GetValue(FollowerProperty);
+                if (follower != null)
+                {
+                    follower.Opacity = 0;
+                }
+            }
+        }
+
+        private static void OnPointerPressed(object? sender, PointerPressedEventArgs e)
+        {
+            // Touch support: show follower and start tracking on touch/click
+            if (sender is Control control)
+            {
+                var follower = control.GetValue(FollowerProperty);
+                if (follower != null)
+                {
+                    var pos = e.GetPosition(control);
+                    var size = GetFollowerSize(control);
+                    var initialPos = new Point(pos.X - size / 2, pos.Y - size / 2);
+                    control.SetValue(CurrentPosProperty, initialPos);
+                    control.SetValue(TargetPosProperty, initialPos);
+                    control.SetValue(VelocityProperty, default);
+
+                    if (follower.RenderTransform is TranslateTransform transform)
+                    {
+                        transform.X = initialPos.X;
+                        transform.Y = initialPos.Y;
+                    }
+
+                    follower.Opacity = GetFollowerOpacity(control);
+                }
+            }
+        }
+
+        private static void OnPointerReleased(object? sender, PointerReleasedEventArgs e)
+        {
+            // Touch support: hide follower when touch ends
             if (sender is Control control)
             {
                 var follower = control.GetValue(FollowerProperty);

@@ -71,22 +71,42 @@ Entrance animation when element enters the visual tree. Supports 5 modes:
 
 ### ScrambleHoverBehavior
 
-Randomly scrambles text characters on hover, then resolves left-to-right.
+Text scramble/reveal effect on hover or click (mobile-friendly).
+
+**RevealOnHover (default):** Text starts scrambled and progressively reveals on hover/click. Ideal for teasers, spoilers, or hidden content.
 
 ```xml
-<TextBlock Text="Hover Me!"
+<TextBlock Text="Secret Message"
+           fx:ScrambleHoverBehavior.IsEnabled="True"/>
+```
+
+**ScrambleOnHover:** Text starts readable and scrambles on hover. Decorative glitch effect.
+
+```xml
+<TextBlock Text="Glitch Me!"
            fx:ScrambleHoverBehavior.IsEnabled="True"
-           fx:ScrambleHoverBehavior.ScrambleChars="!@#$%^&*()"
-           fx:ScrambleHoverBehavior.Duration="0:0:0.5"
-           fx:ScrambleHoverBehavior.FrameRate="30"/>
+           fx:ScrambleHoverBehavior.Mode="ScrambleOnHover"/>
+```
+
+**SplitFlap style:** Airport departure board effect - characters cycle A to Z until settling.
+
+```xml
+<TextBlock Text="DEPARTURES"
+           fx:ScrambleHoverBehavior.IsEnabled="True"
+           fx:ScrambleHoverBehavior.RevealStyle="SplitFlap"
+           fx:ScrambleHoverBehavior.Duration="0:0:2.5"/>
 ```
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | `IsEnabled` | bool | false | Enable the effect |
-| `ScrambleChars` | string | `!@#$%^&*()[]{}...` | Characters used for scrambling |
-| `Duration` | TimeSpan | 500ms | Time to fully resolve text |
+| `Mode` | ScrambleMode | RevealOnHover | `RevealOnHover` (start scrambled) or `ScrambleOnHover` (start readable) |
+| `RevealStyle` | RevealStyle | Random | `Random` (random chars) or `SplitFlap` (alphabetical cycling like airport boards) |
+| `ScrambleChars` | string | `!@#$%^&*()[]{}...` | Characters used for Random style |
+| `Duration` | TimeSpan | 500ms | Time to fully resolve/scramble text |
 | `FrameRate` | int | 30 | Updates per second |
+
+**Mobile support:** Click/tap triggers the animation for touch devices without hover capability.
 
 ---
 
@@ -134,9 +154,11 @@ Creates a follower element that tracks mouse position with spring physics.
 | `Stiffness` | double | 0.15 | Spring stiffness (0-1) |
 | `Damping` | double | 0.85 | Velocity damping (0-1) |
 
-> **Note**: Must be applied to a `Panel` (e.g., `Grid`, `Canvas`, `StackPanel`).
-> [!IMPORTANT]
-> **Container hit testing:** If you want tracking to work across a **container's full area** (not just over child elements), the Panel must have `Background="Transparent"` (or any brush). Without a background, Avalonia only detects mouse events over rendered content.
+**Note**: Must be applied to a `Panel` (e.g., `Grid`, `Canvas`, `StackPanel`).
+
+**Desktop only:** This effect is designed for mouse/cursor tracking and is hidden on Android/mobile where touch gestures scroll the page instead.
+
+**Container hit testing:** If you want tracking to work across a container's full area (not just over child elements), the Panel must have `Background="Transparent"` (or any brush). Without a background, Avalonia only detects pointer events over rendered content.
 
 ```xml
 <!-- ✅ Correct: Panel receives mouse events everywhere -->
@@ -168,11 +190,17 @@ RevealBehavior.SetDirection(myBorder, RevealDirection.Left);
 RevealBehavior.SetIsEnabled(myBorder, false);
 RevealBehavior.SetIsEnabled(myBorder, true);
 
-// Apply ScrambleHover to a TextBlock
+// Apply ScrambleHover to a TextBlock (default: RevealOnHover)
 ScrambleHoverBehavior.SetIsEnabled(myTextBlock, true);
 ScrambleHoverBehavior.SetScrambleChars(myTextBlock, "█▓▒░");
 
-// Trigger scramble programmatically (for demos)
+// Use ScrambleOnHover mode for decorative glitch effect
+ScrambleHoverBehavior.SetMode(myTextBlock, ScrambleMode.ScrambleOnHover);
+
+// Use SplitFlap style for airport departure board effect
+ScrambleHoverBehavior.SetRevealStyle(myTextBlock, RevealStyle.SplitFlap);
+
+// Trigger animation programmatically (for demos)
 ScrambleHoverBehavior.TriggerScramble(myTextBlock);
 
 // Apply WaveText to a TextBlock

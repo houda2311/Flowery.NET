@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
@@ -17,6 +18,16 @@ public partial class EffectsExamples : UserControl, IScrollableExample
     public EffectsExamples()
     {
         InitializeComponent();
+
+        // Hide CursorFollow section on Android (touch gestures scroll instead of tracking)
+        if (OperatingSystem.IsAndroid())
+        {
+            var cursorSection = this.FindControl<StackPanel>("CursorFollowSection");
+            if (cursorSection != null)
+            {
+                cursorSection.IsVisible = false;
+            }
+        }
     }
 
     public void ReplayReveal_Click(object? sender, RoutedEventArgs e)

@@ -211,6 +211,16 @@
                             fx:ScrambleHoverBehavior.IsEnabled="True"
                             fx:ScrambleHoverBehavior.ScrambleChars="0123456789"
                             fx:ScrambleHoverBehavior.Duration="0:0:0.6" />
+                        <TextBlock x:Name="ScrambleDemo4"
+                            Text="{galloc:Localize Effects_Scramble_Demo4}"
+                            FontSize="20" FontWeight="Bold"
+                            FontFamily="Consolas,Courier New,monospace"
+                            HorizontalAlignment="Stretch"
+                            TextAlignment="Center"
+                            Foreground="{DynamicResource DaisyWarningBrush}"
+                            fx:ScrambleHoverBehavior.IsEnabled="True"
+                            fx:ScrambleHoverBehavior.RevealStyle="SplitFlap"
+                            fx:ScrambleHoverBehavior.Duration="0:0:2.5" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -247,8 +257,8 @@
                 </Border>
             </StackPanel>
 
-            <!-- Cursor Follow Effect -->
-            <StackPanel Spacing="12">
+            <!-- Cursor Follow Effect (hidden on Android - touch scrolls instead) -->
+            <StackPanel x:Name="CursorFollowSection" Spacing="12">
                 <local:SectionHeader x:Name="CursorFollowSectionHeader" SectionId="cursor-follow"
                     Title="{galloc:Localize Effects_CursorFollow_Title}" />
                 <TextBlock x:Name="CursorFollowDescription"
@@ -309,7 +319,7 @@
                 <local:SectionHeader x:Name="ShowcaseSectionHeader" SectionId="showcase"
                     Title="{galloc:Localize Effects_Showcase_Title}" />
 
-                <controls:DaisyCard Width="700" Padding="24">
+                <controls:DaisyCard MaxWidth="430" Padding="24">
                     <StackPanel Spacing="20">
                         <!-- Reveal Effect -->
                         <StackPanel Spacing="8">
