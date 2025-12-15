@@ -174,7 +174,7 @@ Supported: `DaisyLoading`, `DaisyProgress`, `DaisyRadialProgress`, `DaisyStatusI
 
 ### Utility Controls
 
-- **Component Sidebar** (`DaisyComponentSidebar`): Pre-built documentation/admin sidebar with categories and search.
+- **Component Sidebar** (`FloweryComponentSidebar`): Pre-built documentation/admin sidebar with categories and search.
 - **Modifier Keys** (`DaisyModifierKeys`): Visualizes keyboard modifiers (Shift, Ctrl, Alt) and locks.
 
 ### Color Picker Suite

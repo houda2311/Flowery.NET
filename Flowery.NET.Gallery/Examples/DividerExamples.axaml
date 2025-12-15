@@ -1,10 +1,13 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET"
-             xmlns:local="clr-namespace:Flowery.NET.Gallery.Examples"
-             x:Class="Flowery.NET.Gallery.Examples.DividerExamples">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET"
+    xmlns:services="clr-namespace:Flowery.Services;assembly=Flowery.NET"
+    xmlns:local="clr-namespace:Flowery.NET.Gallery.Examples"
+    x:Class="Flowery.NET.Gallery.Examples.DividerExamples">
 
-    <ScrollViewer x:Name="MainScrollViewer" HorizontalScrollBarVisibility="Disabled">
+    <ScrollViewer x:Name="MainScrollViewer" HorizontalScrollBarVisibility="Disabled"
+        services:FloweryResponsive.IsEnabled="True"
+        services:FloweryResponsive.BaseMaxWidth="430">
         <StackPanel Spacing="24" Margin="24,0,24,32">
 
             <!-- Divider -->

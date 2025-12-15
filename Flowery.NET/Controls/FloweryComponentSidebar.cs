@@ -42,6 +42,10 @@ namespace Flowery.Controls
     {
     }
 
+    public class SidebarThemeSelectorItem : SidebarItem
+    {
+    }
+
     public class SidebarLanguage
     {
         public string Code { get; set; } = string.Empty;
@@ -63,9 +67,9 @@ namespace Flowery.Controls
         }
     }
 
-    public class DaisyComponentSidebar : TemplatedControl
+    public class FloweryComponentSidebar : TemplatedControl
     {
-        protected override Type StyleKeyOverride => typeof(DaisyComponentSidebar);
+        protected override Type StyleKeyOverride => typeof(FloweryComponentSidebar);
 
         private const string StateKey = "sidebar";
 
@@ -76,8 +80,8 @@ namespace Flowery.Controls
         private bool _updatingLanguage;
         private Button? _selectedItemButton;
 
-        public static readonly DirectProperty<DaisyComponentSidebar, ObservableCollection<SidebarLanguage>> AvailableLanguagesProperty =
-            AvaloniaProperty.RegisterDirect<DaisyComponentSidebar, ObservableCollection<SidebarLanguage>>(
+        public static readonly DirectProperty<FloweryComponentSidebar, ObservableCollection<SidebarLanguage>> AvailableLanguagesProperty =
+            AvaloniaProperty.RegisterDirect<FloweryComponentSidebar, ObservableCollection<SidebarLanguage>>(
                 nameof(AvailableLanguages),
                 o => o.AvailableLanguages,
                 (o, v) => o.AvailableLanguages = v);
@@ -85,11 +89,19 @@ namespace Flowery.Controls
         public ObservableCollection<SidebarLanguage> AvailableLanguages
         {
             get => _availableLanguages;
-            set => SetAndRaise(AvailableLanguagesProperty, ref _availableLanguages, value);
+            set
+            {
+                if (SetAndRaise(AvailableLanguagesProperty, ref _availableLanguages, value))
+                {
+                    // Update selected language to match current culture when languages are set
+                    if (value != null && value.Count > 0)
+                        UpdateSelectedLanguageFromCulture(FloweryLocalization.CurrentCulture);
+                }
+            }
         }
 
-        public static readonly DirectProperty<DaisyComponentSidebar, SidebarLanguage?> SelectedLanguageProperty =
-            AvaloniaProperty.RegisterDirect<DaisyComponentSidebar, SidebarLanguage?>(
+        public static readonly DirectProperty<FloweryComponentSidebar, SidebarLanguage?> SelectedLanguageProperty =
+            AvaloniaProperty.RegisterDirect<FloweryComponentSidebar, SidebarLanguage?>(
                 nameof(SelectedLanguage),
                 o => o.SelectedLanguage,
                 (o, v) => o.SelectedLanguage = v);
@@ -121,7 +133,7 @@ namespace Flowery.Controls
         }
 
         public static readonly RoutedEvent<SidebarItemSelectedEventArgs> ItemSelectedEvent =
-            RoutedEvent.Register<DaisyComponentSidebar, SidebarItemSelectedEventArgs>(
+            RoutedEvent.Register<FloweryComponentSidebar, SidebarItemSelectedEventArgs>(
                 nameof(ItemSelected), RoutingStrategies.Bubble);
 
         public event EventHandler<SidebarItemSelectedEventArgs>? ItemSelected
@@ -131,7 +143,7 @@ namespace Flowery.Controls
         }
 
         public static readonly StyledProperty<ObservableCollection<SidebarCategory>> CategoriesProperty =
-            AvaloniaProperty.Register<DaisyComponentSidebar, ObservableCollection<SidebarCategory>>(
+            AvaloniaProperty.Register<FloweryComponentSidebar, ObservableCollection<SidebarCategory>>(
                 nameof(Categories), new ObservableCollection<SidebarCategory>());
 
         public ObservableCollection<SidebarCategory> Categories
@@ -141,7 +153,7 @@ namespace Flowery.Controls
         }
 
         public static readonly StyledProperty<SidebarItem?> SelectedItemProperty =
-            AvaloniaProperty.Register<DaisyComponentSidebar, SidebarItem?>(nameof(SelectedItem));
+            AvaloniaProperty.Register<FloweryComponentSidebar, SidebarItem?>(nameof(SelectedItem));
 
         public SidebarItem? SelectedItem
         {
@@ -150,7 +162,7 @@ namespace Flowery.Controls
         }
 
         public static readonly StyledProperty<double> SidebarWidthProperty =
-            AvaloniaProperty.Register<DaisyComponentSidebar, double>(nameof(SidebarWidth), 224);
+            AvaloniaProperty.Register<FloweryComponentSidebar, double>(nameof(SidebarWidth), 224);
 
         public double SidebarWidth
         {
@@ -159,7 +171,7 @@ namespace Flowery.Controls
         }
 
         public static readonly StyledProperty<string> SearchTextProperty =
-            AvaloniaProperty.Register<DaisyComponentSidebar, string>(nameof(SearchText), string.Empty);
+            AvaloniaProperty.Register<FloweryComponentSidebar, string>(nameof(SearchText), string.Empty);
 
         public string SearchText
         {
@@ -167,22 +179,35 @@ namespace Flowery.Controls
             set => SetValue(SearchTextProperty, value);
         }
 
-        static DaisyComponentSidebar()
+        static FloweryComponentSidebar()
         {
-            SearchTextProperty.Changed.AddClassHandler<DaisyComponentSidebar>((s, e) => s.OnSearchTextChanged());
+            SearchTextProperty.Changed.AddClassHandler<FloweryComponentSidebar>((s, e) => s.OnSearchTextChanged());
+            CategoriesProperty.Changed.AddClassHandler<FloweryComponentSidebar>((s, e) => s.OnCategoriesChanged());
         }
 
-        public DaisyComponentSidebar()
+        public FloweryComponentSidebar()
         {
-            AvailableLanguages = CreateDefaultLanguages();
-            UpdateSelectedLanguageFromCulture(FloweryLocalization.CurrentCulture);
+            // Initialize with empty collections - caller should set Categories and AvailableLanguages
+            _allCategories = new ObservableCollection<SidebarCategory>();
             FloweryLocalization.CultureChanged += OnLocalizationCultureChanged;
+        }
 
-            _allCategories = CreateDefaultCategories();
+        private void OnCategoriesChanged()
+        {
+            var newCategories = Categories;
+            if (newCategories == null || newCategories.Count == 0)
+                return;
+
+            _allCategories = newCategories;
             LoadState();
+
+            // Wire up property changed handlers for expand/collapse state persistence
             foreach (var cat in _allCategories)
-                cat.PropertyChanged += (s, e) => { if (e.PropertyName == nameof(SidebarCategory.IsExpanded)) SaveState(SelectedItem?.Name); };
-            Categories = _allCategories;
+                cat.PropertyChanged += (s, e) =>
+                {
+                    if (e.PropertyName == nameof(SidebarCategory.IsExpanded))
+                        SaveState(SelectedItem?.Id);
+                };
         }
 
         private void OnLocalizationCultureChanged(object? sender, CultureInfo culture)

@@ -7,6 +7,8 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using Avalonia.VisualTree;
 using Flowery.Controls;
@@ -16,15 +18,33 @@ namespace Flowery.NET.Gallery;
 
 public partial class MainView : UserControl
 {
+    /// <summary>
+    /// The width of the sidebar when open.
+    /// </summary>
+    private const double SidebarWidth = 220;
+
+    /// <summary>
+    /// Minimum width the content area needs to be usable.
+    /// If showing the sidebar inline would leave less than this for content, collapse to overlay.
+    /// </summary>
+    private const double MinContentWidth = 400;
+
+    /// <summary>
+    /// Maximum percentage of screen width the sidebar should occupy before collapsing.
+    /// Prevents sidebar from dominating narrow screens.
+    /// </summary>
+    private const double MaxSidebarWidthPercent = 0.35;
+
+    /// <summary>
+    /// Scroll threshold in pixels before the header collapses on mobile.
+    /// </summary>
+    private const double HeaderCollapseScrollThreshold = 20;
+
     private readonly Dictionary<string, Func<Control>> _categoryControls;
     private readonly Dictionary<string, Control> _categoryControlCache;
     private Control? _activeCategoryContent;
     private ActionsExamples? _actionsExamples;
 
-    /// <summary>
-    /// Controls/sections to skip during batch screenshot capture.
-    /// These either have animated GIFs in documentation or are non-visual sections.
-    /// </summary>
     private static readonly HashSet<string> ScreenshotSkipList = new(StringComparer.OrdinalIgnoreCase)
     {
         "DaisyLoading",
@@ -36,10 +56,18 @@ public partial class MainView : UserControl
 
     private bool _isCapturing;
     private bool _stopCapture;
+    private bool _isHeaderCollapsed;
+    private readonly bool _isMobilePlatform;
 
     public MainView()
     {
         InitializeComponent();
+
+        // Detect mobile platform early (before any navigation)
+        _isMobilePlatform = OperatingSystem.IsAndroid() || OperatingSystem.IsIOS();
+
+        this.Loaded += OnLoaded;
+        this.SizeChanged += OnSizeChanged;
 
         _categoryControls = new Dictionary<string, Func<Control>>(StringComparer.OrdinalIgnoreCase)
         {
@@ -62,6 +90,10 @@ public partial class MainView : UserControl
 
         if (ComponentSidebar != null)
         {
+            // Initialize sidebar with Gallery-specific data
+            ComponentSidebar.Categories = GallerySidebarData.CreateCategories();
+            ComponentSidebar.AvailableLanguages = GallerySidebarData.CreateLanguages();
+
             var (lastItemId, category) = ComponentSidebar.GetLastViewedItem();
             if (lastItemId != null && category != null)
             {
@@ -75,6 +107,82 @@ public partial class MainView : UserControl
         }
 
         NavigateToCategory("Home");
+    }
+
+    private void OnLoaded(object? sender, RoutedEventArgs e)
+    {
+        // Hide screenshot button on mobile (desktop-only feature)
+        if (ScreenshotButton != null)
+            ScreenshotButton.IsVisible = !_isMobilePlatform;
+
+        // Apply responsive layout on initial load
+        UpdateResponsiveLayout(this.Bounds.Width);
+
+        // On mobile, initialize orientation and attach scroll handler
+        if (_isMobilePlatform)
+        {
+            _isLandscape = this.Bounds.Width > this.Bounds.Height;
+
+            // Ensure header starts expanded (especially in portrait)
+            if (!_isLandscape)
+                SetHeaderCollapsed(false);
+
+            if (_activeCategoryContent != null && _currentScrollViewer == null)
+                AttachScrollHandler(_activeCategoryContent);
+        }
+    }
+
+    private bool _isLandscape;
+
+    private void OnSizeChanged(object? sender, SizeChangedEventArgs e)
+    {
+        UpdateResponsiveLayout(e.NewSize.Width);
+
+        // On mobile, determine orientation and update header accordingly
+        if (_isMobilePlatform)
+        {
+            var wasLandscape = _isLandscape;
+            _isLandscape = e.NewSize.Width > e.NewSize.Height;
+
+            // If switching from landscape to portrait, expand header
+            if (wasLandscape && !_isLandscape && _isHeaderCollapsed)
+            {
+                SetHeaderCollapsed(false);
+            }
+            // If in portrait mode, always ensure header is expanded
+            else if (!_isLandscape && _isHeaderCollapsed)
+            {
+                SetHeaderCollapsed(false);
+            }
+        }
+    }
+
+    private void UpdateResponsiveLayout(double width)
+    {
+        if (MainSplitView == null || HamburgerButton == null || ComponentSidebar == null)
+            return;
+
+        // Collapse sidebar if:
+        // 1. Content area would be too narrow (less than MinContentWidth)
+        // 2. Sidebar would take more than MaxSidebarWidthPercent of screen
+        var contentWidthIfInline = width - SidebarWidth;
+        var sidebarPercent = SidebarWidth / width;
+
+        bool shouldCollapse = contentWidthIfInline < MinContentWidth || sidebarPercent > MaxSidebarWidthPercent;
+
+        // Compact: overlay sidebar with hamburger toggle
+        // Wide: inline sidebar always visible
+        MainSplitView.DisplayMode = shouldCollapse ? SplitViewDisplayMode.Overlay : SplitViewDisplayMode.Inline;
+        HamburgerButton.IsVisible = shouldCollapse;
+        MainSplitView.IsPaneOpen = !shouldCollapse;
+    }
+
+    private void HamburgerButton_Click(object? sender, RoutedEventArgs e)
+    {
+        if (MainSplitView != null)
+        {
+            MainSplitView.IsPaneOpen = !MainSplitView.IsPaneOpen;
+        }
     }
 
     private Control CreateHomePage()
@@ -134,6 +242,102 @@ public partial class MainView : UserControl
                     scrollable.ScrollToSection(sectionId);
                 }
             }
+
+            // On mobile, attach scroll handler for header collapse
+            if (_isMobilePlatform && contentChanged)
+            {
+                global::Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+                {
+                    AttachScrollHandler(newContent);
+                }, global::Avalonia.Threading.DispatcherPriority.Loaded);
+            }
+        }
+    }
+
+    private ScrollViewer? _currentScrollViewer;
+
+    private void AttachScrollHandler(Control content)
+    {
+        // Detach from previous ScrollViewer
+        if (_currentScrollViewer != null)
+        {
+            _currentScrollViewer.ScrollChanged -= OnContentScrollChanged;
+            _currentScrollViewer = null;
+        }
+
+        // Find ScrollViewer in the content
+        var scrollViewer = content.GetVisualDescendants().OfType<ScrollViewer>().FirstOrDefault();
+        if (scrollViewer != null)
+        {
+            _currentScrollViewer = scrollViewer;
+            scrollViewer.ScrollChanged += OnContentScrollChanged;
+        }
+    }
+
+    private void OnContentScrollChanged(object? sender, ScrollChangedEventArgs e)
+    {
+        // Only allow scroll-based collapse in landscape mode
+        if (!_isLandscape)
+            return;
+
+        if (sender is not ScrollViewer scrollViewer)
+            return;
+
+        var shouldCollapse = scrollViewer.Offset.Y > HeaderCollapseScrollThreshold;
+        if (shouldCollapse != _isHeaderCollapsed)
+        {
+            SetHeaderCollapsed(shouldCollapse);
+        }
+    }
+
+    private void SetHeaderCollapsed(bool collapsed)
+    {
+        _isHeaderCollapsed = collapsed;
+
+        if (HeaderPanel == null || SubtitleRow == null || HeaderTitle == null)
+            return;
+
+        if (collapsed)
+        {
+            // Compact mode: single-line thin header
+            SubtitleRow.IsVisible = false;
+            HeaderTitle.FontSize = 16;
+            if (HeaderContentGrid != null)
+                HeaderContentGrid.Margin = new Thickness(12, 6, 16, 4);
+            if (HeaderOrbRight != null)
+                HeaderOrbRight.IsVisible = false;
+            if (HeaderOrbLeft != null)
+                HeaderOrbLeft.IsVisible = false;
+            if (HeaderAccentBar != null)
+                HeaderAccentBar.Height = 2;
+            // Compact category title bar
+            if (CategoryTitleBar != null)
+                CategoryTitleBar.Padding = new Thickness(16, 2, 16, 6);
+            if (CategoryTitle != null)
+                CategoryTitle.FontSize = 16;
+            if (CategoryChevrons != null)
+                CategoryChevrons.IsVisible = false;
+        }
+        else
+        {
+            // Full mode: show all header elements
+            SubtitleRow.IsVisible = true;
+            HeaderTitle.FontSize = 28;
+            if (HeaderContentGrid != null)
+                HeaderContentGrid.Margin = new Thickness(12, 16, 16, 8);
+            if (HeaderOrbRight != null)
+                HeaderOrbRight.IsVisible = true;
+            if (HeaderOrbLeft != null)
+                HeaderOrbLeft.IsVisible = true;
+            if (HeaderAccentBar != null)
+                HeaderAccentBar.Height = 3;
+            // Full category title bar
+            if (CategoryTitleBar != null)
+                CategoryTitleBar.Padding = new Thickness(24, 4, 24, 20);
+            if (CategoryTitle != null)
+                CategoryTitle.FontSize = 22;
+            if (CategoryChevrons != null)
+                CategoryChevrons.IsVisible = true;
         }
     }
 
@@ -151,6 +355,10 @@ public partial class MainView : UserControl
     public void ComponentSidebar_ItemSelected(object? sender, SidebarItemSelectedEventArgs e)
     {
         NavigateToCategory(e.Item.TabHeader, e.Item.Id);
+        if (MainSplitView != null && MainSplitView.DisplayMode == SplitViewDisplayMode.Overlay)
+        {
+            MainSplitView.IsPaneOpen = false;
+        }
     }
 
     public void OnOpenModalRequested(object? sender, EventArgs e)

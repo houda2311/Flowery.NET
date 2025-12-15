@@ -254,6 +254,8 @@ class SiteGenerator:
         'DaisyPaginationItem',  # Part of DaisyPagination
         'ColorCollection',      # Color collection class
         'HslColor',             # Color utility struct
+        'FloweryResponsive',    # Responsive layout helper
+        'FloweryComponentSidebar',  # Pre-built documentation/admin sidebar
     }
 
     def __init__(self, docs_dir: Path, output_dir: Path, curated_dir: Path | None = None):

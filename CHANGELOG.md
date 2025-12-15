@@ -6,6 +6,57 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.1] - 2025-12-15
+
+### New
+
+- **FloweryResponsive**: New responsive layout helper moved from Gallery to library (`Flowery.Services`)
+  - Attached properties: `IsEnabled`, `BaseMaxWidth`, `ResponsiveMaxWidth`, `CurrentBreakpoint`
+  - `FloweryBreakpoints` static class with predefined breakpoints (ExtraSmall 430px, Small 640px, Medium 768px, Large 1024px, ExtraLarge 1280px, TwoXL 1536px)
+  - Helper methods: `GetBreakpointName()`, `IsAtLeast()`, `IsBelow()`
+  - Documentation added to llms-static/ and categorized as Helper on the docs site
+- **FloweryComponentSidebar**: Added `SidebarThemeSelectorItem` marker class for theme dropdown rendering
+- **Run scripts** added specifically for Android and Desktop for faster iterations
+
+### Changed
+
+- **BREAKING**: Renamed `DaisyComponentSidebar` to `FloweryComponentSidebar` (no original DaisyUI equivalent)
+  - Update XAML: `<controls:DaisyComponentSidebar>` → `<controls:FloweryComponentSidebar>`
+  - Theme file renamed from `DaisyComponentSidebar.axaml` to `FloweryComponentSidebar.axaml`
+- **BREAKING**: `FloweryComponentSidebar` no longer initializes with default categories
+  - Callers must now set `Categories` and `AvailableLanguages` properties explicitly
+  - Refactored to be a generic, reusable control without hardcoded Gallery-specific data
+  - Added `OnCategoriesChanged` handler to support external category assignment
+- Gallery: All 12 example views now use `FloweryResponsive` helper for responsive layout behavior
+  - Carousel, ChatBubble, Collapse, Diff, Tables now adapt to screen size
+  - Tables wrapped in `ScrollViewer` for horizontal scrolling on narrow screens
+- FloweryComponentSidebar: Enhanced documentation with language/translation support section
+
+### Gallery App
+
+- Created `GallerySidebarData.cs` with all showcase categories, items, and languages
+- Created `GalleryThemeSelectorItem` and `GalleryLanguageSelectorItem` classes
+- Updated `MainView.axaml.cs` to initialize sidebar with Gallery-specific data
+- Moved theme selector from header to sidebar (above language selector)
+- Android version works much better now due to improved responsive layout with content-aware sidebar and title-bar collapsing
+
+### UI/UX Improvements
+
+- Added theme dropdown template to sidebar theme file
+- Adjusted margins to prevent dropdown cutoff in sidebar
+- Unified font sizes to 12px across sidebar components
+- Improved hamburger button styling (`Size="Small"`, `Variant="Ghost"`, 18×18 icon)
+- Added smarter responsive breakpoint logic based on content width
+
+### Fixed
+
+- **FloweryComponentSidebar**: Fixed hamburger button not showing on narrow windows
+  - Added `OnLoaded` handler to apply responsive layout on initial load
+  - Refactored collapse logic to be content-aware, not pixel-based:
+    - Collapse if content area would be < 400px
+    - Collapse if sidebar takes > 35% of screen width
+  - Works on all platforms: desktop resize, mobile orientation, foldables
+
 ## [1.5.0] - 2025-12-14
 
 ### New
@@ -82,7 +133,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Gallery Sidebar: Multi-template item rendering now uses `ItemsControl.DataTemplates` (fixes AVLN3000 in `DaisyComponentSidebar.axaml`)
+- Gallery Sidebar: Multi-template item rendering now uses `ItemsControl.DataTemplates` (fixes AVLN3000 in `FloweryComponentSidebar.axaml`)
 
 ## [1.3.1] - 2025-12-11
 

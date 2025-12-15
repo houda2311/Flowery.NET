@@ -11,111 +11,148 @@
              x:Class="Flowery.NET.Gallery.MainView"
              Background="{DynamicResource DaisyBase100Brush}">
 
-    <Grid ColumnDefinitions="Auto,*">
-        <!-- Left Sidebar -->
-        <controls:DaisyComponentSidebar x:Name="ComponentSidebar"
-                                        Grid.Column="0"
-                                        SidebarWidth="220"
-                                        ItemSelected="ComponentSidebar_ItemSelected" />
+    <Grid ColumnDefinitions="*">
+        <SplitView x:Name="MainSplitView"
+            IsPaneOpen="False"
+            DisplayMode="Overlay"
+            OpenPaneLength="220">
+            <SplitView.Pane>
+                <!-- Left Sidebar -->
+                <controls:FloweryComponentSidebar x:Name="ComponentSidebar"
+                    SidebarWidth="220"
+                    ItemSelected="ComponentSidebar_ItemSelected" />
+            </SplitView.Pane>
+            <SplitView.Content>
+                <!-- Main Content -->
+                <Grid Grid.Column="1" RowDefinitions="Auto,Auto,*">
+                    <!-- Futuristic Header -->
+                    <Border x:Name="HeaderBorder" Grid.Row="0" ClipToBounds="True">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                <GradientStop Offset="0" Color="#0f172a" />
+                                <GradientStop Offset="0.5" Color="#1e293b" />
+                                <GradientStop Offset="1" Color="#0f172a" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <!-- Decorative gradient orbs (hidden on mobile compact mode) -->
+                            <Ellipse x:Name="HeaderOrbRight" Width="150" Height="150" Opacity="0.1"
+                                HorizontalAlignment="Right" VerticalAlignment="Top"
+                                Margin="0,-40,-20,0">
+                                <Ellipse.Fill>
+                                    <RadialGradientBrush>
+                                        <GradientStop Offset="0" Color="#0ea5e9" />
+                                        <GradientStop Offset="1" Color="Transparent" />
+                                    </RadialGradientBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <Ellipse x:Name="HeaderOrbLeft" Width="100" Height="100" Opacity="0.05"
+                                HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                Margin="-20,0,0,-20">
+                                <Ellipse.Fill>
+                                    <RadialGradientBrush>
+                                        <GradientStop Offset="0" Color="#2dd4bf" />
+                                        <GradientStop Offset="1" Color="Transparent" />
+                                    </RadialGradientBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
 
-        <!-- Main Content -->
-        <Grid Grid.Column="1" RowDefinitions="Auto,Auto,*">
-            <!-- Futuristic Header -->
-            <Border Grid.Row="0" ClipToBounds="True">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                        <GradientStop Offset="0" Color="#0f172a"/>
-                        <GradientStop Offset="0.5" Color="#1e293b"/>
-                        <GradientStop Offset="1" Color="#0f172a"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-                <Grid>
-                    <!-- Decorative gradient orbs -->
-                    <Ellipse Width="150" Height="150" Opacity="0.1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-40,-20,0">
-                        <Ellipse.Fill>
-                            <RadialGradientBrush>
-                                <GradientStop Offset="0" Color="#0ea5e9"/>
-                                <GradientStop Offset="1" Color="Transparent"/>
-                            </RadialGradientBrush>
-                        </Ellipse.Fill>
-                    </Ellipse>
-                    <Ellipse Width="100" Height="100" Opacity="0.05" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-20,0,0,-20">
-                        <Ellipse.Fill>
-                            <RadialGradientBrush>
-                                <GradientStop Offset="0" Color="#2dd4bf"/>
-                                <GradientStop Offset="1" Color="Transparent"/>
-                            </RadialGradientBrush>
-                        </Ellipse.Fill>
-                    </Ellipse>
+                            <StackPanel x:Name="HeaderPanel">
+                                <!-- Header content -->
+                                <Grid x:Name="HeaderContentGrid" Margin="12,16,16,8"
+                                    ColumnDefinitions="Auto,*">
+                                    <controls:DaisyButton x:Name="HamburgerButton" Size="Small"
+                                        Variant="Ghost" IsVisible="False"
+                                        Click="HamburgerButton_Click"
+                                        Margin="0,0,8,0" VerticalAlignment="Center">
+                                        <PathIcon Width="18" Height="18"
+                                            Data="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+                                    </controls:DaisyButton>
 
-                    <StackPanel>
-                        <!-- Header content -->
-                        <Grid Margin="24,24,24,8" ColumnDefinitions="*,Auto">
-                            <StackPanel Spacing="6">
-                                <TextBlock FontSize="28" FontWeight="Bold">
-                                    <TextBlock.Foreground>
+                                    <StackPanel Grid.Column="1" Spacing="4">
+                                        <TextBlock x:Name="HeaderTitle" FontSize="28"
+                                            FontWeight="Bold">
+                                            <TextBlock.Foreground>
+                                                <LinearGradientBrush StartPoint="0%,50%"
+                                                    EndPoint="100%,50%">
+                                                    <GradientStop Offset="0" Color="#f8fafc" />
+                                                    <GradientStop Offset="1" Color="#94a3b8" />
+                                                </LinearGradientBrush>
+                                            </TextBlock.Foreground>
+                                            <Run Text="Flowery.NET" />
+                                            <Run x:Name="HeaderSubtitleRun"
+                                                Text=" Components Gallery" FontWeight="Normal"
+                                                Foreground="#94a3b8" />
+                                        </TextBlock>
+                                        <Grid x:Name="SubtitleRow" ColumnDefinitions="*,Auto">
+                                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                                <TextBlock Text="Created by" FontSize="13"
+                                                    Foreground="#64748b" VerticalAlignment="Center" />
+                                                <Button Classes="link" Padding="0"
+                                                    Background="Transparent" BorderThickness="0"
+                                                    Cursor="Hand" Click="OpenGitHub_Click">
+                                                    <TextBlock Text="tobitege" FontSize="13"
+                                                        FontWeight="SemiBold" Foreground="#38bdf8" />
+                                                </Button>
+                                                <TextBlock Text="· 2025 · MIT licensed"
+                                                    FontSize="13"
+                                                    Foreground="#64748b" VerticalAlignment="Center" />
+                                            </StackPanel>
+                                            <controls:DaisyButton x:Name="ScreenshotButton"
+                                                Grid.Column="1"
+                                                Content="📸" Variant="Ghost" Size="Small"
+                                                ToolTip.Tip="Capture All Screenshots"
+                                                Click="CaptureAllScreenshots_Click" />
+                                        </Grid>
+                                    </StackPanel>
+                                </Grid>
+
+                                <!-- Bottom accent gradient bar -->
+                                <Border x:Name="HeaderAccentBar" Height="3">
+                                    <Border.Background>
                                         <LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
-                                            <GradientStop Offset="0" Color="#f8fafc"/>
-                                            <GradientStop Offset="1" Color="#94a3b8"/>
+                                            <GradientStop Offset="0" Color="#0ea5e9" />
+                                            <GradientStop Offset="0.3" Color="#2dd4bf" />
+                                            <GradientStop Offset="0.6" Color="#38bdf8" />
+                                            <GradientStop Offset="1" Color="#14b8a6" />
                                         </LinearGradientBrush>
-                                    </TextBlock.Foreground>
-                                    <Run Text="Flowery.NET"/>
-                                    <Run Text=" Components Gallery" FontWeight="Normal" Foreground="#94a3b8"/>
-                                </TextBlock>
-                                <StackPanel Orientation="Horizontal" Spacing="6">
-                                    <TextBlock Text="Created by" FontSize="13" Foreground="#64748b" VerticalAlignment="Center"/>
-                                    <Button Classes="link" Padding="0" Background="Transparent" BorderThickness="0" Cursor="Hand" Click="OpenGitHub_Click">
-                                        <TextBlock Text="tobitege" FontSize="13" FontWeight="SemiBold" Foreground="#38bdf8"/>
-                                    </Button>
-                                    <TextBlock Text="· 2025 · MIT licensed" FontSize="13" Foreground="#64748b" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Spacing="16">
-                                <controls:DaisyButton Content="📸" Variant="Ghost" Size="Small"
-                                                      ToolTip.Tip="Capture All Screenshots"
-                                                      Click="CaptureAllScreenshots_Click"/>
-                                <controls:DaisyThemeSwap />
-                                <controls:DaisyThemeDropdown Width="130"/>
+                                    </Border.Background>
+                                </Border>
                             </StackPanel>
                         </Grid>
+                    </Border>
 
-                        <!-- Bottom accent gradient bar -->
-                        <Border Height="3">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
-                                    <GradientStop Offset="0" Color="#0ea5e9"/>
-                                    <GradientStop Offset="0.3" Color="#2dd4bf"/>
-                                    <GradientStop Offset="0.6" Color="#38bdf8"/>
-                                    <GradientStop Offset="1" Color="#14b8a6"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                        </Border>
-                    </StackPanel>
-                </Grid>
-            </Border>
+                    <!-- Category Title Bar (hidden on Home) -->
+                    <Border x:Name="CategoryTitleBar" Grid.Row="1"
+                        Background="{DynamicResource DaisyBase200Brush}"
+                        BorderBrush="{DynamicResource DaisyBase300Brush}" BorderThickness="0,0,0,1"
+                        Padding="24,4,24,20" IsVisible="False">
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <!-- Futuristic painted chevrons -->
+                            <Viewbox x:Name="CategoryChevrons" Width="24" Height="14"
+                                VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal" Spacing="-6">
+                                    <Path Data="M0,0 L6,0 L12,7 L6,14 L0,14 L6,7 Z"
+                                        Fill="{DynamicResource DaisyPrimaryBrush}" Opacity="0.4" />
+                                    <Path Data="M0,0 L6,0 L12,7 L6,14 L0,14 L6,7 Z"
+                                        Fill="{DynamicResource DaisyPrimaryBrush}" Opacity="0.7" />
+                                    <Path Data="M0,0 L6,0 L12,7 L6,14 L0,14 L6,7 Z"
+                                        Fill="{DynamicResource DaisyPrimaryBrush}" Opacity="1.0" />
+                                </StackPanel>
+                            </Viewbox>
 
-            <!-- Category Title Bar (hidden on Home) -->
-            <Border x:Name="CategoryTitleBar" Grid.Row="1" Background="{DynamicResource DaisyBase200Brush}"
-                    BorderBrush="{DynamicResource DaisyBase300Brush}" BorderThickness="0,0,0,1"
-                    Padding="24,4,24,20" IsVisible="False">
-                <StackPanel Orientation="Horizontal" Spacing="12">
-                    <!-- Futuristic painted chevrons -->
-                    <Viewbox Width="24" Height="14" VerticalAlignment="Center">
-                        <StackPanel Orientation="Horizontal" Spacing="-6">
-                            <Path Data="M0,0 L6,0 L12,7 L6,14 L0,14 L6,7 Z" Fill="{DynamicResource DaisyPrimaryBrush}" Opacity="0.4"/>
-                            <Path Data="M0,0 L6,0 L12,7 L6,14 L0,14 L6,7 Z" Fill="{DynamicResource DaisyPrimaryBrush}" Opacity="0.7"/>
-                            <Path Data="M0,0 L6,0 L12,7 L6,14 L0,14 L6,7 Z" Fill="{DynamicResource DaisyPrimaryBrush}" Opacity="1.0"/>
+                            <TextBlock x:Name="CategoryTitle" Text="" FontSize="22"
+                                FontWeight="SemiBold"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource DaisyBaseContentBrush}" />
                         </StackPanel>
-                    </Viewbox>
+                    </Border>
 
-                    <TextBlock x:Name="CategoryTitle" Text="" FontSize="22" FontWeight="SemiBold"
-                               VerticalAlignment="Center" Foreground="{DynamicResource DaisyBaseContentBrush}"/>
-                </StackPanel>
-            </Border>
-
-            <!-- Content fills remaining space -->
-            <Grid x:Name="MainContentHost" Grid.Row="2" />
-        </Grid>
+                    <!-- Content fills remaining space -->
+                    <Grid x:Name="MainContentHost" Grid.Row="2" />
+                </Grid>
+            </SplitView.Content>
+        </SplitView>
 
         <!-- Modal overlay at window level -->
         <controls:DaisyModal x:Name="DemoModal" Grid.ColumnSpan="2" IsOpen="False">

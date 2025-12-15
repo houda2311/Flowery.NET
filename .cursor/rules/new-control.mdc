@@ -181,9 +181,9 @@ Notes:
 
 ## Phase 4: Sidebar Integration
 
-### 4.1 Add to DaisyComponentSidebar
+### 4.1 Add to FloweryComponentSidebar
 
-**Location:** `Flowery.NET/Controls/DaisyComponentSidebar.cs`
+**Location:** `Flowery.NET/Controls/FloweryComponentSidebar.cs`
 
 Add a new `SidebarItem` in the appropriate category, or create a new category:
 
@@ -332,7 +332,7 @@ Add a small number of high-signal headless tests under `Flowery.NET.Tests/` (lik
 - [ ] Theme registered in DaisyUITheme.axaml
 - [ ] Gallery examples added with SectionHeader
 - [ ] Examples class implements IScrollableExample
-- [ ] Sidebar item added to DaisyComponentSidebar.cs
+- [ ] Sidebar item added to FloweryComponentSidebar.cs
 - [ ] Category mapping added to MainWindow.axaml.cs (if new category)
 - [ ] Icon added (if new category)
 - [ ] **Supplementary documentation created in `llms-static/Daisy[ControlName].md`**

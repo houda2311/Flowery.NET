@@ -2,11 +2,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET"
     xmlns:fx="clr-namespace:Flowery.Effects;assembly=Flowery.NET"
+    xmlns:services="clr-namespace:Flowery.Services;assembly=Flowery.NET"
     xmlns:local="clr-namespace:Flowery.NET.Gallery.Examples"
     xmlns:galloc="clr-namespace:Flowery.NET.Gallery.Localization"
     x:Class="Flowery.NET.Gallery.Examples.EffectsExamples">
 
-    <ScrollViewer x:Name="MainScrollViewer" HorizontalScrollBarVisibility="Disabled">
+    <ScrollViewer x:Name="MainScrollViewer" HorizontalScrollBarVisibility="Disabled"
+        services:FloweryResponsive.IsEnabled="True"
+        services:FloweryResponsive.BaseMaxWidth="430">
         <StackPanel Spacing="24" Margin="24,0,24,32">
 
             <!-- Reveal Effect -->
