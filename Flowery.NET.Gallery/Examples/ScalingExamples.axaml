@@ -171,20 +171,20 @@
                                             <TextBlock Text="{galloc:Localize Scaling_Address_Country}"
                                                 FontSize="{services:Scale FontSmall}" Opacity="0.7"
                                                 Foreground="{DynamicResource DaisyBaseContentBrush}" />
-                                            <controls:DaisySelect SelectedIndex="0">
-                                                <ComboBoxItem>🇺🇸 United States</ComboBoxItem>
-                                                <ComboBoxItem>🇬🇧 United Kingdom</ComboBoxItem>
-                                                <ComboBoxItem>🇩🇪 Germany</ComboBoxItem>
-                                                <ComboBoxItem>🇫🇷 France</ComboBoxItem>
-                                                <ComboBoxItem>🇪🇸 Spain</ComboBoxItem>
-                                                <ComboBoxItem>🇮🇹 Italy</ComboBoxItem>
-                                                <ComboBoxItem>🇨🇳 China</ComboBoxItem>
-                                                <ComboBoxItem>🇯🇵 Japan</ComboBoxItem>
-                                                <ComboBoxItem>🇰🇷 South Korea</ComboBoxItem>
-                                                <ComboBoxItem>🇹🇷 Turkey</ComboBoxItem>
-                                                <ComboBoxItem>🇺🇦 Ukraine</ComboBoxItem>
-                                                <ComboBoxItem>🇮🇱 Israel</ComboBoxItem>
-                                                <ComboBoxItem>🇸🇦 Saudi Arabia</ComboBoxItem>
+                                            <controls:DaisySelect SelectedIndex="12" IsHitTestVisible="False">
+                                                <ComboBoxItem Content="China" />
+                                                <ComboBoxItem Content="France" />
+                                                <ComboBoxItem Content="Germany" />
+                                                <ComboBoxItem Content="Israel" />
+                                                <ComboBoxItem Content="Italy" />
+                                                <ComboBoxItem Content="Japan" />
+                                                <ComboBoxItem Content="Saudi Arabia" />
+                                                <ComboBoxItem Content="South Korea" />
+                                                <ComboBoxItem Content="Spain" />
+                                                <ComboBoxItem Content="Turkey" />
+                                                <ComboBoxItem Content="Ukraine" />
+                                                <ComboBoxItem Content="United Kingdom" />
+                                                <ComboBoxItem Content="United States" />
                                             </controls:DaisySelect>
                                         </StackPanel>
                                     </StackPanel>

@@ -21,7 +21,10 @@ public partial class SectionHeader : UserControl
     {
         // Actions
         ["button"] = "DaisyButton",
+        ["copybutton"] = "DaisyCopyButton",
         ["dropdown"] = "DaisySelect",
+        ["dropdownmenu"] = "DaisyDropdown",
+        ["popover"] = "DaisyPopover",
         ["fab"] = "DaisyFab",
         ["modal"] = "DaisyModal",
         ["modalradii"] = "DaisyModal",
@@ -34,6 +37,8 @@ public partial class SectionHeader : UserControl
         ["checkbox"] = "DaisyCheckBox",
         ["fileinput"] = "DaisyFileInput",
         ["input"] = "DaisyInput",
+        ["otpinput"] = "DaisyOtpInput",
+        ["tagpicker"] = "DaisyTagPicker",
         ["maskinput"] = "DaisyMaskInput",
         ["numericupdown"] = "DaisyNumericUpDown",
         ["radio"] = "DaisyRadio",
@@ -64,6 +69,8 @@ public partial class SectionHeader : UserControl
         ["list"] = "DaisyList",
         ["stat"] = "DaisyStat",
         ["table"] = "DaisyTable",
+        ["contributiongraph"] = "DaisyContributionGraph",
+        ["animatednumber"] = "DaisyAnimatedNumber",
 
         // Date Display
         ["date-timeline"] = "DaisyDateTimeline",

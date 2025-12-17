@@ -334,6 +334,31 @@
 
                 <controls:DaisyDivider />
 
+                <!-- OTP Input -->
+                <StackPanel Spacing="12">
+                    <local:SectionHeader SectionId="otpinput" Title="OTP Input" />
+                    <TextBlock Text="Multi-slot verification code input with auto-advance and optional grouping."
+                        Opacity="0.7" FontSize="13" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="10" Margin="0,0,40,20">
+                            <TextBlock Text="6 digits (3-3)" FontWeight="SemiBold" FontSize="14" Opacity="0.8"/>
+                            <controls:DaisyOtpInput x:Name="OtpDemo1" Length="6" SeparatorInterval="3" />
+                            <TextBlock Text="{Binding Value, ElementName=OtpDemo1}" FontSize="12" Opacity="0.7" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="10" Margin="0,0,40,20"
+                            controls:FlowerySizeManager.IgnoreGlobalSize="True">
+                            <TextBlock Text="Sizes" FontWeight="SemiBold" FontSize="14" Opacity="0.8"/>
+                            <controls:DaisyOtpInput Length="4" Size="ExtraSmall" />
+                            <controls:DaisyOtpInput Length="4" Size="Small" />
+                            <controls:DaisyOtpInput Length="4" Size="Medium" />
+                            <controls:DaisyOtpInput Length="4" Size="Large" />
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+
+                <controls:DaisyDivider />
+
                 <!-- Radio -->
                 <StackPanel Spacing="12">
                     <local:SectionHeader SectionId="radio" Title="Radio" />
@@ -417,6 +442,20 @@
                                 <ComboBoxItem>Option 1</ComboBoxItem>
                                 <ComboBoxItem>Option 2</ComboBoxItem>
                             </controls:DaisySelect>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+
+                <controls:DaisyDivider />
+
+                <!-- Tag Picker -->
+                <StackPanel Spacing="12">
+                    <local:SectionHeader SectionId="tagpicker" Title="Tag Picker" />
+                    <TextBlock Text="Multi-select chips for choosing tags."
+                        Opacity="0.7" FontSize="13" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="10" Margin="0,0,40,20" Width="380">
+                            <controls:DaisyTagPicker Tags="{Binding TagPickerTags}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>

@@ -1097,7 +1097,10 @@ class DocumentationGenerator:
 
         mappings = {
             'button': 'DaisyButton',
+            'copybutton': 'DaisyCopyButton',
             'dropdown': 'DaisySelect',
+            'dropdownmenu': 'DaisyDropdown',
+            'popover': 'DaisyPopover',
             'fab': 'DaisyFab',
             'modal': 'DaisyModal',
             'modalradii': 'DaisyModal',
@@ -1106,6 +1109,8 @@ class DocumentationGenerator:
             'checkbox': 'DaisyCheckBox',
             'fileinput': 'DaisyFileInput',
             'input': 'DaisyInput',
+            'otpinput': 'DaisyOtpInput',
+            'tagpicker': 'DaisyTagPicker',
             'maskinput': 'DaisyMaskInput',
             'numericupdown': 'DaisyNumericUpDown',
             'radio': 'DaisyRadio',
@@ -1132,6 +1137,8 @@ class DocumentationGenerator:
             'list': 'DaisyList',
             'stat': 'DaisyStat',
             'table': 'DaisyTable',
+            'contributiongraph': 'DaisyContributionGraph',
+            'animatednumber': 'DaisyAnimatedNumber',
             'timeline': 'DaisyTimeline',
             'datetimeline': 'DaisyDateTimeline',
             'breadcrumbs': 'DaisyBreadcrumbs',

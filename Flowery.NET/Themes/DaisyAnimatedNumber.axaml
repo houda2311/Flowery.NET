@@ -1,0 +1,41 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET">
+
+  <Design.PreviewWith>
+    <Border Padding="20" Background="{DynamicResource DaisyBase200Brush}">
+      <StackPanel Spacing="12">
+        <controls:DaisyAnimatedNumber Value="42" FontSize="28" FontWeight="Bold" />
+        <controls:DaisyAnimatedNumber Value="7" MinDigits="2" FontSize="20" />
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+
+  <Styles.Resources>
+    <ControlTheme x:Key="{x:Type controls:DaisyAnimatedNumber}" TargetType="controls:DaisyAnimatedNumber">
+      <Setter Property="Foreground" Value="{DynamicResource DaisyBaseContentBrush}" />
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Grid ClipToBounds="True">
+            <TextBlock x:Name="PART_PreviousText"
+                       Text="0"
+                       Foreground="{TemplateBinding Foreground}"
+                       FontSize="{TemplateBinding FontSize}"
+                       FontWeight="{TemplateBinding FontWeight}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" />
+            <TextBlock x:Name="PART_CurrentText"
+                       Text="0"
+                       Foreground="{TemplateBinding Foreground}"
+                       FontSize="{TemplateBinding FontSize}"
+                       FontWeight="{TemplateBinding FontWeight}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" />
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+    </ControlTheme>
+  </Styles.Resources>
+
+</Styles>

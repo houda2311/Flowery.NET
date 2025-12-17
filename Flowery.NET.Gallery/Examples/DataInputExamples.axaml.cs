@@ -13,9 +13,21 @@ public partial class DataInputExamples : UserControl, IScrollableExample
 {
     private Dictionary<string, Visual>? _sectionTargetsById;
 
+    public List<string> TagPickerTags { get; } = new()
+    {
+        "Avalonia",
+        "C#",
+        "DaisyUI",
+        "Flowery",
+        "UI",
+        "Desktop",
+        "Cross-platform"
+    };
+
     public DataInputExamples()
     {
         InitializeComponent();
+        DataContext = this;
     }
 
     private void OnFeedbackButtonClicked(object? sender, RoutedEventArgs e)

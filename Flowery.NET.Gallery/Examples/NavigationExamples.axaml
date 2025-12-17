@@ -1028,6 +1028,79 @@
                     <TextBlock Text="Tabs are used to show different content in a tabbed interface"
                         Opacity="0.7" FontSize="13" />
 
+                    <!-- Photo tab recipe (inspired by SmoothUI Phototab) -->
+                    <TextBlock Text="Photo tab recipe" FontWeight="SemiBold" Margin="0,16,0,0" />
+                    <TextBlock Text="Image-focused tabs built from DaisyTabs + custom headers (inspired by SmoothUI Phototab)."
+                        Opacity="0.7" FontSize="13" />
+                    <controls:DaisyTabs Variant="Boxed" Size="Small" TabWidthMode="Fixed" TabWidth="72">
+                        <TabItem>
+                            <TabItem.Header>
+                                <Border Width="48" Height="32" CornerRadius="8" ClipToBounds="True">
+                                    <Image Source="avares://Flowery.NET.Gallery/Assets/wallpaper_blue.jpg"
+                                        Stretch="UniformToFill" />
+                                </Border>
+                            </TabItem.Header>
+                            <Border CornerRadius="12" Height="160" Margin="0,8,0,0" ClipToBounds="True">
+                                <Grid>
+                                    <Image Source="avares://Flowery.NET.Gallery/Assets/wallpaper_blue.jpg"
+                                        Stretch="UniformToFill" />
+                                    <Border Background="{DynamicResource DaisyPrimaryBrush}"
+                                        CornerRadius="8" Padding="10,6"
+                                        HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                        Margin="12">
+                                        <TextBlock Text="Wallpaper (Blue)"
+                                            Foreground="{DynamicResource DaisyPrimaryContentBrush}"
+                                            FontWeight="Bold" FontSize="14"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </TabItem>
+                        <TabItem>
+                            <TabItem.Header>
+                                <Border Width="48" Height="32" CornerRadius="8" ClipToBounds="True">
+                                    <Image Source="avares://Flowery.NET.Gallery/Assets/wallpaper_red.jpg"
+                                        Stretch="UniformToFill" />
+                                </Border>
+                            </TabItem.Header>
+                            <Border CornerRadius="12" Height="160" Margin="0,8,0,0" ClipToBounds="True">
+                                <Grid>
+                                    <Image Source="avares://Flowery.NET.Gallery/Assets/wallpaper_red.jpg"
+                                        Stretch="UniformToFill" />
+                                    <Border Background="{DynamicResource DaisySecondaryBrush}"
+                                        CornerRadius="8" Padding="10,6"
+                                        HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                        Margin="12">
+                                        <TextBlock Text="Wallpaper (Red)"
+                                            Foreground="{DynamicResource DaisySecondaryContentBrush}"
+                                            FontWeight="Bold" FontSize="14"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </TabItem>
+                        <TabItem>
+                            <TabItem.Header>
+                                <Border Width="48" Height="32" CornerRadius="8" ClipToBounds="True">
+                                    <Image Source="avares://Flowery.NET.Gallery/Assets/wallpaper_green.jpg"
+                                        Stretch="UniformToFill" />
+                                </Border>
+                            </TabItem.Header>
+                            <Border CornerRadius="12" Height="160" Margin="0,8,0,0" ClipToBounds="True">
+                                <Grid>
+                                    <Image Source="avares://Flowery.NET.Gallery/Assets/wallpaper_green.jpg"
+                                        Stretch="UniformToFill" />
+                                    <Border Background="{DynamicResource DaisyAccentBrush}"
+                                        CornerRadius="8" Padding="10,6"
+                                        HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                        Margin="12">
+                                        <TextBlock Text="Wallpaper (Green)"
+                                            Foreground="{DynamicResource DaisyAccentContentBrush}"
+                                            FontWeight="Bold" FontSize="14"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </TabItem>
+                    </controls:DaisyTabs>
+
                     <!-- Tab Variants -->
                     <TextBlock Text="Variants" FontWeight="SemiBold" Margin="0,8,0,0" />
                     <WrapPanel Orientation="Horizontal">

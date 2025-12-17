@@ -1,0 +1,160 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET">
+
+  <Design.PreviewWith>
+    <Border Padding="20" Background="{DynamicResource DaisyBase200Brush}">
+      <controls:DaisyContributionGraph Width="720" Year="2025" />
+    </Border>
+  </Design.PreviewWith>
+
+  <Styles.Resources>
+    <ControlTheme x:Key="{x:Type controls:DaisyContributionGraph}" TargetType="controls:DaisyContributionGraph">
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="CellSize" Value="10" />
+      <Setter Property="CellMargin" Value="1" />
+      <Setter Property="CellCornerRadius" Value="2" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <StackPanel Spacing="8">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+              <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
+                <!-- Month headers -->
+                <ItemsControl Grid.Row="0" Grid.Column="1"
+                              ItemsSource="{Binding MonthHeaders, RelativeSource={RelativeSource TemplatedParent}}"
+                              IsVisible="{Binding ShowMonthLabels, RelativeSource={RelativeSource TemplatedParent}}"
+                              Width="{Binding GridWidth, RelativeSource={RelativeSource AncestorType=controls:DaisyContributionGraph}}"
+                              HorizontalAlignment="Left">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <Canvas Height="18" />
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                  <ItemsControl.Styles>
+                    <Style Selector="ContentPresenter">
+                      <Setter Property="Canvas.Left" Value="{Binding Left}" />
+                      <Setter Property="Canvas.Top" Value="0" />
+                    </Style>
+                  </ItemsControl.Styles>
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{Binding Text}"
+                                 Foreground="{DynamicResource DaisyBaseContentBrush}"
+                                 Opacity="0.7" />
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Day labels -->
+                <ItemsControl Grid.Row="1" Grid.Column="0"
+                              ItemsSource="{Binding DayLabels, RelativeSource={RelativeSource TemplatedParent}}"
+                              IsVisible="{Binding ShowDayLabels, RelativeSource={RelativeSource TemplatedParent}}">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{Binding Text}"
+                                 Height="{Binding CellStepY, RelativeSource={RelativeSource AncestorType=controls:DaisyContributionGraph}}"
+                                 Margin="0,0,6,0"
+                                 VerticalAlignment="Center"
+                                 Foreground="{DynamicResource DaisyBaseContentBrush}"
+                                 Opacity="0.7" />
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Heatmap cells -->
+                <ItemsControl Grid.Row="1" Grid.Column="1"
+                              ItemsSource="{Binding Cells, RelativeSource={RelativeSource TemplatedParent}}"
+                              Width="{Binding GridWidth, RelativeSource={RelativeSource AncestorType=controls:DaisyContributionGraph}}"
+                              HorizontalAlignment="Left">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <UniformGrid Rows="7" Columns="53" />
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <Border Classes="daisy-contribution-cell"
+                              Tag="{Binding Level}"
+                              controls:DaisyContributionGraph.IsMonthStartCell="{Binding IsMonthStart}"
+                              Width="{Binding CellSize, RelativeSource={RelativeSource AncestorType=controls:DaisyContributionGraph}}"
+                              Height="{Binding CellSize, RelativeSource={RelativeSource AncestorType=controls:DaisyContributionGraph}}"
+                              Margin="{Binding CellMargin, RelativeSource={RelativeSource AncestorType=controls:DaisyContributionGraph}}"
+                              CornerRadius="{Binding CellCornerRadius, RelativeSource={RelativeSource AncestorType=controls:DaisyContributionGraph}}"
+                              ToolTip.Tip="{Binding ToolTipText}" />
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </Grid>
+            </ScrollViewer>
+
+            <!-- Legend -->
+            <StackPanel Orientation="Horizontal" Spacing="6"
+                        IsVisible="{Binding ShowLegend, RelativeSource={RelativeSource TemplatedParent}}">
+              <TextBlock Text="Less" Foreground="{DynamicResource DaisyBaseContentBrush}" Opacity="0.7" />
+              <StackPanel Orientation="Horizontal" Spacing="2">
+                <Border Classes="daisy-contribution-cell" Tag="0" Width="10" Height="10" CornerRadius="2" />
+                <Border Classes="daisy-contribution-cell" Tag="1" Width="10" Height="10" CornerRadius="2" />
+                <Border Classes="daisy-contribution-cell" Tag="2" Width="10" Height="10" CornerRadius="2" />
+                <Border Classes="daisy-contribution-cell" Tag="3" Width="10" Height="10" CornerRadius="2" />
+                <Border Classes="daisy-contribution-cell" Tag="4" Width="10" Height="10" CornerRadius="2" />
+              </StackPanel>
+              <TextBlock Text="More" Foreground="{DynamicResource DaisyBaseContentBrush}" Opacity="0.7" />
+            </StackPanel>
+          </StackPanel>
+        </ControlTemplate>
+      </Setter>
+    </ControlTheme>
+  </Styles.Resources>
+
+  <Style Selector="Border.daisy-contribution-cell">
+    <Setter Property="Background" Value="{DynamicResource DaisyBase300Brush}" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Opacity" Value="1" />
+  </Style>
+
+  <Style Selector="Border.daisy-contribution-cell[(controls|DaisyContributionGraph.IsMonthStartCell)=True]">
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderBrush" Value="{DynamicResource DaisySecondaryBrush}" />
+  </Style>
+
+  <Style Selector="Border.daisy-contribution-cell:pointerover">
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderBrush" Value="{DynamicResource DaisyBaseContentBrush}" />
+  </Style>
+
+  <Style Selector="Border.daisy-contribution-cell[Tag=-1]">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Opacity" Value="0" />
+  </Style>
+
+  <Style Selector="Border.daisy-contribution-cell[Tag=0]">
+    <Setter Property="Background" Value="{DynamicResource DaisyBase300Brush}" />
+    <Setter Property="Opacity" Value="1" />
+  </Style>
+
+  <Style Selector="Border.daisy-contribution-cell[Tag=1]">
+    <Setter Property="Background" Value="{DynamicResource DaisyPrimaryBrush}" />
+    <Setter Property="Opacity" Value="0.25" />
+  </Style>
+
+  <Style Selector="Border.daisy-contribution-cell[Tag=2]">
+    <Setter Property="Background" Value="{DynamicResource DaisyPrimaryBrush}" />
+    <Setter Property="Opacity" Value="0.45" />
+  </Style>
+
+  <Style Selector="Border.daisy-contribution-cell[Tag=3]">
+    <Setter Property="Background" Value="{DynamicResource DaisyPrimaryBrush}" />
+    <Setter Property="Opacity" Value="0.65" />
+  </Style>
+
+  <Style Selector="Border.daisy-contribution-cell[Tag=4]">
+    <Setter Property="Background" Value="{DynamicResource DaisyPrimaryBrush}" />
+    <Setter Property="Opacity" Value="1" />
+  </Style>
+
+</Styles>

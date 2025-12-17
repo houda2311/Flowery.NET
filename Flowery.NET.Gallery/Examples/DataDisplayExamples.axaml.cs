@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.VisualTree;
+using Flowery.Controls;
 
 namespace Flowery.NET.Gallery.Examples;
 
@@ -18,6 +20,21 @@ public class SongItem
 public partial class DataDisplayExamples : UserControl, IScrollableExample
 {
     public List<SongItem> Songs { get; } = new();
+    public List<DaisyContributionDay> ContributionGraphDays { get; } = new()
+    {
+        new() { Date = new DateTime(2025, 1, 1), Count = 1, Level = 1 },
+        new() { Date = new DateTime(2025, 1, 2), Count = 3, Level = 2 },
+        new() { Date = new DateTime(2025, 1, 3), Count = 7, Level = 3 },
+        new() { Date = new DateTime(2025, 1, 4), Count = 11, Level = 4 },
+        new() { Date = new DateTime(2025, 2, 10), Count = 2, Level = 2 },
+        new() { Date = new DateTime(2025, 2, 11), Count = 5, Level = 3 },
+        new() { Date = new DateTime(2025, 3, 15), Count = 1, Level = 1 },
+        new() { Date = new DateTime(2025, 4, 2), Count = 9, Level = 4 },
+        new() { Date = new DateTime(2025, 6, 20), Count = 4, Level = 2 },
+        new() { Date = new DateTime(2025, 8, 8), Count = 6, Level = 3 },
+        new() { Date = new DateTime(2025, 10, 31), Count = 12, Level = 4 },
+        new() { Date = new DateTime(2025, 12, 24), Count = 3, Level = 2 },
+    };
     private Dictionary<string, Visual>? _sectionTargetsById;
 
     public DataDisplayExamples()
@@ -42,6 +59,42 @@ public partial class DataDisplayExamples : UserControl, IScrollableExample
             new() { Artist = "Zara Vox", Song = "ECHOES IN TIME", AvatarColor = new SolidColorBrush(Color.Parse("#ec4899")) },
             new() { Artist = "Leo Frost", Song = "WINTER SUN", AvatarColor = new SolidColorBrush(Color.Parse("#06b6d4")) },
         });
+    }
+
+    private void OnAnimatedNumberIncrement(object? sender, RoutedEventArgs e)
+    {
+        var demo = this.FindControl<DaisyAnimatedNumber>("AnimatedNumberDemo");
+        if (demo != null)
+        {
+            demo.Value += 1;
+        }
+    }
+
+    private void OnAnimatedNumberDecrement(object? sender, RoutedEventArgs e)
+    {
+        var demo = this.FindControl<DaisyAnimatedNumber>("AnimatedNumberDemo");
+        if (demo != null)
+        {
+            demo.Value -= 1;
+        }
+    }
+
+    private void OnAnimatedPriceIncrement(object? sender, RoutedEventArgs e)
+    {
+        var demo = this.FindControl<DaisyAnimatedNumber>("AnimatedPriceDemo");
+        if (demo != null)
+        {
+            demo.Value += 1;
+        }
+    }
+
+    private void OnAnimatedPriceDecrement(object? sender, RoutedEventArgs e)
+    {
+        var demo = this.FindControl<DaisyAnimatedNumber>("AnimatedPriceDemo");
+        if (demo != null)
+        {
+            demo.Value -= 1;
+        }
     }
 
     public void ScrollToSection(string sectionName)

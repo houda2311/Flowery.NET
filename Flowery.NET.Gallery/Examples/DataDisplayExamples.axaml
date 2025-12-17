@@ -55,6 +55,45 @@
 
                 <controls:DaisyDivider />
 
+                <!-- Animated Number -->
+                <StackPanel Spacing="12">
+                    <local:SectionHeader SectionId="animatednumber" Title="Animated Number" />
+                    <TextBlock Text="Animated numeric display (slide transition on value changes)."
+                        Opacity="0.7" FontSize="13" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="10" Margin="0,0,40,20" Width="240">
+                            <TextBlock Text="Counter" FontWeight="SemiBold" FontSize="14" Opacity="0.8"/>
+                            <controls:DaisyAnimatedNumber x:Name="AnimatedNumberDemo"
+                                Value="42"
+                                FontSize="32"
+                                FontWeight="Bold"
+                                Foreground="{DynamicResource DaisyPrimaryBrush}" />
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <controls:DaisyButton Content="-1" Click="OnAnimatedNumberDecrement" />
+                                <controls:DaisyButton Content="+1" Variant="Primary" Click="OnAnimatedNumberIncrement" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Spacing="10" Margin="0,0,40,20" Width="240">
+                            <TextBlock Text="Price-like (MinDigits=2)" FontWeight="SemiBold" FontSize="14" Opacity="0.8"/>
+                            <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                <TextBlock Text="$" FontSize="24" FontWeight="Bold" />
+                                <controls:DaisyAnimatedNumber x:Name="AnimatedPriceDemo"
+                                    Value="7"
+                                    MinDigits="2"
+                                    FontSize="24"
+                                    FontWeight="Bold" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <controls:DaisyButton Content="-1" Click="OnAnimatedPriceDecrement" />
+                                <controls:DaisyButton Content="+1" Variant="Primary" Click="OnAnimatedPriceIncrement" />
+                            </StackPanel>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+
+                <controls:DaisyDivider />
+
                 <!-- Avatar -->
                 <StackPanel Spacing="12">
                     <local:SectionHeader SectionId="avatar" Title="Avatar" />
@@ -351,6 +390,27 @@
                         <controls:DaisyCollapse Variant="Plus" Header="Plus Variant">
                             <TextBlock Text="More content." Padding="10" />
                         </controls:DaisyCollapse>
+                    </StackPanel>
+                </StackPanel>
+
+                <controls:DaisyDivider />
+
+                <!-- Contribution Graph -->
+                <StackPanel Spacing="12">
+                    <local:SectionHeader SectionId="contributiongraph" Title="Contribution Graph" />
+                    <TextBlock Text="GitHub-style heatmap of daily activity."
+                        Opacity="0.7" FontSize="13" />
+                    <StackPanel Spacing="10" Margin="0,0,40,20">
+                        <controls:DaisyToggle x:Name="MonthStartBorderToggle"
+                            Content="Highlight month starts"
+                            IsChecked="True"
+                            Margin="0,0,0,6"
+                            ToolTip.Tip="Adds a secondary-colored border to cells on the 1st of each month." />
+                        <controls:DaisyContributionGraph Width="720"
+                            Year="2025"
+                            x:Name="ContributionGraph"
+                            HighlightMonthStartBorders="{Binding IsChecked, ElementName=MonthStartBorderToggle}"
+                            Contributions="{Binding ContributionGraphDays}" />
                     </StackPanel>
                 </StackPanel>
 

@@ -139,6 +139,36 @@
 
                 <controls:DaisyDivider />
 
+                <!-- Copy Button -->
+                <StackPanel Spacing="12">
+                    <local:SectionHeader SectionId="copybutton" Title="Copy Button" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="10" Margin="0,0,40,20" Width="260">
+                            <TextBlock Text="Text copy with success state" FontSize="12" Opacity="0.7" />
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <controls:DaisyCopyButton CopyText="Hello from Flowery.NET"
+                                    MinWidth="80"
+                                    HorizontalContentAlignment="Center" />
+                                <controls:DaisyCopyButton Variant="Primary"
+                                    Content="Copy invite"
+                                    CopyText="https://example.com/invite/abc"
+                                    SuccessContent="Copied!"
+                                    MinWidth="110"
+                                    HorizontalContentAlignment="Center" />
+                                <controls:DaisyCopyButton Variant="Ghost" Shape="Square" Size="Small"
+                                    CopyText="icon-only">
+                                    <controls:DaisyCopyButton.SuccessContent>
+                                        <PathIcon Data="{StaticResource DaisyIconCheck}" Width="16" Height="16" />
+                                    </controls:DaisyCopyButton.SuccessContent>
+                                    <PathIcon Data="{StaticResource DaisyIconCopy}" Width="16" Height="16" />
+                                </controls:DaisyCopyButton>
+                            </StackPanel>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+
+                <controls:DaisyDivider />
+
                 <!-- Dropdown -->
                 <StackPanel Spacing="12">
                     <local:SectionHeader SectionId="dropdown" Title="Dropdown" />
@@ -154,6 +184,25 @@
                         <StackPanel Spacing="10" Margin="0,0,40,20" Width="200">
                             <TextBlock Text="Theme Dropdown" FontWeight="SemiBold" FontSize="14" Opacity="0.8"/>
                             <controls:DaisyThemeDropdown Width="180"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+
+                <controls:DaisyDivider />
+
+                <!-- Dropdown Menu -->
+                <StackPanel Spacing="12">
+                    <local:SectionHeader SectionId="dropdownmenu" Title="Dropdown Menu" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="10" Margin="0,0,40,20" Width="240">
+                            <TextBlock Text="Menu-style dropdown for actions (select → handle → reset)" FontSize="12" Opacity="0.7" />
+                            <controls:DaisyDropdown x:Name="MenuDropdown"
+                                PlaceholderText="Pick action"
+                                ItemsSource="{Binding DropdownMenuItems}"
+                                Width="220"
+                                CloseOnSelection="True"
+                                SelectedItemChanged="OnMenuDropdownSelectedItemChanged" />
+                            <TextBlock Text="Tip: use this for action menus. For a value picker, prefer DaisySelect." FontSize="12" Opacity="0.6" TextWrapping="Wrap" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -215,6 +264,34 @@
                                 </controls:DaisyFab>
                             </Grid>
                         </Border>
+                    </WrapPanel>
+                </StackPanel>
+
+                <controls:DaisyDivider />
+
+                <!-- Popover -->
+                <StackPanel Spacing="12">
+                    <local:SectionHeader SectionId="popover" Title="Popover" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="10" Margin="0,0,40,20" Width="300">
+                            <TextBlock Text="Rich Popover" FontWeight="SemiBold" FontSize="14" Opacity="0.8"/>
+                            <controls:DaisyPopover MatchTargetWidth="True">
+                                <controls:DaisyPopover.TriggerContent>
+                                    <controls:DaisyButton Content="Open Popover" Variant="Primary" />
+                                </controls:DaisyPopover.TriggerContent>
+                                <controls:DaisyPopover.PopoverContent>
+                                    <StackPanel Spacing="8" Width="260">
+                                        <TextBlock Text="Video Tutorial" FontWeight="SemiBold" />
+                                        <TextBlock Text="A popover can host any content, including action buttons."
+                                            Opacity="0.8" TextWrapping="Wrap" />
+                                        <StackPanel Orientation="Horizontal" Spacing="8">
+                                            <controls:DaisyButton Content="Play" Size="Small" Variant="Secondary" />
+                                            <controls:DaisyButton Content="Copy link" Size="Small" Variant="Ghost" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </controls:DaisyPopover.PopoverContent>
+                            </controls:DaisyPopover>
+                        </StackPanel>
                     </WrapPanel>
                 </StackPanel>
 

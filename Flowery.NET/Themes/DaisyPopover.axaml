@@ -1,0 +1,66 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET">
+
+  <Design.PreviewWith>
+    <Border Padding="20" Background="{DynamicResource DaisyBase200Brush}">
+      <StackPanel Spacing="16">
+        <controls:DaisyPopover>
+          <controls:DaisyPopover.TriggerContent>
+            <controls:DaisyButton Content="Open popover" Variant="Primary" />
+          </controls:DaisyPopover.TriggerContent>
+          <controls:DaisyPopover.PopoverContent>
+            <StackPanel Spacing="8" Width="240">
+              <TextBlock Text="Rich Popover" FontWeight="SemiBold" />
+              <TextBlock Text="This content is hosted inside a Popup and light-dismisses on outside click."
+                         Opacity="0.8" TextWrapping="Wrap" />
+              <controls:DaisyButton Content="Action" Size="Small" Variant="Secondary" />
+            </StackPanel>
+          </controls:DaisyPopover.PopoverContent>
+        </controls:DaisyPopover>
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+
+  <Styles.Resources>
+    <ControlTheme x:Key="{x:Type controls:DaisyPopover}" TargetType="controls:DaisyPopover">
+      <Setter Property="VerticalOffset" Value="8" />
+      <Setter Property="IsLightDismissEnabled" Value="True" />
+      <Setter Property="ToggleOnClick" Value="True" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Grid>
+            <Border Name="PART_Target" Background="Transparent">
+              <ContentPresenter Content="{TemplateBinding TriggerContent}" />
+            </Border>
+
+            <Popup Name="PART_Popup"
+                   IsOpen="{TemplateBinding IsOpen, Mode=TwoWay}"
+                   PlacementTarget="{Binding ElementName=PART_Target}"
+                   Placement="{TemplateBinding PlacementMode}"
+                   HorizontalOffset="{TemplateBinding HorizontalOffset}"
+                   VerticalOffset="{TemplateBinding VerticalOffset}"
+                   IsLightDismissEnabled="{TemplateBinding IsLightDismissEnabled}"
+                   InheritsTransform="True"
+                   WindowManagerAddShadowHint="False">
+              <Border Name="PART_PopupBorder"
+                      Background="{DynamicResource DaisyBase100Brush}"
+                      BorderBrush="{DynamicResource DaisyBase300Brush}"
+                      BorderThickness="1"
+                      CornerRadius="12"
+                      Padding="12"
+                      BoxShadow="0 10 25 0 #40000000">
+                <ContentPresenter Content="{TemplateBinding PopoverContent}" />
+              </Border>
+            </Popup>
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+    </ControlTheme>
+  </Styles.Resources>
+
+  <Style Selector="controls|DaisyPopover[MatchTargetWidth=True] /template/ Popup#PART_Popup">
+    <Setter Property="MinWidth" Value="{Binding Bounds.Width, ElementName=PART_Target}" />
+  </Style>
+
+</Styles>

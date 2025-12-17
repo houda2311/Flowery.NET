@@ -23,12 +23,21 @@ public partial class ActionsExamples : UserControl, IScrollableExample
 {
     private Dictionary<string, Visual>? _sectionTargetsById;
 
+    public List<string> DropdownMenuItems { get; } = new()
+    {
+        "Edit",
+        "Duplicate",
+        "Archive",
+        "Delete"
+    };
+
     public event EventHandler? OpenModalRequested;
     public event EventHandler<ModalRadiiEventArgs>? OpenModalWithRadiiRequested;
 
     public ActionsExamples()
     {
         InitializeComponent();
+        DataContext = this;
     }
 
     public void OpenModalBtn_Click(object? sender, RoutedEventArgs e)
@@ -90,6 +99,19 @@ public partial class ActionsExamples : UserControl, IScrollableExample
             {
                 toast.Items.Remove(alert);
             }, TimeSpan.FromSeconds(3));
+        }
+    }
+
+    private void OnMenuDropdownSelectedItemChanged(object? sender, DaisyDropdownSelectionChangedEventArgs e)
+    {
+        if (e.SelectedItem is string s && !string.IsNullOrWhiteSpace(s))
+        {
+            ShowToast($"Action: {s}");
+        }
+
+        if (sender is DaisyDropdown dropdown)
+        {
+            Dispatcher.UIThread.Post(() => dropdown.SelectedItem = null, DispatcherPriority.Background);
         }
     }
 

@@ -81,6 +81,11 @@
     <StyleInclude Source="/Themes/DaisyJoin.axaml" />
     <StyleInclude Source="/Themes/DaisyStack.axaml" />
     <StyleInclude Source="/Themes/DaisyToolTip.axaml" />
+    <StyleInclude Source="/Themes/DaisyContributionGraph.axaml" />
+    <StyleInclude Source="/Themes/DaisyOtpInput.axaml" />
+    <StyleInclude Source="/Themes/DaisyPopover.axaml" />
+    <StyleInclude Source="/Themes/DaisyDropdown.axaml" />
+    <StyleInclude Source="/Themes/DaisyAnimatedNumber.axaml" />
     <StyleInclude Source="/Themes/DaisyFab.axaml" />
     <StyleInclude Source="/Themes/FloweryComponentSidebar.axaml" />
     <StyleInclude Source="/Themes/DaisyDock.axaml" />

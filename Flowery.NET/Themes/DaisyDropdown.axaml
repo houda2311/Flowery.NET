@@ -1,0 +1,106 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+        xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET">
+
+  <Design.PreviewWith>
+    <Border Padding="20" Background="{DynamicResource DaisyBase200Brush}" Height="260">
+      <StackPanel Spacing="12" Width="240">
+        <controls:DaisyDropdown PlaceholderText="Pick one" />
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+
+  <Styles.Resources>
+    <ControlTheme x:Key="{x:Type controls:DaisyDropdown}" TargetType="controls:DaisyDropdown">
+      <Setter Property="Background" Value="{DynamicResource DaisyBase200Brush}" />
+      <Setter Property="Foreground" Value="{DynamicResource DaisyBaseContentBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource DaisyBaseContentBrush}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="{DynamicResource DaisySizeMediumCornerRadius}" />
+      <Setter Property="Padding" Value="12,0,30,0" />
+      <Setter Property="Height" Value="{DynamicResource DaisySizeMediumHeight}" />
+      <Setter Property="FontSize" Value="{DynamicResource DaisySizeMediumFontSize}" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Grid ColumnDefinitions="*,Auto">
+            <Border x:Name="PART_Trigger"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Height="{TemplateBinding Height}" />
+
+            <TextBlock Grid.Column="0"
+                       Text="{TemplateBinding PlaceholderText}"
+                       Foreground="{TemplateBinding Foreground}"
+                       Margin="{TemplateBinding Padding}"
+                       VerticalAlignment="Center"
+                       Opacity="0.5"
+                       IsVisible="{TemplateBinding SelectedItem, Converter={x:Static ObjectConverters.IsNull}}" />
+
+            <ContentPresenter Grid.Column="0"
+                              Content="{TemplateBinding SelectedItem}"
+                              Margin="{TemplateBinding Padding}"
+                              VerticalAlignment="Center"
+                              IsVisible="{TemplateBinding SelectedItem, Converter={x:Static ObjectConverters.IsNotNull}}" />
+
+            <PathIcon Grid.Column="1"
+                      Data="{StaticResource DaisyIconChevronDown}"
+                      Width="14"
+                      Height="14"
+                      Foreground="{DynamicResource DaisyBaseContentBrush}"
+                      Margin="0,0,12,0"
+                      VerticalAlignment="Center"
+                      IsHitTestVisible="False" />
+
+            <Popup x:Name="PART_Popup"
+                   IsOpen="{TemplateBinding IsOpen, Mode=TwoWay}"
+                   PlacementTarget="{Binding ElementName=PART_Trigger}"
+                   Placement="{TemplateBinding PlacementMode}"
+                   IsLightDismissEnabled="True"
+                   InheritsTransform="True"
+                   MinWidth="{Binding Bounds.Width, ElementName=PART_Trigger}">
+              <Border Background="{DynamicResource DaisyBase100Brush}"
+                      BorderBrush="{DynamicResource DaisyBase300Brush}"
+                      BorderThickness="1"
+                      CornerRadius="12"
+                      Padding="4"
+                      Margin="0,4,0,0"
+                      BoxShadow="0 10 25 0 #30000000">
+                <controls:DaisyMenu x:Name="PART_Menu"
+                                   ItemsSource="{TemplateBinding ItemsSource}"
+                                   SelectedItem="{TemplateBinding SelectedItem, Mode=TwoWay}" />
+              </Border>
+            </Popup>
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+
+      <Style Selector="^:focus /template/ Border#PART_Trigger">
+        <Setter Property="BorderBrush" Value="{DynamicResource DaisyPrimaryBrush}" />
+      </Style>
+
+      <!-- Sizes -->
+      <Style Selector="^[Size=ExtraLarge]">
+        <Setter Property="Height" Value="{DynamicResource DaisySizeExtraLargeHeight}" />
+        <Setter Property="FontSize" Value="{DynamicResource DaisySizeExtraLargeFontSize}" />
+      </Style>
+      <Style Selector="^[Size=Large]">
+        <Setter Property="Height" Value="{DynamicResource DaisySizeLargeHeight}" />
+        <Setter Property="FontSize" Value="{DynamicResource DaisySizeLargeFontSize}" />
+      </Style>
+      <Style Selector="^[Size=Small]">
+        <Setter Property="Height" Value="{DynamicResource DaisySizeSmallHeight}" />
+        <Setter Property="FontSize" Value="{DynamicResource DaisySizeSmallFontSize}" />
+      </Style>
+      <Style Selector="^[Size=ExtraSmall]">
+        <Setter Property="Height" Value="{DynamicResource DaisySizeExtraSmallHeight}" />
+        <Setter Property="FontSize" Value="{DynamicResource DaisySizeExtraSmallFontSize}" />
+      </Style>
+    </ControlTheme>
+  </Styles.Resources>
+
+</Styles>

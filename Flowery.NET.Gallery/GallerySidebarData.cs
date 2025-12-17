@@ -37,8 +37,11 @@ public static class GallerySidebarData
                 Items = new ObservableCollection<SidebarItem>
                 {
                     new SidebarItem { Id = "button", Name = "Sidebar_Button", TabHeader = "Sidebar_Actions" },
+                    new SidebarItem { Id = "copybutton", Name = "Sidebar_CopyButton", TabHeader = "Sidebar_Actions" },
                     new SidebarItem { Id = "dropdown", Name = "Sidebar_Dropdown", TabHeader = "Sidebar_Actions" },
+                    new SidebarItem { Id = "dropdownmenu", Name = "Sidebar_DropdownMenu", TabHeader = "Sidebar_Actions" },
                     new SidebarItem { Id = "fab", Name = "Sidebar_FAB", TabHeader = "Sidebar_Actions" },
+                    new SidebarItem { Id = "popover", Name = "Sidebar_Popover", TabHeader = "Sidebar_Actions" },
                     new SidebarItem { Id = "modal", Name = "Sidebar_Modal", TabHeader = "Sidebar_Actions" },
                     new SidebarItem { Id = "modal-radii", Name = "Sidebar_ModalRadii", TabHeader = "Sidebar_Actions" },
                     new SidebarItem { Id = "swap", Name = "Sidebar_Swap", TabHeader = "Sidebar_Actions" }
@@ -60,11 +63,13 @@ public static class GallerySidebarData
                 Items = new ObservableCollection<SidebarItem>
                 {
                     new SidebarItem { Id = "accordion", Name = "Sidebar_Accordion", TabHeader = "Sidebar_DataDisplay" },
+                    new SidebarItem { Id = "animatednumber", Name = "Sidebar_AnimatedNumber", TabHeader = "Sidebar_DataDisplay" },
                     new SidebarItem { Id = "avatar", Name = "Sidebar_Avatar", TabHeader = "Sidebar_DataDisplay" },
                     new SidebarItem { Id = "badge", Name = "Sidebar_Badge", TabHeader = "Sidebar_DataDisplay" },
                     new SidebarItem { Id = "carousel", Name = "Sidebar_Carousel", TabHeader = "Sidebar_DataDisplay" },
                     new SidebarItem { Id = "chat-bubble", Name = "Sidebar_ChatBubble", TabHeader = "Sidebar_DataDisplay" },
                     new SidebarItem { Id = "collapse", Name = "Sidebar_Collapse", TabHeader = "Sidebar_DataDisplay" },
+                    new SidebarItem { Id = "contributiongraph", Name = "Sidebar_ContributionGraph", TabHeader = "Sidebar_DataDisplay" },
                     new SidebarItem { Id = "countdown", Name = "Sidebar_Countdown", TabHeader = "Sidebar_DataDisplay" },
                     new SidebarItem { Id = "diff", Name = "Sidebar_Diff", TabHeader = "Sidebar_DataDisplay" },
                     new SidebarItem { Id = "hover-gallery", Name = "Sidebar_HoverGallery", TabHeader = "Sidebar_DataDisplay" },
@@ -97,10 +102,12 @@ public static class GallerySidebarData
                     new SidebarItem { Id = "input", Name = "Sidebar_Input", TabHeader = "Sidebar_DataInput" },
                     new SidebarItem { Id = "mask-input", Name = "Sidebar_MaskInput", TabHeader = "Sidebar_DataInput" },
                     new SidebarItem { Id = "numericupdown", Name = "Sidebar_NumericUpDown", TabHeader = "Sidebar_DataInput" },
+                    new SidebarItem { Id = "otpinput", Name = "Sidebar_OtpInput", TabHeader = "Sidebar_DataInput" },
                     new SidebarItem { Id = "radio", Name = "Sidebar_Radio", TabHeader = "Sidebar_DataInput" },
                     new SidebarItem { Id = "range", Name = "Sidebar_Range", TabHeader = "Sidebar_DataInput" },
                     new SidebarItem { Id = "rating", Name = "Sidebar_Rating", TabHeader = "Sidebar_DataInput" },
                     new SidebarItem { Id = "select", Name = "Sidebar_Select", TabHeader = "Sidebar_DataInput" },
+                    new SidebarItem { Id = "tagpicker", Name = "Sidebar_TagPicker", TabHeader = "Sidebar_DataInput" },
                     new SidebarItem { Id = "textarea", Name = "Sidebar_TextArea", TabHeader = "Sidebar_DataInput" },
                     new SidebarItem { Id = "toggle", Name = "Sidebar_Toggle", TabHeader = "Sidebar_DataInput" }
                 }

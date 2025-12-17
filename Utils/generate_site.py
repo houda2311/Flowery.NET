@@ -244,13 +244,29 @@ class MarkdownToHtml:
 
 class SiteGenerator:
     """Generates static HTML site from markdown docs."""
-    
+
     # Custom controls (Avalonia-specific, not in original DaisyUI)
-    CUSTOM_CONTROL_PREFIXES = ('Color', 'DateTimeline', 'ModifierKeys', 'NumericUpDown', 'Weather', 'ComponentSidebar')
-    
+    CUSTOM_CONTROL_PREFIXES = (
+        'AnimatedNumber',
+        'Color',
+        'ComponentSidebar',
+        'ContributionGraph',
+        'CopyButton',
+        'DateTimeline',
+        'Flowery',
+        'MaskInput',
+        'ModifierKeys',
+        'NumericUpDown',
+        'OtpInput',
+        'Popover',
+        'ScreenColorPicker',
+        'TagPicker',
+        'Weather',
+    )
+
     # Standalone guide files (not control docs) to include in the sidebar
     GUIDE_FILES = ['MigrationExample.md', 'DesignTokens.md', 'Effects.md', 'SizingScaling.md']
-    
+
     # Helper/internal classes shown in a separate 'Helpers' section
     HELPER_CONTROL_NAMES = {
         'DaisyAccessibility',   # Accessibility utilities
@@ -516,7 +532,9 @@ class SiteGenerator:
             helper_controls_sorted = sorted(helper_controls, key=lambda c: c['name'].replace('Daisy', ''))
             for ctrl in helper_controls_sorted:
                 display_name = ctrl['name'].replace('Daisy', '')
-                sidebar_items.append(f'<li><a href="controls/{ctrl["html_name"]}" target="viewer">{display_name}</a></li>')
+                is_custom = display_name.startswith(self.CUSTOM_CONTROL_PREFIXES)
+                badge = '<sup class="custom-badge">✦</sup>' if is_custom else ''
+                sidebar_items.append(f'<li><a href="controls/{ctrl["html_name"]}" target="viewer">{display_name}{badge}</a></li>')
 
         sidebar_html = '\n'.join(sidebar_items)
 
@@ -668,7 +686,7 @@ class SiteGenerator:
             name = ctrl['name']
             display_name = name.replace('Daisy', '')
             is_custom = display_name.startswith(self.CUSTOM_CONTROL_PREFIXES)
-            badge = ' <sup>✦</sup>' if is_custom else ''
+            badge = ' <sup class="custom-badge">✦</sup>' if is_custom else ''
             # Try to extract description from the markdown file
             desc = f"{display_name} control"
             try:
@@ -694,7 +712,10 @@ class SiteGenerator:
             lines.append("|-------|-------------|")
             for ctrl in sorted(helper_controls, key=lambda c: c['name']):
                 name = ctrl['name']
-                desc = f"{name.replace('Daisy', '')} helper"
+                display_name = name.replace('Daisy', '')
+                is_custom = display_name.startswith(self.CUSTOM_CONTROL_PREFIXES)
+                badge = ' <sup class="custom-badge">✦</sup>' if is_custom else ''
+                desc = f"{display_name} helper"
                 try:
                     content = ctrl['file'].read_text(encoding='utf-8')
                     content_clean = strip_html_comments_outside_code(content)
@@ -705,7 +726,7 @@ class SiteGenerator:
                             break
                 except Exception:
                     pass
-                lines.append(f"| [{name}](controls/{name}.html) | {desc} |")
+                lines.append(f"| [{name}](controls/{name}.html){badge} | {desc} |")
 
         lines.append("")
         lines.append("## Common Patterns")

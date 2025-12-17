@@ -6,6 +6,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.x] - 2025-12-xx
+
+### New
+
+- **DaisyContributionGraph**: New GitHub-style contribution heatmap control (7×53 grid) with month/day labels, tooltips, and legend
+  - Added `HighlightMonthStartBorders` option to accent the 1st of each month with a secondary border
+- **DaisyOtpInput**: New multi-slot verification-code/OTP input
+- **DaisyPopover**: New Popup-based popover control for rich hover/click content
+- **DaisyDropdown**: New menu-style dropdown (Popup + DaisyMenu) for action menus
+- **DaisyCopyButton**: New copy-to-clipboard button with temporary success state
+- **DaisyTagPicker**: New multi-select chip/tag picker
+- **DaisyAnimatedNumber**: New animated numeric display control (slide transition on value changes)
+- New controls inspired by [SmoothUI](https://github.com/educlopez/smoothui)
+
+### Gallery App
+
+- Added/updated examples for Contribution Graph, OTP Input, Tag Picker, Copy Button, Popover, Dropdown Menu, and Animated Number
+- Contribution Graph example includes a toggle to enable/disable month-start border highlighting
+- Added a SmoothUI “Phototab” recipe example built from `DaisyTabs`
+
+### Fixed
+
+- Contribution Graph month labels alignment over the correct week columns
+
 ## [1.6.0] - 2025-12-17
 
 ### New
