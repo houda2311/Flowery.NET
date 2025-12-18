@@ -15,7 +15,16 @@
 </div>
 
 ![Flowery.NET.Gallery Screenshot](Flowery.NET.Gallery.png)
-(English default language. Localized to 12 languages!)
+
+<div align="center">
+
+🌐 **Localized in 12 languages** including:
+
+🇯🇵 日本語にローカライズ済み &nbsp;•&nbsp; 🇰🇷 한국어로 현지화됨 &nbsp;•&nbsp; 🇨🇳 已本地化为简体中文
+
+🇺🇦 Локалізовано українською &nbsp;•&nbsp; 🇸🇦 مترجم للعربية &nbsp;•&nbsp; 🇮🇱 מתורגם לעברית
+
+</div>
 
 This library provides native Avalonia controls that mimic the utility-first, semantic class naming of DaisyUI, making it easy to build beautiful, themed UIs in Avalonia. A NuGet package is also available.
 
@@ -28,7 +37,7 @@ This library provides native Avalonia controls that mimic the utility-first, sem
 
 ## Features
 
-- **Native Controls**: C# classes inheriting from Avalonia primitives (e.g., `DaisyButton : Button`).
+- **80+ Controls**: C# classes inheriting from Avalonia primitives (e.g., `DaisyButton : Button`).
 - **35 DaisyUI Themes**: All official DaisyUI themes included (Light, Dark, Cupcake, Dracula, Nord, Synthwave, and more).
 - **Runtime Theme Switching**: Use `DaisyThemeDropdown` to switch themes at runtime.
 - **Localization Support**: Built-in i18n with **12 languages** (🇺🇸 🇩🇪 🇫🇷 🇪🇸 🇮🇹 🇨🇳 🇰🇷 🇯🇵 🇸🇦 🇹🇷 🇺🇦 🇮🇱), localizable theme names, and runtime language switching. [📖 Guide](LOCALIZATION.md)
@@ -36,9 +45,12 @@ This library provides native Avalonia controls that mimic the utility-first, sem
 - **Framework Support**: Library targets `netstandard2.0` for maximum compatibility.
 - **Gallery App**: Multi-platform demo application showcasing all controls and features (Desktop, Browser/WASM, Android, iOS).
 
+**Note:** I'm looking for feedback on iOS builds, I don't have any (physical) environment to test this!
+
 ## Documentation
 
-📖 **[View the full documentation](https://tobitege.github.io/Flowery.NET/)** - Browse all controls with properties, enum values, and XAML usage examples.
+📖 **[View the full documentation](https://tobitege.github.io/Flowery.NET/)** - Browse all controls with properties, enum values, and XAML usage examples. Also consult the Gallery's extensive example collection
+for code examples and comments!
 
 ## Quick Start
 
@@ -78,13 +90,14 @@ xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET"
 - **Button** (`DaisyButton`): Buttons with variants (Primary, Secondary, Accent, Ghost, Link) and sizes (Large, Normal, Small, Tiny). Supports Outline and Active states.
 - **Fab** (`DaisyFab`): Floating Action Button (Speed Dial) with support for multiple actions.
 - **Modal** (`DaisyModal`): Dialog box with backdrop overlay.
-- **Swap**: (Use `ToggleButton`with custom content or`DaisyToggle`).
+- **Swap** (`DaisySwap`): Toggle control that swaps between two content states with optional Rotate/Flip effects.
 
 ### Data Display
 
 - **Accordion** (`DaisyAccordion`): Group of collapse items that ensures only one item is expanded at a time.
 - **Alert** (`DaisyAlert`): Feedback messages (Info, Success, Warning, Error).
 - **Avatar** (`DaisyAvatar`): User profile image container (Circle, Square) with online/offline status indicators.
+- **Avatar Group** (`DaisyAvatarGroup`): Groups multiple avatars with automatic overflow into "+N" placeholder.
 - **Badge** (`DaisyBadge`): Small status indicators (Primary, Secondary, Outline, etc.).
 - **Card** (`DaisyCard`): Content container with padding and shadow.
 - **Carousel** (`DaisyCarousel`): Scrollable container for items.
@@ -97,6 +110,7 @@ xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET"
 - **List** (`DaisyList`, `DaisyListRow`, `DaisyListColumn`): Vertical list layout with flexible row structure. Supports grow columns and wrapped content.
 - **Stat** (`DaisyStat`): Statistics block with Title, Value, and Description.
 - **Table** (`DaisyTable`): Styled items control for tabular data.
+- **Text Rotate** (`DaisyTextRotate`): Animated text that cycles through items with configurable duration and pause-on-hover.
 - **Timeline** (`DaisyTimeline`): Vertical list of events with connecting lines.
 
 ### Data Input
@@ -122,6 +136,7 @@ xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET"
 ### Navigation
 
 - **Breadcrumbs** (`DaisyBreadcrumbs`): Navigation path with separators.
+- **Dock** (`DaisyDock`): Bottom navigation bar (macOS-style dock) with item selection events.
 - **Menu** (`DaisyMenu`): Vertical or horizontal list of links/actions.
 - **Navbar** (`DaisyNavbar`): Top navigation bar container.
 - **Pagination** (`DaisyPagination`): Group of buttons for page navigation.
@@ -148,17 +163,18 @@ xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET"
 
 ### Theme Controls
 
-- **Theme Swap** (`DaisyThemeSwap`): Toggle button with animated sun/moon icons.
-- **Theme Dropdown** (`DaisyThemeDropdown`): Dropdown to select from all 35 themes.
-- **Theme Radio** (`DaisyThemeRadio`): Radio button for theme selection.
+- **Size Dropdown** (`DaisySizeDropdown`): Global size selector with localized size names and customizable options.
 - **Theme Controller** (`DaisyThemeController`): Flexible toggle with multiple modes (Toggle, Checkbox, Swap, ToggleWithText, ToggleWithIcons).
+- **Theme Dropdown** (`DaisyThemeDropdown`): Dropdown to select from all 35 themes.
 - **Theme Manager** (`DaisyThemeManager`): Static class for programmatic theme control.
+- **Theme Radio** (`DaisyThemeRadio`): Radio button for theme selection.
+- **Theme Swap** (`DaisyThemeSwap`): Toggle button with animated sun/moon icons.
 
 ---
 
 ## ✨ Flowery.NET Exclusives
 
-> **Beyond DaisyUI**  -  The following features and controls are **not part of the original DaisyUI CSS specification**. They are unique to Flowery.NET, built natively for Avalonia.
+> **Beyond DaisyUI**  -  The following features and controls are **not part of the original DaisyUI CSS specification**. They are unique to Flowery.NET, built natively for Avalonia, inspired by other great open source projects.
 
 ### Accessibility
 
@@ -174,8 +190,20 @@ Supported: `DaisyLoading`, `DaisyProgress`, `DaisyRadialProgress`, `DaisyStatusI
 
 ### Utility Controls
 
+- **Animated Number** (`DaisyAnimatedNumber`): Animated numeric display with slide transitions on value changes.
 - **Component Sidebar** (`FloweryComponentSidebar`): Pre-built documentation/admin sidebar with categories and search.
+- **Contribution Graph** (`DaisyContributionGraph`): GitHub-style contribution heatmap (7×53 grid) with month/day labels, tooltips, and legend.
+- **Copy Button** (`DaisyCopyButton`): Copy-to-clipboard button with temporary success state feedback.
+- **Dropdown** (`DaisyDropdown`): Menu-style dropdown (Popup + DaisyMenu) for action menus.
+- **Expandable Card** (`DaisyExpandableCard`): Card that expands to reveal secondary content with smooth width animation.
 - **Modifier Keys** (`DaisyModifierKeys`): Visualizes keyboard modifiers (Shift, Ctrl, Alt) and locks.
+- **OTP Input** (`DaisyOtpInput`): Multi-slot verification-code/OTP input with animated focus transitions and auto-advance.
+- **Popover** (`DaisyPopover`): Popup-based popover control for rich hover/click content.
+- **Tag Picker** (`DaisyTagPicker`): Multi-select chip/tag picker with add/remove icons.
+
+### Glass Effect
+
+- **Glass** (`DaisyGlass`): Glassmorphism/frosted effect container with multiple blur modes (Simulated, BitmapCapture, SkiaSharp GPU-accelerated).
 
 ### Color Picker Suite
 
@@ -234,16 +262,19 @@ xmlns:services="clr-namespace:Flowery.Services;assembly=Flowery.NET"
 
 Cross-platform visual effects collection (WASM-compatible). See [Effects](https://tobitege.github.io/Flowery.NET/#Effects) for full documentation.
 
+- **CursorFollowBehavior**: Spring-physics cursor follower element.
 - **RevealBehavior**: Fade-in + slide animation on element attach.
 - **ScrambleHoverBehavior**: Random character scramble on hover, resolves left-to-right.
-- **WaveTextBehavior**: Infinite sine wave animation on text.
-- **CursorFollowBehavior**: Spring-physics cursor follower element.
+- **ScrollRevealBehavior**: Viewport-aware reveal animations (triggers RevealBehavior when element enters scroll viewport).
+- **TypewriterBehavior**: Sequential character reveal animation (typewriter effect).
+- **WaveTextBehavior**: Infinite sine wave animation on text (supports per-character ripple).
 
 ```xml
 xmlns:fx="clr-namespace:Flowery.Effects;assembly=Flowery.NET"
 
 <Border fx:RevealBehavior.IsEnabled="True" fx:RevealBehavior.Direction="Bottom"/>
 <TextBlock fx:ScrambleHoverBehavior.IsEnabled="True" Text="Hover Me!"/>
+<TextBlock fx:TypewriterBehavior.IsEnabled="True" Text="Hello World"/>
 ```
 
 ### Weather Widgets
