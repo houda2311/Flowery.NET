@@ -316,14 +316,23 @@ namespace Flowery.Services
             }
 
             var targetProperty = provideValueTarget?.TargetProperty as AvaloniaProperty;
+            var targetPropertyType = targetProperty?.PropertyType;
 
             // Create a binding to the window's bounds that uses our converter
-            return new Binding
+            var binding = new Binding
             {
                 Source = new ScaleBindingSource(control, baseValue, minValue),
                 Path = "ScaledValue",
                 Mode = BindingMode.OneWay
             };
+
+            // Add converter for Thickness target properties (Padding, Margin, etc.)
+            if (targetPropertyType == typeof(Thickness))
+            {
+                binding.Converter = DoubleToThicknessConverter.Instance;
+            }
+
+            return binding;
         }
 
         private (double baseValue, double? minValue) ResolveValues()

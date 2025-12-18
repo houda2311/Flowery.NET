@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET">
+                    xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET"
+                    xmlns:services="clr-namespace:Flowery.Services;assembly=Flowery.NET">
 
      <Design.PreviewWith>
           <Border Padding="20" Background="{DynamicResource DaisyBase100Brush}">
@@ -94,7 +95,7 @@
                                         <!-- Inner left content (existing) -->
                                         <ContentPresenter Grid.Column="0"
                                              Content="{TemplateBinding InnerLeftContent}"
-                                             Margin="{Binding StartIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}, ConverterParameter='32,0,0,0', FallbackValue='0'}" />
+                                             Margin="{Binding StartIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static services:FloweryConverters.NullToThickness}, ConverterParameter='32,0,0,0'}" />
 
                                         <!-- Text area -->
                                         <ScrollViewer Grid.Column="1"
@@ -201,7 +202,7 @@
                                              <!-- Inner left content (existing) -->
                                              <ContentPresenter Grid.Column="0"
                                                   Content="{TemplateBinding InnerLeftContent}"
-                                                  Margin="{Binding StartIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}, ConverterParameter='32,0,0,0', FallbackValue='0'}" />
+                                                  Margin="{Binding StartIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static services:FloweryConverters.NullToThickness}, ConverterParameter='32,0,0,0'}" />
 
                                              <!-- Text area + Floating label overlay -->
                                              <Grid Grid.Column="1" ClipToBounds="False">

@@ -6,6 +6,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.x] - Unreleased
+
+### Fixed
+
+- **Binding Errors**: Fixed runtime binding errors when using converters with structural types
+  - `DaisyInput`/`DaisyMaskInput`: Fixed `Margin` binding to `StartIcon` that incorrectly used `ObjectConverters.IsNotNull` (returns `bool`) with a `ConverterParameter` expecting `Thickness` output
+  - `ScaleExtension`: Fixed `Padding`/`Margin` bindings to `ScaledValue` failing because `double` cannot auto-convert to `Thickness`
+
+### New
+
+- **FloweryConverters**: Added new converter utilities in `Flowery.Services`
+  - `NullToThicknessConverter`: Returns a `Thickness` from `ConverterParameter` when value is not null, zero otherwise
+  - `DoubleToThicknessConverter`: Converts a `double` to a uniform `Thickness`
+
+### Enhanced
+
+- **ScaleExtension**: Now automatically detects when the target property type is `Thickness` (Padding, Margin, etc.) and applies `DoubleToThicknessConverter` internally
+
 ## [1.7.0] - 2025-12-18
 
 ### New

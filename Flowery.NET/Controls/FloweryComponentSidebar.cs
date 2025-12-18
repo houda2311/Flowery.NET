@@ -436,7 +436,30 @@ namespace Flowery.Controls
 
         private void OnSidebarButtonClick(object? sender, RoutedEventArgs e)
         {
-            if (e.Source is Button button && button.Tag is SidebarItem item)
+            // e.Source might be a child element (TextBlock, Grid, etc.) inside the Button
+            // Walk up the visual tree to find the actual sidebar-item Button
+            Button? button = null;
+            
+            if (e.Source is Button b && b.Classes.Contains("sidebar-item"))
+            {
+                button = b;
+            }
+            else if (e.Source is Visual visual)
+            {
+                // Walk up visual tree to find parent Button with sidebar-item class
+                var parent = visual.GetVisualParent();
+                while (parent != null)
+                {
+                    if (parent is Button parentButton && parentButton.Classes.Contains("sidebar-item"))
+                    {
+                        button = parentButton;
+                        break;
+                    }
+                    parent = parent.GetVisualParent();
+                }
+            }
+            
+            if (button?.Tag is SidebarItem item)
             {
                 var category = FindCategoryForItem(item);
                 if (category != null)
