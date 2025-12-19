@@ -18,6 +18,8 @@ public partial class CardsExamples : UserControl, IScrollableExample
     private Grid? _cardStackContainer;
     private int _currentCardIndex = 0;
     private readonly List<DaisyCard> _cards = new();
+    private DaisyButton? _prevCardButton;
+    private DaisyButton? _nextCardButton;
 
     public CardsExamples()
     {
@@ -34,6 +36,8 @@ public partial class CardsExamples : UserControl, IScrollableExample
     private void InitializeCardStack()
     {
         _cardStackContainer = this.FindControl<Grid>("CardStackContainer");
+        _prevCardButton = this.FindControl<DaisyButton>("PrevCardBtn");
+        _nextCardButton = this.FindControl<DaisyButton>("NextCardBtn");
         if (_cardStackContainer == null || _cards.Count > 0) return;
 
         var colors = new IBrush[] {
@@ -95,6 +99,17 @@ public partial class CardsExamples : UserControl, IScrollableExample
             translateTransform.Y = translateY;
             card.Opacity = opacity;
         }
+
+        UpdateCardStackNavigationButtons();
+    }
+
+    private void UpdateCardStackNavigationButtons()
+    {
+        if (_prevCardButton == null || _nextCardButton == null) return;
+
+        var canNavigate = _cards.Count > 1;
+        _prevCardButton.IsVisible = canNavigate && _currentCardIndex > 0;
+        _nextCardButton.IsVisible = canNavigate && _currentCardIndex < _cards.Count - 1;
     }
 
     private void PrevCard_Click(object? sender, RoutedEventArgs e)

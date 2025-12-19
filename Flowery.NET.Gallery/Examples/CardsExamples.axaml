@@ -86,7 +86,7 @@
             <StackPanel Spacing="12">
                 <local:SectionHeader Title="Glass Card (IsGlass mode)" />
                 <TextBlock Text="Cards can use glass/frosted effect with IsGlass property" Opacity="0.7" controls:FlowerySizeManager.ResponsiveFont="Primary" />
-                <Border CornerRadius="16" Padding="32" Height="280">
+                <Border CornerRadius="16" Padding="32" MinHeight="280">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
                             <GradientStop Color="#667eea" Offset="0"/>
