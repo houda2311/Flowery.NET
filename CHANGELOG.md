@@ -11,8 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Gallery App**: Improved Avatar examples so content scales with the avatar (removed hardcoded icon sizes); placeholder and avatar-group demos now participate in global size scaling.
-- **Gallery App**: Fixed clipping in `Card` demo on Android.
 - **Gallery App**: Card Stack demo now hides navigation buttons when there is no previous/next card.
+- **Gallery App**: Fixed clipping in `Card` demo on Android.
+- **Gallery App**: Fixed `Contribution Graph` sizing to work on narrow Android screens.
 - **DaisyAvatar**: Avatar content now scales correctly with global size tiers (FontSize mapped via design tokens)
 - **DaisyCollapse**: Now participates in global size tiers (added `Size` property + theme uses design tokens for sizing)
 - **DaisyButtonGroup / DaisyJoin / DaisyDock**: Fixed FluentTheme hover state overriding joined segment borders (borders/dividers “disappearing”) by targeting `ContentPresenter#PART_ContentPresenter` in scoped styles

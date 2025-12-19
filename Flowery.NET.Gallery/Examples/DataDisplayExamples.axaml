@@ -438,15 +438,16 @@
                     <local:SectionHeader SectionId="contributiongraph" Title="Contribution Graph" />
                     <TextBlock Text="GitHub-style heatmap of daily activity."
                         Opacity="0.7" controls:FlowerySizeManager.ResponsiveFont="Primary" />
-                    <StackPanel Spacing="10" Margin="0,0,40,20">
+                    <StackPanel Spacing="10" Margin="0,0,40,20"
+                        MaxWidth="{Binding (services:FloweryResponsive.ResponsiveMaxWidth), ElementName=MainScrollViewer}">
                         <controls:DaisyToggle x:Name="MonthStartBorderToggle"
                             Content="Highlight month starts"
                             IsChecked="True"
                             Margin="0,0,0,6"
                             ToolTip.Tip="Adds a secondary-colored border to cells on the 1st of each month." />
-                        <controls:DaisyContributionGraph Width="720"
-                            Year="2025"
+                        <controls:DaisyContributionGraph Year="2025"
                             x:Name="ContributionGraph"
+                            HorizontalAlignment="Stretch"
                             HighlightMonthStartBorders="{Binding IsChecked, ElementName=MonthStartBorderToggle}"
                             Contributions="{Binding ContributionGraphDays}" />
                     </StackPanel>
