@@ -26,6 +26,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Ensure branch is main
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "::error::Documentation can only be deployed from the main branch."
+          exit 1
+
       - name: Checkout
         uses: actions/checkout@v4
 

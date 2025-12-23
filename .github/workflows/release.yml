@@ -30,6 +30,12 @@ jobs:
       version: ${{ steps.validate.outputs.version }}
       tag: ${{ steps.validate.outputs.tag }}
     steps:
+      - name: Ensure branch is main
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "::error::Releases can only be created from the main branch."
+          exit 1
+
       - name: Validate version format
         id: validate
         run: |
